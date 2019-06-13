@@ -4,6 +4,11 @@ All notable changes to the "reddit-viewer" extension will be documented in this 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [1.0.0]
 
 - Initial release
+
+## [1.0.1]
+
+- Removed unreleased features from help
+- Added url to articles

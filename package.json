@@ -2,7 +2,7 @@
 	"name": "reddit-viewer",
 	"displayName": "Reddit Viewer",
 	"description": "Browse Reddit in code style",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"publisher": "ekarbe",
 	"author": "Eike Christian Karbe <eichkarbe@yahoo.de>",
 	"engines": {

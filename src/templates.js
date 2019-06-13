@@ -137,19 +137,9 @@ function help() {
     <span class="string-color">"insert a subreddit name into the input at the top and click 'executeSearch' to start searching for it"</span>
     <span class="operator-color">,</span>
     </br>
-    <span class="string-color">&nbsp; &nbsp; "home"</span>
+    <span class="string-color">&nbsp; &nbsp; "trending"</span>
     <span class="operator-color">: </span>
-    <span class="string-color">"you can navigate back to this landing page by clicking on the home-env"</span>
-    <span class="operator-color">,</span>
-    </br>
-    <span class="string-color">&nbsp; &nbsp; "sort"</span>
-    <span class="operator-color">: </span>
-    <span class="string-color">"to sort the subreddit you can click on the sortingn navigation and choose a time interval"</span>
-    <span class="operator-color">,</span>
-    </br>
-    <span class="string-color">&nbsp; &nbsp; "back"</span>
-    <span class="operator-color">: </span>
-    <span class="string-color">"to go back to the overview of a subreddit you have to click on the subreddit-env"</span>
+    <span class="string-color">"to select a trending subreddit just click on its name"</span>
     <span class="operator-color">,</span>
     </br>
     <span class="string-color">&nbsp; &nbsp; "post"</span>
@@ -157,9 +147,14 @@ function help() {
     <span class="string-color">"to open a post you can click on its ID"</span>
     <span class="operator-color">,</span>
     </br>
-    <span class="string-color">&nbsp; &nbsp; "comment"</span>
+    <span class="string-color">&nbsp; &nbsp; "home"</span>
     <span class="operator-color">: </span>
-    <span class="string-color">"to open comments you have to click on the 'for' and to close comments you have to click on the let"</span>
+    <span class="string-color">"you can navigate back to this landing page by clicking on the home-env"</span>
+    <span class="operator-color">,</span>
+    </br>
+    <span class="string-color">&nbsp; &nbsp; "back"</span>
+    <span class="operator-color">: </span>
+    <span class="string-color">"to go back to the overview of a subreddit you have to click on the subreddit-env"</span>
     <span class="operator-color">,</span>
     </br>
     <span class="bracket-color">}</span><span class="variable-color">;</span>
@@ -321,6 +316,10 @@ function articleDetails(data) {
   <span class="keyword-color">&nbsp; &nbsp; &nbsp; &nbsp; let</span>
   <span class="variable-color">body =</span>
   <span class="string-color">'${data.selftext}'</span>
+  </br>
+  <span class="keyword-color">&nbsp; &nbsp; &nbsp; &nbsp; let</span>
+  <span class="variable-color">url =</span>
+  <a href="${data.url}"><span class="string-color">'${data.url}'</span></a>
   </br>
   <span class="bracket-color">&nbsp; &nbsp; }</span>
   </br>

@@ -1,0 +1,92 @@
+{
+	"name": "reddit-viewer",
+	"displayName": "Reddit Viewer",
+	"description": "Browse Reddit in code style",
+	"version": "1.0.0",
+	"publisher": "eikekarbe",
+	"author": "Eike Christian Karbe <eichkarbe@yahoo.de>",
+	"engines": {
+		"vscode": "^1.35.0"
+	},
+	"bugs": {
+		"url": "https://github.com/ekarbe/reddit-viewer/issues",
+		"email": "eichkarbe@yahoo.de"
+	},
+	"homepage": "https://github.com/ekarbe/reddit-viewer/blob/master/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ekarbe/reddit-viewer.git"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"reddit"
+	],
+	"activationEvents": [
+		"onCommand:extension.reddit"
+	],
+	"icon": "public/reddit-viewer-icon.png",
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.reddit",
+				"title": "Reddit"
+			}
+		],
+		"configuration": {
+			"title": "Reddit Viewer",
+			"properties": {
+				"redditviewer.title": {
+					"type": "string",
+					"default": "Reddit",
+					"description": "Set the title of the Reddit-Viewer window."
+				},
+				"redditviewer.defaultSort": {
+					"type": "array",
+					"default": [
+						"hot"
+					],
+					"description": "Set the default sorting of subreddits."
+				},
+				"redditviewer.defaultInterval": {
+					"type": "array",
+					"default": [
+						"last24hours"
+					],
+					"description": "Set the default interval of subreddits"
+				},
+				"redditviewer.defaultSubreddit": {
+					"type": "string",
+					"default": "all",
+					"description": "Set the default subreddit that is entered in search and used if the landing page is disabled."
+				},
+				"redditviewer.help": {
+					"type": "boolean",
+					"default": true,
+					"description": "Set if the help panel is displayed on the landing page."
+				},
+				"redditviewer.landingPage": {
+					"type": "boolean",
+					"default": true,
+					"description": "Set if the landing page should be loaded on activation or the default subreddit should be loaded."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^10.12.21",
+		"eslint": "^5.13.0",
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28"
+	},
+	"dependencies": {
+		"axios": "^0.19.0"
+	}
+}

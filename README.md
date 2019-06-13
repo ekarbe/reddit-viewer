@@ -1,6 +1,6 @@
 </br>
 <div align="center">
-  <img src="public/reddit-viewer.png" alt="Logo" width="250px"></img>
+  <img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/develop/public/reddit-viewer.png" alt="Logo" width="250px"></img>
 </div>
 </br>
 <div align="center">

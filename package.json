@@ -3,7 +3,7 @@
 	"displayName": "Reddit Viewer",
 	"description": "Browse Reddit in code style",
 	"version": "1.0.0",
-	"publisher": "eikekarbe",
+	"publisher": "ekarbe",
 	"author": "Eike Christian Karbe <eichkarbe@yahoo.de>",
 	"engines": {
 		"vscode": "^1.35.0"

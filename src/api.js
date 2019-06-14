@@ -3,9 +3,9 @@
 const logger = require('./logger');
 const axios = require('axios');
 
-function getSubreddit(subreddit){
+function getSubreddit(subreddit, sort, interval){
   return new Promise(resolve => {
-  axios.get(`https://reddit.com/r/${subreddit}.json`)
+  axios.get(`https://reddit.com/r/${subreddit}/${sort}.json?t=${interval}`)
     .then(function (response) {
       resolve(response.data.data.children);
     })

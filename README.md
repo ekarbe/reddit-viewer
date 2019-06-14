@@ -1,6 +1,6 @@
 </br>
 <div align="center">
-  <img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/develop/public/reddit-viewer.png" alt="Logo" width="250px"></img>
+  <img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/reddit-viewer.png" alt="Logo" width="250px"></img>
 </div>
 </br>
 <div align="center">
@@ -12,11 +12,17 @@
 
 ## Features
 
-### Open Subreddits
+### Search and open Subreddits
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/search.gif" alt="Search gif">
+
+### Sort the Subreddit
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/sort.gif" alt="Search gif">
 
 ### Open an article
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/article.gif" alt="Search gif">
 
 ### Choose a trending Subreddit
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/trend.gif" alt="Search gif">
 
 ## Extension Settings
 
@@ -31,11 +37,10 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-* For now none Ü
+* If subreddit is not available nothing happens
 
 ## Planned features
 
-* Sorting
 * Comment chains
 
 ## Release Notes
@@ -44,8 +49,13 @@ This extension contributes the following settings:
 
 Initial release of Reddit-Viewer
 * Open subreddits
-* Show and open trending subreddits
+* Show and open trending Subreddits
 * Show and open articles
+
+### 1.1.0
+
+* Added sorting of Subreddits
+* Added image preview in article details
 
 ## Shoutout
 

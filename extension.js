@@ -4,6 +4,8 @@ const creator = require('./src/creator');
 
 let config = vscode.workspace.getConfiguration('redditviewer');
 let currentSubreddit = config.defaultSubreddit;
+let currentSort = config.defaultSort;
+let currentInterval = config.defaultInterval;
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -36,13 +38,23 @@ function activate(context) {
 						panel.webview.html = await creator.createLandingpageView(config);
 						break;
 					case 'subredditView':
-						panel.webview.html = await creator.createSubredditView(currentSubreddit);
+						panel.webview.html = await creator.createSubredditView(currentSubreddit, currentSort, currentInterval);
 						break;
 					case 'search':
 						if (message.text !== '') {
 							currentSubreddit = message.text;
 						}
-						panel.webview.html = await creator.createSubredditView(currentSubreddit);
+						currentSort = config.defaultSort;
+						currentInterval = config.defaultInterval;
+						panel.webview.html = await creator.createSubredditView(currentSubreddit, currentSort, currentInterval);
+						break;
+					case 'sort':
+						currentSort = message.text;
+						panel.webview.html = await creator.createSubredditView(currentSubreddit, currentSort, currentInterval);
+						break;
+					case 'time':
+						currentInterval = message.text;
+						panel.webview.html = await creator.createSubredditView(currentSubreddit, currentSort, currentInterval);
 						break;
 					case 'article':
 						let data = message.text.split(',');

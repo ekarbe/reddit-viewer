@@ -7,6 +7,9 @@ function getSubreddit(subreddit, sort, interval){
   return new Promise(resolve => {
   axios.get(`https://reddit.com/r/${subreddit}/${sort}.json?t=${interval}`)
     .then(function (response) {
+      if(response.data.data === undefined) {
+        resolve(null);
+      }
       resolve(response.data.data.children);
     })
     .catch(function (error) {

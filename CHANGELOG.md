@@ -23,4 +23,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Changed settings type to string
 
+## [1.1.2]
+
+- Fixed disabled landingPage not opening anything
+
 ## [Unreleased]

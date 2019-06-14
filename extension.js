@@ -28,7 +28,7 @@ function activate(context) {
 		if(config.landingPage){
 		panel.webview.html = await creator.createLandingpageView(config);
 		} else {
-			panel.webview.html = await creator.createSubredditView(config.defaultSubreddit);
+			panel.webview.html = await creator.createSubredditView(config.defaultSubreddit, config.defaultSort, config.defaultInterval);
 		}
 
 		panel.webview.onDidReceiveMessage(

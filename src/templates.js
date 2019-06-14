@@ -92,7 +92,7 @@ function sort() {
   `
   for (let i=0; i<sorts.length; i++) {
     html +=`
-    <span class="string-color">"${sorts[i]}"</span>`;
+    <a href="#" onclick="handleMessageSending('${sorts[i]}', 'sort')"><span class="string-color">"${sorts[i]}"</span>`;
     if (i !== sorts.length-1){
       html += `<span class="variable-color">,</span>`;
     }
@@ -104,7 +104,7 @@ function sort() {
 
 // WIP panel to display time options
 function time() {
-  let intervals = ["past hour", "past 24 hours", "past week", "past month", "past year", "of all time"];
+  let intervals = ["hour", "day", "week", "month", "year", "all"];
   let html = `
   <p>
     <span class="keyword-color">let</span>
@@ -113,7 +113,7 @@ function time() {
   `
   for (let i=0; i<intervals.length; i++) {
     html +=`
-    <span class="string-color">"${intervals[i]}"</span>`;
+    <a href="#" onclick="handleMessageSending('${intervals[i]}', 'time')"<span class="string-color">"${intervals[i]}"</span>`;
     if (i !== intervals.length-1){
       html += `<span class="variable-color">,</span>`;
     }
@@ -291,7 +291,7 @@ function articleDetails(data) {
   if (!data || data === undefined) {
     return ``;
   }
-  return `
+  let html = `
   <span class="keyword-color">const</span>
   <span class="function-color">${data.title}</span>
   <span class="variable-color">=</span>
@@ -321,10 +321,18 @@ function articleDetails(data) {
   <span class="variable-color">url =</span>
   <a href="${data.url}"><span class="string-color">'${data.url}'</span></a>
   </br>
+  `
+  // TODO put in div and hide/unhide!
+  if (data.post_hint === "image") {
+    html += `
+    <img src="${data.url}" alt="media"></img>`
+  }
+  html += `
   <span class="bracket-color">&nbsp; &nbsp; }</span>
   </br>
   <span class="bracket-color">}</span>
   `
+  return html;
 }
 
 // WIP comment panel

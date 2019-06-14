@@ -19,10 +19,13 @@ function createLandingpageView(config) {
 }
 
 // creates the subreddit view html string
-function createSubredditView(subreddit) {
+function createSubredditView(subreddit, sort, interval) {
   return new Promise(async resolve => {
-    let articles = await api.getSubreddit(subreddit);
-    let html = templates.head(stylesheetPath)+templates.home();
+    let articles = await api.getSubreddit(subreddit, sort, interval);
+    let html = templates.head(stylesheetPath)+templates.home()+templates.sort();
+    if (sort === 'top' || sort === 'controversial') {
+      html += templates.time();
+    }
     if (!articles || articles.length === 0 || articles === undefined) {
       html += templates.empty(subreddit);
     }

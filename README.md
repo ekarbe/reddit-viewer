@@ -31,11 +31,10 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-* For now none Ü
+* If subreddit is not available nothing happens
 
 ## Planned features
 
-* Sorting
 * Comment chains
 
 ## Release Notes

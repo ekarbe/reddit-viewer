@@ -45,16 +45,12 @@
 				},
 				"redditviewer.defaultSort": {
 					"type": "array",
-					"default": [
-						"hot"
-					],
+					"default": "hot",
 					"description": "Set the default sorting of subreddits."
 				},
 				"redditviewer.defaultInterval": {
 					"type": "array",
-					"default": [
-						"last24hours"
-					],
+					"default": "last24hours",
 					"description": "Set the default interval of subreddits"
 				},
 				"redditviewer.defaultSubreddit": {

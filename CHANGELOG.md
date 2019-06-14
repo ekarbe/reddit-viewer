@@ -19,4 +19,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added sorting
 - Added image preview
 
+## [1.1.1]
+
+- Changed settings type to string
+
 ## [Unreleased]

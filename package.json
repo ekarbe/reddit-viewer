@@ -2,7 +2,7 @@
 	"name": "reddit-viewer",
 	"displayName": "Reddit Viewer",
 	"description": "Browse Reddit in code style",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"publisher": "ekarbe",
 	"author": "Eike Christian Karbe <eichkarbe@yahoo.de>",
 	"engines": {
@@ -44,12 +44,12 @@
 					"description": "Set the title of the Reddit-Viewer window."
 				},
 				"redditviewer.defaultSort": {
-					"type": "array",
+					"type": "string",
 					"default": "hot",
 					"description": "Set the default sorting of subreddits."
 				},
 				"redditviewer.defaultInterval": {
-					"type": "array",
+					"type": "string",
 					"default": "last24hours",
 					"description": "Set the default interval of subreddits"
 				},

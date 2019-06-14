@@ -31,57 +31,6 @@ a:visited, a:active{
     border: none;
 }
 
-/*--------------- Navbar --------------- */
-
-.navbar {
-    overflow: hidden;
-    background-color: #EE4848;
-    color: #F4F6F7;
-}
-
-.navbar .logo {
-    float: left;
-    height: 100px;
-    width: 100px;
-    cursor: pointer;
-}
-
-.navbar .search-container {
-    float: right;
-    margin-top: 10px;
-}
-
-.navbar .search-container input[type=text] {
-    padding: 6px;
-    margin-top: 10px;
-    margin-right: 16px;
-    border: none;
-}
-
-.navbar .search-container button {
-    float: right;
-    padding: 6px;
-    margin-top: 10px;
-    margin-right: 16px;
-    background: #EE4848;
-    color: #DFDFDF;
-    border: 2px solid #DFDFDF;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-#stylistic_search_input {
-    background-color: transparent;
-    border-color: transparent;
-}
-
-#stylistic_search_function {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 40px;
-    padding: 0;
-}
-
 /*--------- Post list view header ----------- */
 
 p.current-sub-header {

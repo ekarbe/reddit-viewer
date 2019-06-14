@@ -325,7 +325,10 @@ function articleDetails(data) {
   // TODO put in div and hide/unhide!
   if (data.post_hint === "image") {
     html += `
-    <img src="${data.url}" alt="media"></img>`
+    <a class="function-color" onclick=collapseDiv('imgContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a><span class="bracket-color">() {</span>
+          <div id="imgContainer" style="display: none"><img src="${data.url}" alt="media"></img></div>
+    <span class="bracket-color">}</span>
+    </br>`
   }
   html += `
   <span class="bracket-color">&nbsp; &nbsp; }</span>

@@ -13,8 +13,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Removed unreleased features from help
 - Added url to articles
 
-## [Unreleased]
+## [1.1.0]
 
 - Changed defaultSort and defaultInterval setting type to string
 - Added sorting
-- Added experimental image preview
+- Added image preview
+
+## [Unreleased]

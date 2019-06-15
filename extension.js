@@ -1,9 +1,10 @@
 const vscode = require('vscode');
 const path = require( 'path' );
 const creator = require('./src/creator');
+const logger = require('./src/logger');
 
 let config = vscode.workspace.getConfiguration('redditviewer');
-let currentSubreddit = config.defaultSubreddit;
+let currentSubreddit;
 let currentSort = config.defaultSort;
 let currentInterval = config.defaultInterval;
 
@@ -11,7 +12,7 @@ let currentInterval = config.defaultInterval;
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	let disposable = vscode.commands.registerCommand('extension.reddit', async function () {
+	let disposable = vscode.commands.registerCommand('extension.reddit', function () {
 		let panel = vscode.window.createWebviewPanel(
 			'redditviewer',
 			config.title,
@@ -26,39 +27,89 @@ function activate(context) {
 		.with({ scheme: 'vscode-resource'}));
 		
 		if(config.landingPage){
-		panel.webview.html = await creator.createLandingpageView(config);
+			creator.createLandingpageView(config)
+				   .then(response => {
+					   panel.webview.html = response;
+				   })
+				   .catch(error => {
+					   logger.error(error);
+				   })
 		} else {
-			panel.webview.html = await creator.createSubredditView(config.defaultSubreddit, config.defaultSort, config.defaultInterval);
+			creator.createSubredditView(config.defaultSubreddit, config.defaultSort, config.defaultInterval)
+				   .then(response => {
+					   panel.webview.html = response;
+				   })
+				   .catch(error => {
+					   logger.error = error;
+				   })
 		}
 
 		panel.webview.onDidReceiveMessage(
-			async message => {
+			message => {
 				switch (message.command) {
 					case 'homeView':
-						panel.webview.html = await creator.createLandingpageView(config);
+						creator.createLandingpageView(config)
+							   .then(response => {
+								   panel.webview.html = response;
+							   })
+							   .catch(error => {
+								   logger.error(error);
+							   })
 						break;
 					case 'subredditView':
-						panel.webview.html = await creator.createSubredditView(currentSubreddit, currentSort, currentInterval);
+						creator.createSubredditView(currentSubreddit, currentSort, currentInterval)
+						       .then(response => {
+								   panel.webview.html = response;
+							   })
+							   .catch(error => {
+								   logger.error(error);
+							   })
 						break;
 					case 'search':
 						if (message.text !== '') {
 							currentSubreddit = message.text;
+						} else {
+							currentSubreddit = config.defaultSubreddit;
 						}
 						currentSort = config.defaultSort;
 						currentInterval = config.defaultInterval;
-						panel.webview.html = await creator.createSubredditView(currentSubreddit, currentSort, currentInterval);
+						creator.createSubredditView(currentSubreddit, currentSort, currentInterval)
+						       	.then(response => {
+						        	panel.webview.html = response;
+								})
+								.catch(error => {
+									logger.error(error);
+								})
 						break;
 					case 'sort':
 						currentSort = message.text;
-						panel.webview.html = await creator.createSubredditView(currentSubreddit, currentSort, currentInterval);
+						creator.createSubredditView(currentSubreddit, currentSort, currentInterval)
+						       .then(response => {
+								   panel.webview.html = response;
+							   })
+							   .catch(error => {
+								   logger.error(error);
+							   })
 						break;
 					case 'time':
 						currentInterval = message.text;
-						panel.webview.html = await creator.createSubredditView(currentSubreddit, currentSort, currentInterval);
+						creator.createSubredditView(currentSubreddit, currentSort, currentInterval)
+							   .then(response => {
+									panel.webview.html = response;
+							   })
+							   .catch(error => {
+								   logger.error(error);
+							   })
 						break;
 					case 'article':
 						let data = message.text.split(',');
-						panel.webview.html = await creator.createArticleView(data[0], data[1]);
+						creator.createArticleView(data[0], data[1])
+							   .then(response => {
+								   panel.webview.html = response;
+							   })
+							   .catch(error => {
+								   logger.error(error);
+							   })
 				}
 			},
 			undefined,

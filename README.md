@@ -37,7 +37,8 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-* If subreddit is not available nothing happens
+* Media not always displayed
+* Handle text formatting(Line break, inline) better
 
 ## Planned features
 

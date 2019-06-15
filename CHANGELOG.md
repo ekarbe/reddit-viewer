@@ -28,3 +28,5 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Fixed disabled landingPage not opening anything
 
 ## [Unreleased]
+
+- Better promise and error handling

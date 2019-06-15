@@ -11,8 +11,7 @@ function getSubreddit(subreddit, sort, interval){
   return new Promise((resolve, reject) => {
   web.get(`https://reddit.com/r/${subreddit}/${sort}.json?t=${interval}`)
     .then(response => {
-      console.log(response);
-      if(response.data.data.data === undefined) {
+      if(response.data.data.children.length === 0) {
         reject("empty or unvailable subreddit");
       }
       resolve(response.data.data.children);

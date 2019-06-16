@@ -30,3 +30,5 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Better promise and error handling
+- Added preview when clicking on let of an article
+- Added support for more media

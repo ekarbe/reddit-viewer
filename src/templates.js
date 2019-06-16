@@ -280,7 +280,7 @@ function article(data) {
         <span class="variable-color"> ${data.subreddit}</span>
         <span class="bracket-color"> } </span>
         <span class="bracket-color">)</span></span>;
-        <div id="${data.id}pre" style="display: none"><img src="${data.thumbnail}" alt="preview"></img></div>
+        <div id="${data.id}pre" style="display: none"><img src="${data.thumbnail}" alt="Preview"></img></div>
     </p>
   </div>
   `
@@ -322,10 +322,26 @@ function articleDetails(data) {
   <a href="${data.url}"><span class="string-color">'${data.url}'</span></a>
   </br>
   `
+  // for video links
+  if (data.media.oembed != undefined) {
+    let videohtml = data.media.oembed.html;
+    videohtml = videohtml.replace(/&lt;/g, "<");
+    videohtml = videohtml.replace(/&amp;/g, "&");
+    videohtml = videohtml.replace(/&gt;/g, ">");
+    html += `
+    <a class="function-color" onclick=collapseDiv('videoContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a><span class="bracket-color">() {</span>
+      <div id="videoContainer" style="display: none">
+    `
+    html += videohtml;
+    html += `
+      </div>
+    <span class="bracket-color">}</span>
+    `
+  }
+  // for gifv format
   if (data.url.slice(-4) === "gifv") {
     let url = data.url.slice(0, -4);
     url += "mp4";
-    console.log(url);
     html += `
     <a class="function-color" onclick=collapseDiv('imgContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a><span class="bracket-color">() {</span>
           <div id="imgContainer" style="display: none">
@@ -335,6 +351,7 @@ function articleDetails(data) {
     <span class="bracket-color">}</span>
     </br>`
   }
+  // for pic formats
   if (data.url.slice(-3) === "gif" || data.url.slice(-3) === "jpg") {
     html += `
     <a class="function-color" onclick=collapseDiv('imgContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a><span class="bracket-color">() {</span>

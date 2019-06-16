@@ -268,11 +268,10 @@ function article(data) {
   return `
   <div id="${data.id}" class="post-list-post-container">
     <p>
-      <span class="keyword-color">let </span>
+    <a onclick=collapseDiv('${data.id}pre')><span class="keyword-color">let </span></a>
       <span class="variable-color">
         <a href="#" onclick="handleMessageSending('${data.subreddit},${data.id}', 'article')">${data.id}</a>
       </span>
-        = 
       <span class="string-color">
         <span class="bracket-color">(</span>
         "${data.title}"<span class="variable-color">,</span>
@@ -281,6 +280,7 @@ function article(data) {
         <span class="variable-color"> ${data.subreddit}</span>
         <span class="bracket-color"> } </span>
         <span class="bracket-color">)</span></span>;
+        <div id="${data.id}pre" style="display: none"><img src="${data.thumbnail}" alt="preview"></img></div>
     </p>
   </div>
   `
@@ -322,7 +322,20 @@ function articleDetails(data) {
   <a href="${data.url}"><span class="string-color">'${data.url}'</span></a>
   </br>
   `
-  if (data.post_hint === "image") {
+  if (data.url.slice(-4) === "gifv") {
+    let url = data.url.slice(0, -4);
+    url += "mp4";
+    console.log(url);
+    html += `
+    <a class="function-color" onclick=collapseDiv('imgContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a><span class="bracket-color">() {</span>
+          <div id="imgContainer" style="display: none">
+          <video preload="true" autoplay="autoplay" loop="loop" width="300" height="300">
+            <source src=${url} type="video/mp4">
+          </video></div>
+    <span class="bracket-color">}</span>
+    </br>`
+  }
+  if (data.url.slice(-3) === "gif" || data.url.slice(-3) === "jpg") {
     html += `
     <a class="function-color" onclick=collapseDiv('imgContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a><span class="bracket-color">() {</span>
           <div id="imgContainer" style="display: none"><img src="${data.url}" alt="media"></img></div>

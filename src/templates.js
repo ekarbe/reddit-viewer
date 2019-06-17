@@ -18,15 +18,6 @@ function head(stylesheet) {
 	<script>
 			const vscode = acquireVsCodeApi();
 
-			// Handle vs extension message passing (from extension to webpage)
-			window.addEventListener('message', event => {
-				const message = event.data;
-				switch(message.command) {
-					case 'updateView':
-						break;
-				}
-			});
-
 			// Handle vs extension message passing (from webpage to extension)
 			function handleMessageSending(messageText, messageCommand) {
 				vscode.postMessage({
@@ -41,7 +32,7 @@ function head(stylesheet) {
 				handleMessageSending(searchFieldText, 'search');
 			}
 
-			// Collapse the post-list view 
+			// Collapse divs
 			function collapseDiv(divid) {
 				selectedDiv = document.getElementById(divid);
 				if (selectedDiv.style.display === "none") {
@@ -52,7 +43,7 @@ function head(stylesheet) {
 				}
       }
 		</script>
-	`
+	`;
 }
 
 // panel to return back to landing page
@@ -63,10 +54,12 @@ function home() {
 		<span class="variable-color">home </span>
 		<span class="operator-color">= </span>
 		<span class="function-color">require</span><span class="bracket-color">(</span>
-    <a href="#" onclick="handleMessageSending('Go back to landing page', 'homeView')"><span class="string-color">'home-env'</span></a>
+      <a onclick="handleMessageSending('Go back to landing page', 'homeView')">
+        <span class="string-color">'home-env'</span>
+      </a>
 		<span class="bracket-color">)</span><span class="variable-color">;</span>
 	</p>
-  `
+  `;
 }
 
 // panel to return back to article overview
@@ -77,45 +70,62 @@ function subreddit(subreddit) {
 		<span class="variable-color">sub </span>
 		<span class="operator-color">= </span>
 		<span class="function-color">require</span><span class="bracket-color">(</span>
-		<a href="#" onclick="handleMessageSending('${subreddit}', 'subredditView')"><span class="string-color">'sub-env'</span></a>
+      <a onclick="handleMessageSending('${subreddit}', 'subredditView')">
+        <span class="string-color">'sub-env'</span>
+      </a>
 		<span class="bracket-color">)</span><span class="variable-color">;</span>
 	</p>
-  `
+  `;
 }
 
 // WIP panel to display sort options
 function sort() {
   let sorts = ["hot", "new", "controversial", "top", "rising"];
+
   let html = `
   <p>
     <span class="keyword-color">let</span>
     <span class="variable-color">sort =</span>
     <span class="bracket-color">[</span>
-  `
+  `;
+
   for (let i=0; i<sorts.length; i++) {
-    html +=`
-    <a href="#" onclick="handleMessageSending('${sorts[i]}', 'sort')"><span class="string-color">"${sorts[i]}"</span>`;
+    html += `
+    <a onclick="handleMessageSending('${sorts[i]}', 'sort')">
+      <span class="string-color">"${sorts[i]}"</span>
+    </a>
+    `;
+
     if (i !== sorts.length-1){
       html += `<span class="variable-color">,</span>`;
     }
   }
+
   html += `
-  <span class="bracket-color">]</span><span class="variable-color">;</span>`;
+  <span class="bracket-color">]</span><span class="variable-color">;</span>
+  `;
+
   return html;
 }
 
 // WIP panel to display time options
 function time() {
   let intervals = ["hour", "day", "week", "month", "year", "all"];
+
   let html = `
   <p>
     <span class="keyword-color">let</span>
     <span class="variable-color">intervals =</span>
     <span class="bracket-color">[</span>
-  `
+  `;
+
   for (let i=0; i<intervals.length; i++) {
     html +=`
-    <a href="#" onclick="handleMessageSending('${intervals[i]}', 'time')"<span class="string-color">"${intervals[i]}"</span>`;
+    <a onclick="handleMessageSending('${intervals[i]}', 'time')"
+      <span class="string-color">"${intervals[i]}"</span>
+    </a>  
+    `;
+
     if (i !== intervals.length-1){
       html += `<span class="variable-color">,</span>`;
     }
@@ -133,35 +143,47 @@ function help() {
     <span class="variable-color">helpText </span>
     <span class="operator-color">= </span>
     <span class="bracket-color">{</span>
+
     </br>
+
     <span class="string-color">&nbsp; &nbsp; "search"</span>
     <span class="operator-color">: </span>
     <span class="string-color">"insert a subreddit name into the input at the top and click 'executeSearch' to start searching for it"</span>
     <span class="operator-color">,</span>
+
     </br>
+    
     <span class="string-color">&nbsp; &nbsp; "trending"</span>
     <span class="operator-color">: </span>
     <span class="string-color">"to select a trending subreddit just click on its name"</span>
     <span class="operator-color">,</span>
+    
     </br>
+    
     <span class="string-color">&nbsp; &nbsp; "post"</span>
     <span class="operator-color">: </span>
     <span class="string-color">"to open a post you can click on its ID"</span>
     <span class="operator-color">,</span>
+    
     </br>
+    
     <span class="string-color">&nbsp; &nbsp; "home"</span>
     <span class="operator-color">: </span>
     <span class="string-color">"you can navigate back to this landing page by clicking on the home-env"</span>
     <span class="operator-color">,</span>
+    
     </br>
+    
     <span class="string-color">&nbsp; &nbsp; "back"</span>
     <span class="operator-color">: </span>
     <span class="string-color">"to go back to the overview of a subreddit you have to click on the subreddit-env"</span>
     <span class="operator-color">,</span>
+    
     </br>
+    
     <span class="bracket-color">}</span><span class="variable-color">;</span>
   </p>
-  `
+  `;
 }
 
 // panel to display project resources
@@ -171,14 +193,24 @@ function project() {
     <span class="operator-color">module</span><span class="variable-color">.</span><span class="function-color">exports</span>
     <span class="operator-color">=</span>
     <span class="bracket-color">{</span>
+
     </br>
-    <a href="https://github.com/ekarbe/reddit-viewer/issues"><span class="variable-color">&nbsp; &nbsp; issues,</span></a>
+    
+      <a href="https://github.com/ekarbe/reddit-viewer/issues">
+        <span class="variable-color">&nbsp; &nbsp; issues,</span>
+      </a>
+    
     </br>
-    <a href="https://github.com/ekarbe/reddit-viewer"><span class="variable-color">&nbsp; &nbsp; project</span></a>
+    
+      <a href="https://github.com/ekarbe/reddit-viewer">
+        <span class="variable-color">&nbsp; &nbsp; project</span>
+      </a>
+    
     </br>
+    
     <span class="bracket-color">}</span>
   </p>
-  `
+  `;
 }
 
 // panel to display the trending subreddits
@@ -186,27 +218,39 @@ function trending(subreddits) {
   if (!subreddits || subreddits.length === 0) {
     return ``;
   }
+
   let html = `
   <p>
     <span class="keyword-color">function</span>
     <span class="function-color">trends</span><span class="bracket-color">() {</span>
+    
     </br>
+    
     <span class="keyword-color">&nbsp; &nbsp; return</span>
     <span class="bracket-color">[</span>
-  `
+  `;
+
   // add a clickable array entry for every given subreddit
   for (let i = 0; i < subreddits.length; i++) {
     html += `
-    <a href="#" onclick="handleMessageSending('${subreddits[i]}', 'search')"><span class="string-color">"${subreddits[i]}"</span></a>`;
-    if (i != subreddits.length - 1) {
+    <a href="#" onclick="handleMessageSending('${subreddits[i]}', 'search')">
+      <span class="string-color">"${subreddits[i]}"</span>
+    </a>
+    `;
+
+    if (i !== subreddits.length - 1) {
       html += `<span class="variable-color">,</span>`
     }
   }
+
   html += `
     <span class="bracket-color">]</span><span class="variable-color">;</span>
+    
     </br>
+    
     <span class="bracket-color">}</span>
   `
+
   return html;
 }
 
@@ -217,28 +261,42 @@ function empty(subreddit) {
     <span class="keyword-color">function </span>
     <span class="function-color">loadArticles</span><span class="bracket-color">(</span>
     <span class="variable-color">id </span><span class="bracket-color">) {</span>
+    
     </br>
+    
     <span class="keyword-color">&nbsp; &nbsp; try</span>
     <span class="bracket-color">{</span>
+    
     </br>
+    
     <span class="variable-color">&nbsp; &nbsp; &nbsp; &nbsp; api.</span><span class="function-color">get</span><span class="bracket-color">(</span>
     <span class="string-color">'/articles/'</span>
     <span class="variable-color">+ id</span><span class="bracket-color">)</span><span class="variable-color">;</span>
+    
     </br>
+    
     <span class="bracket-color">&nbsp; &nbsp; }</span>
+    
     </br>
+    
     <span class="keyword-color">&nbsp; &nbsp; catch</span><span class="bracket-color">(</span>
     <span class="variable-color">err</span>
     <span class="bracket-color">) {</span>
+    
     </br>
+    
     <span class="variable-color">&nbsp; &nbsp; &nbsp; &nbsp; window.</span><span class="function-color">alert</span><span class="bracket-color">(</span>
     <span class="string-color">'Subreddit "${subreddit}" seems to be empty or not available'</span><span class="variable-color">, err</span><span class="bracket-color">)</span><span class="variable-color">;</span>
+    
     </br>
+    
     <span class="bracket-color">&nbsp; &nbsp; }</span>
+    
     </br>
+    
     <span class="bracket-color">}</span>
   </p>
-  `
+  `;
 }
 
 // panel to display subreddit search
@@ -253,13 +311,19 @@ function search(subreddit) {
 		<input type="text" id="search_input" placeholder="${subreddit}"/>
 		<span class="string-color">'</span>
 		<span class="bracket-color">) {</span>
-		</br>
-		<span class="keyword-color">&nbsp; &nbsp; return</span>
-		<a href="#" onclick="submitSearch()" class="function-color">executeSearch</a><span class="bracket-color">(</span><span class="bracket-color">)</span>
-		</br>
-		<span class="bracket-color">}</span>
+    
+    </br>
+    
+    <span class="keyword-color">&nbsp; &nbsp; return</span>
+      <a href="#" onclick="submitSearch()" class="function-color">executeSearch</a>
+        <span class="bracket-color">(</span><span class="bracket-color">)
+      </span>
+    
+    </br>
+    
+    <span class="bracket-color">}</span>
 	</p>
-  `
+  `;
 }
 
 // panel to display an article list entry
@@ -267,12 +331,15 @@ function article(data) {
   if (!data || data === undefined) {
     return ``;
   }
+
   return `
   <div id="${data.id}" class="post-list-post-container">
     <p>
-    <a onclick=collapseDiv('${data.id}pre')><span class="keyword-color">let </span></a>
+      <a onclick=collapseDiv('${data.id}-pre')>
+        <span class="keyword-color">let </span>
+      </a>
       <span class="variable-color">
-        <a href="#" onclick="handleMessageSending('${data.subreddit},${data.id}', 'article')">${data.id}</a>
+        <a onclick="handleMessageSending('${data.subreddit},${data.id}', 'article')">${data.id}</a>
       </span>
       <span class="string-color">
         <span class="bracket-color">(</span>
@@ -282,10 +349,12 @@ function article(data) {
         <span class="variable-color"> ${data.subreddit}</span>
         <span class="bracket-color"> } </span>
         <span class="bracket-color">)</span></span>;
-        <div id="${data.id}pre" style="display: none"><img src="${data.thumbnail}" alt="Preview"></img></div>
+          <div id="${data.id}-pre" style="display: none">
+            <img src="${data.thumbnail}" alt="Preview"></img>
+          </div>
     </p>
   </div>
-  `
+  `;
 }
 
 // panel to display article details
@@ -293,6 +362,7 @@ function articleDetails(data) {
   if (!data || data === undefined) {
     return ``;
   }
+
   let html = `
   <span class="keyword-color">const</span>
   <span class="function-color">${data.title}</span>
@@ -302,11 +372,15 @@ function articleDetails(data) {
   <span class="bracket-color">)</span>
   <span class="keyword-color">=></span>
   <span class="bracket-color">{</span>
+  
   </br>
+  
   <span class="keyword-color">&nbsp; &nbsp; let</span>
   <span class="variable-color">score =</span>
   <span class="string-color">${data.score}</span><span class="variable-color">;</span>
+  
   </br>
+  
   <span class="keyword-color">&nbsp; &nbsp; for</span>
   <span class="bracket-color">(</span>
   <span class="keyword-color">let</span>
@@ -314,24 +388,35 @@ function articleDetails(data) {
   <span class="keyword-color">in</span>
   <span class="variable-color">author</span><span class="bracket-color">)</span>
   <span class="bracket-color">{</span>
+  
   </br>
+  
   <span class="keyword-color">&nbsp; &nbsp; &nbsp; &nbsp; let</span>
   <span class="variable-color">body =</span>
   <span class="string-color">'${data.selftext}'</span>
+  
   </br>
+  
   <span class="keyword-color">&nbsp; &nbsp; &nbsp; &nbsp; let</span>
   <span class="variable-color">url =</span>
-  <a href="${data.url}"><span class="string-color">'${data.url}'</span></a>
+    <a href="${data.url}">
+      <span class="string-color">'${data.url}'</span>
+    </a>
   </br>
-  `
+  `;
+
   if(media.isMedia(data)) {
     html += media.createMediaHTML(data);
   }
+
   html += `
   <span class="bracket-color">&nbsp; &nbsp; }</span>
+  
   </br>
+  
   <span class="bracket-color">}</span>
   `
+
   return html;
 }
 
@@ -340,77 +425,113 @@ function comment(comment) {
   let html = `
     <p>
       <span class="keyword-color">export class</span>
-      <a onclick=collapseDiv('${comment.data.id}')>
-        <span class="function-color">Comment_${comment.data.author}</span>
-      </a>
+        <a onclick=collapseDiv('${comment.data.id}')>
+          <span class="function-color">Comment_${comment.data.author}</span>
+        </a>
       <span class="bracket-color">{</span>
+      
       </br>
 
-      <div id="${comment.data.id}" style="display: none">
-      <span class="variable-color">&nbsp; &nbsp; score: ${comment.data.score};</span>
-      </br>
-      <span class="variable-color">&nbsp; &nbsp; body: ${comment.data.body};</span>
-      </br>
-      </br>`
-      if (comment.data.replies !== "") {
-        html += `
-        <span class="keyword-color">&nbsp; &nbsp; switch</span>
-        <span class="bracket-color">(</span>
-        <a onclick=collapseDiv('commentContainer${comment.data.id}')><span class="variable-color">children</span></a>
-        <span class="bracket-color">) {</span>
-        </br>
-        <div id="commentContainer${comment.data.id}" style="display: none">
-      `;
-       html += childComment(comment.data);
-       html += `
-        </div>
-        <span class="bracket-color">&nbsp; &nbsp; }</span>
-      `;
-      }
-      html += `
-      </br>
-      </div>
-      `;
-  html += `
-    <span class="bracket-color">}</span>
-    </p>
+        <div id="${comment.data.id}" style="display: none">
+          <span class="variable-color">&nbsp; &nbsp; score: ${comment.data.score};</span>
+      
+          </br>
+      
+          <span class="variable-color">&nbsp; &nbsp; body: ${comment.data.body};</span>
+      
+          </br>
+      
+          </br>
   `;
+
+  if (comment.data.replies !== "") {
+    html += `
+    <span class="keyword-color">&nbsp; &nbsp; switch</span>
+    <span class="bracket-color">(</span>
+      <a onclick=collapseDiv('${comment.data.id}-cmt')>
+        <span class="variable-color">children</span>
+      </a>
+    <span class="bracket-color">) {</span>
+    
+    </br>
+    
+      <div id="${comment.data.id}-cmt" style="display: none">
+    `;
+    
+    html += childComment(comment.data);
+    
+    html += `
+    </div>
+    <span class="bracket-color">&nbsp; &nbsp; }</span>
+    `;
+  }
+
+  html += `
+  </br>
+
+  </div>
+  `;
+
+  html += `
+  <span class="bracket-color">}</span>
+  </p>
+  `;
+
   return html;
 }
 
 function childComment(comment) {
   let html = '';
+
   for (let i=0; i<comment.replies.data.children.length; i++) {
-  for(let j=0; j<comment.replies.data.children[i].data.depth; j++) {
-     html += `&nbsp; &nbsp; &nbsp; &nbsp; `
-  }
-  html += `
-    <span class="keyword-color"> case</span>
-    <a onclick=collapseDiv('comment-${comment.replies.data.children[i].data.id}')><span class="string-color">'${comment.replies.data.children[i].data.author}'</span></a>
-    <span class="variable-color">:</span>
-    </br>
-    <div id="comment-${comment.replies.data.children[i].data.id}" style="display: none">
-    <span class="variable-color">
-    `
     for(let j=0; j<comment.replies.data.children[i].data.depth; j++) {
-      html += `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `
+      html += `&nbsp; &nbsp; &nbsp; &nbsp;`;
     }
-    html += `body: ${comment.replies.data.children[i].data.body}</span>
-    </br>
-    <span class="keyword-color">`
-  for(let j=0; j<comment.replies.data.children[i].data.depth; j++) {
-    html += `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `
-  }
-  html += `this</span><span class="variable-color">.open</span><span class="bracket-color">(</span>
-    <span class="variable-color">${comment.replies.data.children[i].data.score}</span>
-    <span class="bracket-color">)</span><span class="variable-color">;</span>
-    </br>
-  `;
+
+    html += `
+      <span class="keyword-color"> case</span>
+        <a onclick=collapseDiv('comment-${comment.replies.data.children[i].data.id}')>
+          <span class="string-color">'${comment.replies.data.children[i].data.author}'</span>
+        </a>
+      <span class="variable-color">:</span>
+      
+      </br>
+      
+        <div id="comment-${comment.replies.data.children[i].data.id}" style="display: none">
+          <span class="variable-color">
+    `;
+
+    for(let j=0; j<comment.replies.data.children[i].data.depth; j++) {
+      html += `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`;
+    }
+
+    html += `
+      body: ${comment.replies.data.children[i].data.body}</span>
+      
+      </br>
+      
+      <span class="keyword-color">
+    `;
+
+    for(let j=0; j<comment.replies.data.children[i].data.depth; j++) {
+      html += `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`;
+    }
+
+    html += `
+      this</span><span class="variable-color">.open</span><span class="bracket-color">(</span>
+      <span class="variable-color">${comment.replies.data.children[i].data.score}</span>
+      <span class="bracket-color">)</span><span class="variable-color">;</span>
+      
+      </br>
+    `;
+
     if (comment.replies.data.children[i].data.replies !== "") {
       html += childComment(comment.replies.data.children[i].data);
     }
-  html += `</div>`
+
+    html += `</div>`;
   }
+
   return html;
 }
 
@@ -419,7 +540,7 @@ function tail() {
   return `
   </body>
   </html>
-  `
+  `;
 }
 
 module.exports = {

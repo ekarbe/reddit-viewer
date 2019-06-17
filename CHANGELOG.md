@@ -34,3 +34,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added support for more media
 - Better media handling
 - Added un/hideable root comments
+- Added full comment chain support

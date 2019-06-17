@@ -1,43 +1,49 @@
 // api.js provides the functions to request the reddit data
 
-const logger = require('./logger');
 const axios = require('axios');
 
+const web = axios.create({
+  timeout: 2000
+});
+
+// requests the subreddit data
 function getSubreddit(subreddit, sort, interval){
-  return new Promise(resolve => {
-  axios.get(`https://reddit.com/r/${subreddit}/${sort}.json?t=${interval}`)
-    .then(function (response) {
-      if(response.data.data === undefined) {
-        resolve(null);
+  return new Promise((resolve, reject) => {
+  web.get(`https://reddit.com/r/${subreddit}/${sort}.json?t=${interval}`)
+    .then(response => {
+      if(response.data.data.children.length === 0) {
+        reject("empty or unvailable subreddit");
       }
       resolve(response.data.data.children);
     })
-    .catch(function (error) {
-      logger.error(error);
+    .catch(error => {
+      reject(error);
     })
   })
 }
 
+// requests the article data
 function getArticle(subreddit, article) {
-  return new Promise(resolve => {
-    axios.get(`https://reddit.com/r/${subreddit}/comments/${article}.json`)
-    .then(function (response) {
+  return new Promise((resolve, reject) => {
+    web.get(`https://reddit.com/r/${subreddit}/comments/${article}.json`)
+    .then(response => {
       resolve(response.data);
     })
-    .catch(function (error) {
-      logger.error(error);
+    .catch(error => {
+      reject(error);
     })
   })
 }
 
+// requests the trending subreddits data
 function getTrendingSubreddits() {
-  return new Promise(resolve => {
-    axios.get(`https://reddit.com/api/trending_subreddits.json`)
-    .then(function (response) {
+  return new Promise((resolve, reject) => {
+    web.get(`https://reddit.com/api/trending_subreddits.json`)
+    .then(response => {
       resolve(response.data.subreddit_names);
     })
-    .catch(function (error) {
-      logger.error(error);
+    .catch(error => {
+      reject(error);
     })
   })
 }

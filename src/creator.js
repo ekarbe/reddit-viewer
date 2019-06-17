@@ -51,8 +51,13 @@ function createArticleView(subreddit, articleID) {
     api.getArticle(subreddit, articleID)
        .then(response => {
         let articleDetails = response[0].data.children[0].data;
+        let comments = response[1].data;
         let html = templates.head(stylesheetPath)+templates.home()
-        +templates.subreddit(subreddit)+templates.articleDetails(articleDetails)+templates.tail();
+        +templates.subreddit(subreddit)+templates.articleDetails(articleDetails);
+        for (let i=0; i<comments.children.length; i++) {
+          html += templates.comment(comments.children[i]);
+        }
+        html += templates.tail();
         resolve(html);
        })
        .catch(error => {

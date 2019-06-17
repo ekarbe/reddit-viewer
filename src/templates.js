@@ -340,22 +340,29 @@ function comment(comment) {
   let html = `
     <p>
       <span class="keyword-color">export class</span>
-      <span class="function-color">Comment${comment.data.author}</span>
+      <a onclick=collapseDiv('${comment.data.id}')>
+        <span class="function-color">Comment_${comment.data.author}</span>
+      </a>
       <span class="bracket-color">{</span>
       </br>
+
+      <div id="${comment.data.id}" style="display: none">
       <span class="variable-color">&nbsp; &nbsp; score: ${comment.data.score};</span>
       </br>
-      <span class="variable-color">&nbsp; &nbsp; body: ${comment.data.selftext};</span>
+      <span class="variable-color">&nbsp; &nbsp; body: ${comment.data.body};</span>
       </br></br>
       <span class="keyword-color">&nbsp; &nbsp; constructor</span>
       <span class="bracket-color">(</span>
       <span class="variable-color">comment: Object</span>
       <span class="bracket-color">) {</span>
+      </br>
       <span class="keyword-color">&nbsp; &nbsp; &nbsp; &nbsp; this</span><span class="variable.color">.children = comment.children;</span>
       </br>
       <span class="bracket-color">&nbsp; &nbsp; }</span>
+      </br>
+      </div>
   `;
-  if (comment.data.replies !== "") {
+  /*if (comment.data.replies !== "") {
     html += `
       <span class="keyword-color">&nbsp; &nbsp; switch</span>
       <span class="bracket-color">(</span>
@@ -379,7 +386,7 @@ function comment(comment) {
       <span class="bracket-color">&nbsp; &nbsp; }</span>
       </br>
     `;
-  }
+  }*/
   html += `
     <span class="bracket-color">}</span>
     </p>

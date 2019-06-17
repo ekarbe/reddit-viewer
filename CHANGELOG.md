@@ -33,3 +33,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added preview when clicking on let of an article
 - Added support for more media
 - Better media handling
+- Added un/hideable root comments

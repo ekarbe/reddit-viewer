@@ -55,7 +55,9 @@ function createArticleView(subreddit, articleID) {
         let html = templates.head(stylesheetPath)+templates.home()
         +templates.subreddit(subreddit)+templates.articleDetails(articleDetails);
         for (let i=0; i<comments.children.length; i++) {
-          html += templates.comment(comments.children[i]);
+          if(comments.children[i].kind !== "more"){
+            html += templates.comment(comments.children[i]);
+          } 
         }
         html += templates.tail();
         resolve(html);

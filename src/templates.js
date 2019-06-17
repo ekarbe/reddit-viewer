@@ -350,47 +350,58 @@ function comment(comment) {
       <span class="variable-color">&nbsp; &nbsp; score: ${comment.data.score};</span>
       </br>
       <span class="variable-color">&nbsp; &nbsp; body: ${comment.data.body};</span>
-      </br></br>
-      <span class="keyword-color">&nbsp; &nbsp; constructor</span>
-      <span class="bracket-color">(</span>
-      <span class="variable-color">comment: Object</span>
-      <span class="bracket-color">) {</span>
       </br>
-      <span class="keyword-color">&nbsp; &nbsp; &nbsp; &nbsp; this</span><span class="variable.color">.children = comment.children;</span>
-      </br>
-      <span class="bracket-color">&nbsp; &nbsp; }</span>
+      </br>`
+      if (comment.data.replies !== "") {
+        html += `
+        <span class="keyword-color">&nbsp; &nbsp; switch</span>
+        <span class="bracket-color">(</span>
+        <a onclick=collapseDiv('commentContainer')><span class="variable-color">children</span></a>
+        <span class="bracket-color">) {</span>
+        </br>
+        <div id="commentContainer" style="display: none">
+      `;
+       html += childComment(comment.data);
+       html += `
+        <span class="bracket-color">&nbsp; &nbsp; }</span>
+        </div>
+      `;
+      }
+      html += `
       </br>
       </div>
-  `;
-  /*if (comment.data.replies !== "") {
-    html += `
-      <span class="keyword-color">&nbsp; &nbsp; switch</span>
-      <span class="bracket-color">(</span>
-      <span class="variable-color">children</span>
-      <span class="bracket-color">) {</span>
-      </br>
-    `;
-    for (let i=0; i<comment.data.replies.children.length; i++) {
-      html += `
-      <span class="keyword-color">&nbsp; &nbsp; &nbsp; &nbsp; case</span>
-      <span class="string-color">'${comment.data.replies.children[i].author}'</span>
-      <span class="variable-color">:</span>
-      </br>
-      <span class="keyword-color">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; this</span><span class="variable.color">.open</span><span class="bracket-color">(>
-      <span class="variable-color">${comment.data.replies.children[i].id}</span>
-      <span class="bracket-color">)</span><span class="variable-color">;</span>
-      </br>
       `;
-    }
-    html += `
-      <span class="bracket-color">&nbsp; &nbsp; }</span>
-      </br>
-    `;
-  }*/
   html += `
     <span class="bracket-color">}</span>
     </p>
   `;
+  return html;
+}
+
+function childComment(comment) {
+  let html = '';
+  for (let i=0; i<comment.replies.data.children.length; i++) {
+  for(let j=0; j<comment.replies.data.children[i].data.depth; j++) {
+     html += `&nbsp; &nbsp; &nbsp; &nbsp; `
+  }
+  html += `
+    <span class="keyword-color"> case</span>
+    <span class="string-color">'${comment.replies.data.children[i].data.author}'</span>
+    <span class="variable-color">:</span>
+    </br>
+    <span class="keyword-color">`
+  for(let j=0; j<comment.replies.data.children[i].data.depth; j++) {
+    html += `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `
+  }
+  html += `this</span><span class="variable.color">.open</span><span class="bracket-color">(>
+    <span class="variable-color">${comment.replies.data.children[i].data.id}</span>
+    <span class="bracket-color">)</span><span class="variable-color">;</span>
+    </br>
+  `;
+    if (comment.replies.data.children[i].data.replies !== "") {
+      html += childComment(comment.replies.data.children[i].data);
+    }
+  }
   return html;
 }
 

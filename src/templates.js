@@ -1,5 +1,7 @@
 // templates.js provides the panel templates for creating the html views
 
+const media = require('./media');
+
 // essential panel to load all resources
 function head(stylesheet) {
   return `
@@ -48,7 +50,7 @@ function head(stylesheet) {
 				else {
 					selectedDiv.style.display = "none";
 				}
-			}
+      }
 		</script>
 	`
 }
@@ -322,42 +324,8 @@ function articleDetails(data) {
   <a href="${data.url}"><span class="string-color">'${data.url}'</span></a>
   </br>
   `
-  // for video links
-  if (data.media.oembed != undefined) {
-    let videohtml = data.media.oembed.html;
-    videohtml = videohtml.replace(/&lt;/g, "<");
-    videohtml = videohtml.replace(/&amp;/g, "&");
-    videohtml = videohtml.replace(/&gt;/g, ">");
-    html += `
-    <a class="function-color" onclick=collapseDiv('videoContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a><span class="bracket-color">() {</span>
-      <div id="videoContainer" style="display: none">
-    `
-    html += videohtml;
-    html += `
-      </div>
-    <span class="bracket-color">}</span>
-    `
-  }
-  // for gifv format
-  if (data.url.slice(-4) === "gifv") {
-    let url = data.url.slice(0, -4);
-    url += "mp4";
-    html += `
-    <a class="function-color" onclick=collapseDiv('imgContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a><span class="bracket-color">() {</span>
-          <div id="imgContainer" style="display: none">
-          <video preload="true" autoplay="autoplay" loop="loop" width="300" height="300">
-            <source src=${url} type="video/mp4">
-          </video></div>
-    <span class="bracket-color">}</span>
-    </br>`
-  }
-  // for pic formats
-  if (data.url.slice(-3) === "gif" || data.url.slice(-3) === "jpg") {
-    html += `
-    <a class="function-color" onclick=collapseDiv('imgContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a><span class="bracket-color">() {</span>
-          <div id="imgContainer" style="display: none"><img src="${data.url}" alt="media"></img></div>
-    <span class="bracket-color">}</span>
-    </br>`
+  if(media.isMedia(data)) {
+    html += media.createMediaHTML(data);
   }
   html += `
   <span class="bracket-color">&nbsp; &nbsp; }</span>

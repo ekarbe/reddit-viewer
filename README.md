@@ -37,7 +37,7 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-* Media not always displayed
+* Videos don't work
 * Handle text formatting(Line break, inline) better
 
 ## Planned features

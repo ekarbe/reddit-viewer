@@ -5,7 +5,7 @@ const media = require('./media');
 // essential panel to load all resources
 function head(stylesheet) {
   return `
-<!DOCTYPE html>
+  <!DOCTYPE html>
 	<html lang="en">
 	<head>
 		<meta charset="UTF-8">
@@ -16,33 +16,33 @@ function head(stylesheet) {
 	<body>
 	<!----------------SCRIPTS-------------------->
 	<script>
-			const vscode = acquireVsCodeApi();
+		const vscode = acquireVsCodeApi();
 
-			// Handle vs extension message passing (from webpage to extension)
-			function handleMessageSending(messageText, messageCommand) {
-				vscode.postMessage({
-					command: messageCommand,
-					text: messageText
-				});
+		// Handle vs extension message passing (from webpage to extension)
+		function handleMessageSending(messageText, messageCommand) {
+			vscode.postMessage({
+				command: messageCommand,
+				text: messageText
+			});
+		}
+
+		// Search 
+		function submitSearch() {
+			const searchFieldText = document.getElementById('search_input').value;
+			handleMessageSending(searchFieldText, 'search');
+		}
+
+		// Collapse divs
+		function collapseDiv(divid) {
+			selectedDiv = document.getElementById(divid);
+			if (selectedDiv.style.display === "none") {
+				selectedDiv.style.display = "block";
 			}
-
-			// Search 
-			function submitSearch() {
-				const searchFieldText = document.getElementById('search_input').value;
-				handleMessageSending(searchFieldText, 'search');
+			else {
+				selectedDiv.style.display = "none";
 			}
-
-			// Collapse divs
-			function collapseDiv(divid) {
-				selectedDiv = document.getElementById(divid);
-				if (selectedDiv.style.display === "none") {
-					selectedDiv.style.display = "block";
-				}
-				else {
-					selectedDiv.style.display = "none";
-				}
-      }
-		</script>
+    }
+	</script>
 	`;
 }
 
@@ -78,7 +78,7 @@ function subreddit(subreddit) {
   `;
 }
 
-// WIP panel to display sort options
+// panel to display sort options
 function sort() {
   let sorts = ["hot", "new", "controversial", "top", "rising"];
 
@@ -108,7 +108,7 @@ function sort() {
   return html;
 }
 
-// WIP panel to display time options
+// panel to display time options
 function time() {
   let intervals = ["hour", "day", "week", "month", "year", "all"];
 
@@ -420,7 +420,7 @@ function articleDetails(data) {
   return html;
 }
 
-// WIP comment panel
+// comment panel
 function comment(comment) {
   let html = `
     <p>
@@ -457,7 +457,7 @@ function comment(comment) {
     
       <div id="${comment.data.id}-cmt" style="display: none">
     `;
-    
+
     html += childComment(comment.data);
     
     html += `
@@ -470,9 +470,6 @@ function comment(comment) {
   </br>
 
   </div>
-  `;
-
-  html += `
   <span class="bracket-color">}</span>
   </p>
   `;
@@ -480,7 +477,12 @@ function comment(comment) {
   return html;
 }
 
+// recursive child comment element
 function childComment(comment) {
+  if (comment.replies === undefined) {
+    return;
+  }
+
   let html = '';
 
   for (let i=0; i<comment.replies.data.children.length; i++) {
@@ -531,7 +533,7 @@ function childComment(comment) {
 
     html += `</div>`;
   }
-
+  
   return html;
 }
 

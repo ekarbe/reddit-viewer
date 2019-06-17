@@ -58,6 +58,13 @@ Initial release of Reddit-Viewer
 * Added sorting of Subreddits
 * Added image preview in article details
 
+### 1.2.0
+
+* Added preview in Subreddit overview
+* Added more media types to preview
+* Added better media handling
+* Added comment chain
+
 ## Shoutout
 
 Inspired/forked from [Gage77](https://github.com/Gage77)'s project [RedVis](https://github.com/Gage77/redvis)

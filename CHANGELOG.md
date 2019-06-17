@@ -27,7 +27,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Fixed disabled landingPage not opening anything
 
-## [Unreleased]
+## [1.2.0]
 
 - Better promise and error handling
 - Added preview when clicking on let of an article

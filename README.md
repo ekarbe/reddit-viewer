@@ -42,7 +42,8 @@ This extension contributes the following settings:
 
 ## Planned features
 
-* Comment chains
+* Full video support
+* Account Management -> Login, Voting etc.
 
 ## Release Notes
 

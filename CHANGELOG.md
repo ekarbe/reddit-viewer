@@ -36,7 +36,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added un/hideable root comments
 - Added full comment chain support
 
-## [Unreleased]
+## [1.2.1]
 
 - Removed empty panel as it is never used
 - Search triggered when enter is pressed

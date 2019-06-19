@@ -35,3 +35,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Better media handling
 - Added un/hideable root comments
 - Added full comment chain support
+
+## [1.2.1]
+
+- Removed empty panel as it is never used
+- Search triggered when enter is pressed

@@ -42,6 +42,16 @@ function head(stylesheet) {
 				selectedDiv.style.display = "none";
 			}
     }
+
+    // trigger search on enter
+    $(document).ready(function(){
+      $('#search_input').keypress(function(e){
+        if(e.keyCode==13)
+        submitSearch();
+        //$('#search_execute').click();
+      });
+    });
+
 	</script>
 	`;
 }
@@ -254,51 +264,6 @@ function trending(subreddits) {
   return html;
 }
 
-// panel to display empty subreddit error
-function empty(subreddit) {
-  return `
-  <p>
-    <span class="keyword-color">function </span>
-    <span class="function-color">loadArticles</span><span class="bracket-color">(</span>
-    <span class="variable-color">id </span><span class="bracket-color">) {</span>
-    
-    </br>
-    
-    <span class="keyword-color">&nbsp; &nbsp; try</span>
-    <span class="bracket-color">{</span>
-    
-    </br>
-    
-    <span class="variable-color">&nbsp; &nbsp; &nbsp; &nbsp; api.</span><span class="function-color">get</span><span class="bracket-color">(</span>
-    <span class="string-color">'/articles/'</span>
-    <span class="variable-color">+ id</span><span class="bracket-color">)</span><span class="variable-color">;</span>
-    
-    </br>
-    
-    <span class="bracket-color">&nbsp; &nbsp; }</span>
-    
-    </br>
-    
-    <span class="keyword-color">&nbsp; &nbsp; catch</span><span class="bracket-color">(</span>
-    <span class="variable-color">err</span>
-    <span class="bracket-color">) {</span>
-    
-    </br>
-    
-    <span class="variable-color">&nbsp; &nbsp; &nbsp; &nbsp; window.</span><span class="function-color">alert</span><span class="bracket-color">(</span>
-    <span class="string-color">'Subreddit "${subreddit}" seems to be empty or not available'</span><span class="variable-color">, err</span><span class="bracket-color">)</span><span class="variable-color">;</span>
-    
-    </br>
-    
-    <span class="bracket-color">&nbsp; &nbsp; }</span>
-    
-    </br>
-    
-    <span class="bracket-color">}</span>
-  </p>
-  `;
-}
-
 // panel to display subreddit search
 function search(subreddit) {
   return `
@@ -315,7 +280,7 @@ function search(subreddit) {
     </br>
     
     <span class="keyword-color">&nbsp; &nbsp; return</span>
-      <a href="#" onclick="submitSearch()" class="function-color">executeSearch</a>
+      <a id="search_execute" onclick="submitSearch()" class="function-color">executeSearch</a>
         <span class="bracket-color">(</span><span class="bracket-color">)
       </span>
     
@@ -554,7 +519,6 @@ module.exports = {
   help,
   project,
   trending,
-  empty,
   search,
   article,
   articleDetails,

@@ -39,3 +39,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Removed empty panel as it is never used
+- Search triggered when enter is pressed

@@ -42,6 +42,16 @@ function head(stylesheet) {
 				selectedDiv.style.display = "none";
 			}
     }
+
+    // trigger search on enter
+    $(document).ready(function(){
+      $('#search_input').keypress(function(e){
+        if(e.keyCode==13)
+        submitSearch();
+        //$('#search_execute').click();
+      });
+    });
+
 	</script>
 	`;
 }
@@ -270,7 +280,7 @@ function search(subreddit) {
     </br>
     
     <span class="keyword-color">&nbsp; &nbsp; return</span>
-      <a href="#" onclick="submitSearch()" class="function-color">executeSearch</a>
+      <a id="search_execute" onclick="submitSearch()" class="function-color">executeSearch</a>
         <span class="bracket-color">(</span><span class="bracket-color">)
       </span>
     
@@ -509,7 +519,6 @@ module.exports = {
   help,
   project,
   trending,
-  empty,
   search,
   article,
   articleDetails,

@@ -35,3 +35,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Better media handling
 - Added un/hideable root comments
 - Added full comment chain support
+
+## [Unreleased]
+
+- Removed empty panel as it is never used

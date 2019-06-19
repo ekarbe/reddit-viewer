@@ -131,7 +131,7 @@ function time() {
 
   for (let i=0; i<intervals.length; i++) {
     html +=`
-    <a onclick="handleMessageSending('${intervals[i]}', 'time')"
+    <a onclick="handleMessageSending('${intervals[i]}', 'interval')"
       <span class="string-color">"${intervals[i]}"</span>
     </a>  
     `;
@@ -370,6 +370,7 @@ function articleDetails(data) {
   </br>
   `;
 
+  // handle media
   if(media.isMedia(data)) {
     html += media.createMediaHTML(data);
   }
@@ -423,6 +424,7 @@ function comment(comment) {
       <div id="${comment.data.id}-cmt" style="display: none">
     `;
 
+    // recursive childComment function to add all child comments
     html += childComment(comment.data);
     
     html += `

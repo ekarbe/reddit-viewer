@@ -2,7 +2,7 @@
 	"name": "reddit-viewer",
 	"displayName": "Reddit Viewer",
 	"description": "Browse Reddit in code style",
-	"version": "1.2.1",
+	"version": "1.3.0",
 	"publisher": "ekarbe",
 	"author": "Eike Christian Karbe <eichkarbe@yahoo.de>",
 	"engines": {
@@ -41,12 +41,12 @@
 				"redditviewer.title": {
 					"type": "string",
 					"default": "Reddit",
-					"description": "Set the title of the Reddit-Viewer window."
+					"description": "Set the title of the Reddit-Viewer window"
 				},
 				"redditviewer.defaultSort": {
 					"type": "string",
 					"default": "hot",
-					"description": "Set the default sorting of subreddits."
+					"description": "Set the default sorting of subreddits"
 				},
 				"redditviewer.defaultInterval": {
 					"type": "string",
@@ -56,17 +56,24 @@
 				"redditviewer.defaultSubreddit": {
 					"type": "string",
 					"default": "all",
-					"description": "Set the default subreddit that is entered in search and used if the landing page is disabled."
+					"description": "Set the default subreddit that is entered in search and used if the landing page is disabled"
+				},
+				"redditviewer.limitation": {
+					"type": "integer",
+					"minimum": 1,
+					"maximum": 100,
+					"default": 25,
+					"description": "Set the amount of articles to be loaded in a subreddit page"
 				},
 				"redditviewer.help": {
 					"type": "boolean",
 					"default": true,
-					"description": "Set if the help panel is displayed on the landing page."
+					"description": "Set if the help panel is displayed on the landing page"
 				},
 				"redditviewer.landingPage": {
 					"type": "boolean",
 					"default": true,
-					"description": "Set if the landing page should be loaded on activation or the default subreddit should be loaded."
+					"description": "Set if the landing page should be loaded on activation or the default subreddit should be loaded"
 				}
 			}
 		}

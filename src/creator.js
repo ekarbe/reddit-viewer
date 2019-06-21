@@ -24,18 +24,19 @@ function createLandingpageView(config) {
 }
 
 // creates the subreddit view html string
-function createSubredditView(subreddit, sort, interval) {
+function createSubredditView(data) {
   return new Promise((resolve, reject) => {
-    api.getSubreddit(subreddit, sort, interval)
+    api.getSubreddit(data.subreddit, data.sort, data.interval, data.limit, data.count, data.after, data.before)
        .then(response => {
-        let html = templates.head(stylesheetPath)+templates.home()+templates.sort();
-        if (sort === 'top' || sort === 'controversial') {
-          html += templates.time();
+        let articles = response.data.children;
+        let html = templates.head(stylesheetPath)+templates.home()+templates.sort(data.sort);
+        if (data.sort === 'top' || data.sort === 'controversial') {
+          html += templates.time(data.interval);
         }
-        for (let i in response) {
-          html += templates.article(response[i].data);
+        for (let i in articles) {
+          html += templates.article(articles[i].data);
         }
-        html += templates.tail();
+        html += templates.pagination(response.data.after, response.data.before)+templates.tail();
         resolve(html);
        })
        .catch(error => {

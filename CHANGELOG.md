@@ -40,3 +40,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Removed empty panel as it is never used
 - Search triggered when enter is pressed
+
+## [1.3.0]
+
+- Added pagination
+- Added highlighting of current sortation

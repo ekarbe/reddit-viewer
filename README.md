@@ -32,6 +32,7 @@ This extension contributes the following settings:
 * `redditviewer.defaultSort`: Set the default sorting of Subreddits
 * `redditviewer.defaultInterval`: Set the default interval of sorting
 * `redditviewer.defaultSubreddit`: Set the default Subreddit that is prefilled in the search and used if the landing page is disabled
+* `redditviewer.limitation`: Set the amount of articles to be loaded in a subreddit page
 * `redditviewer.help`: enable/disable the help panel on the landing page
 * `redditviewer.landingPage`: enable/disable the landing page
 
@@ -65,6 +66,11 @@ Initial release of Reddit-Viewer
 * Added more media types to preview
 * Added better media handling
 * Added comment chain
+
+### 1.3.0
+
+* Added pagination
+* Highlighting of sortation
 
 ## Shoutout
 

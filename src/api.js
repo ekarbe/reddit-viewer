@@ -7,14 +7,14 @@ const web = axios.create({
 });
 
 // requests the subreddit data
-function getSubreddit(subreddit, sort, interval){
+function getSubreddit(subreddit, sort, interval, limit, count, after, before){
   return new Promise((resolve, reject) => {
-  web.get(`https://reddit.com/r/${subreddit}/${sort}.json?t=${interval}`)
+  web.get(`https://reddit.com/r/${subreddit}/${sort}.json?t=${interval}&limit=${limit}&count=${count}${after ? '&after=' + after : ''}${before ? '&before=' + before : ''}`)
     .then(response => {
       if(response.data.data.children.length === 0) {
         reject("empty or unvailable subreddit");
       }
-      resolve(response.data.data.children);
+      resolve(response.data);
     })
     .catch(error => {
       reject(error);

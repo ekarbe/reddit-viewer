@@ -89,7 +89,7 @@ function subreddit(subreddit) {
 }
 
 // panel to display sort options
-function sort() {
+function sort(selectedSort) {
   let sorts = ["hot", "new", "controversial", "top", "rising"];
 
   let html = `
@@ -102,9 +102,17 @@ function sort() {
   for (let i=0; i<sorts.length; i++) {
     html += `
     <a onclick="handleMessageSending('${sorts[i]}', 'sort')">
-      <span class="string-color">"${sorts[i]}"</span>
-    </a>
-    `;
+    `
+    // highlight selection
+    if (sorts[i] === selectedSort) {
+      html += `<span class="argument-color">"${sorts[i]}"</span>
+      </a>
+      `;
+    }else{
+      html += `<span class="string-color">"${sorts[i]}"</span>
+      </a>
+      `;
+    }
 
     if (i !== sorts.length-1){
       html += `<span class="variable-color">,</span>`;
@@ -119,7 +127,7 @@ function sort() {
 }
 
 // panel to display time options
-function time() {
+function time(selectedInterval) {
   let intervals = ["hour", "day", "week", "month", "year", "all"];
 
   let html = `
@@ -131,17 +139,30 @@ function time() {
 
   for (let i=0; i<intervals.length; i++) {
     html +=`
-    <a onclick="handleMessageSending('${intervals[i]}', 'interval')"
-      <span class="string-color">"${intervals[i]}"</span>
-    </a>  
+    <a onclick="handleMessageSending('${intervals[i]}', 'interval')"  
     `;
+    // highlight selection
+    if (intervals[i] === selectedInterval) {
+      html += `
+      <span class="argument-color">"${intervals[i]}"</span>
+      </a>
+      `;
+    } else {
+      html += `
+      <span class="string-color">"${intervals[i]}"</span>
+      </a>
+      `;
+    }
 
     if (i !== intervals.length-1){
-      html += `<span class="variable-color">,</span>`;
+      html += `<span class="variable-color">,</span>
+      `;
     }
   }
+
   html += `
-  <span class="bracket-color">]</span><span class="variable-color">;</span>`;
+  <span class="bracket-color">]</span><span class="variable-color">;</span>
+  `;
   return html;
 }
 
@@ -320,6 +341,41 @@ function article(data) {
     </p>
   </div>
   `;
+}
+
+// panel to paginate subreddits
+function pagination(after, before) {
+  let html = `
+  <p>
+    <span class="operator-color">module</span><span class="variable-color">.</span><span class="function-color">exports</span>
+    <span class="operator-color">=</span>
+    <span class="bracket-color">{</span>
+
+    </br>
+  `;
+
+  if(before !== null){
+  html += `
+      <a onclick="handleMessageSending('${before}', 'prev')">
+        <span class="variable-color">&nbsp; &nbsp; prev,</span>
+      </a>
+
+    </br>
+  `;
+  }
+  
+  html += `
+      <a onclick="handleMessageSending('${after}', 'next')">
+        <span class="variable-color">&nbsp; &nbsp; next</span>
+      </a>
+
+    </br>
+
+    <span class="bracket-color">}</span>
+  </p>
+  `;
+
+  return html;
 }
 
 // panel to display article details
@@ -522,6 +578,7 @@ module.exports = {
   project,
   trending,
   search,
+  pagination,
   article,
   articleDetails,
   comment,

@@ -2,7 +2,7 @@
 	"name": "reddit-viewer",
 	"displayName": "Reddit Viewer",
 	"description": "Browse Reddit in code style",
-	"version": "1.3.0",
+	"version": "1.3.1",
 	"publisher": "ekarbe",
 	"author": "Eike Christian Karbe <eichkarbe@yahoo.de>",
 	"engines": {
@@ -50,7 +50,7 @@
 				},
 				"redditviewer.defaultInterval": {
 					"type": "string",
-					"default": "last24hours",
+					"default": "day",
 					"description": "Set the default interval of subreddits"
 				},
 				"redditviewer.defaultSubreddit": {

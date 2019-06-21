@@ -45,3 +45,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Added pagination
 - Added highlighting of current sortation
+
+## [1.3.1]
+
+- Fixed wrong default value for default interval

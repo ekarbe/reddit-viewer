@@ -50,7 +50,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Fixed wrong default value for default interval
 
-## [Unreleased]
+## [1.3.2]
 
 - Reset all temporary variables if window is closed
 - Update configuration without reload

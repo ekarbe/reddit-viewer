@@ -1,6 +1,6 @@
 // templates.js provides the panel templates for creating the html views
 
-const media = require('./media');
+const media = require("./media");
 
 // essential panel to load all resources
 function head(stylesheet) {
@@ -99,22 +99,22 @@ function sort(selectedSort) {
     <span class="bracket-color">[</span>
   `;
 
-  for (let i=0; i<sorts.length; i++) {
+  for (let i = 0; i < sorts.length; i++) {
     html += `
     <a onclick="handleMessageSending('${sorts[i]}', 'sort')">
-    `
+    `;
     // highlight selection
     if (sorts[i] === selectedSort) {
       html += `<span class="argument-color">"${sorts[i]}"</span>
       </a>
       `;
-    }else{
+    } else {
       html += `<span class="string-color">"${sorts[i]}"</span>
       </a>
       `;
     }
 
-    if (i !== sorts.length-1){
+    if (i !== sorts.length - 1) {
       html += `<span class="variable-color">,</span>`;
     }
   }
@@ -137,8 +137,8 @@ function time(selectedInterval) {
     <span class="bracket-color">[</span>
   `;
 
-  for (let i=0; i<intervals.length; i++) {
-    html +=`
+  for (let i = 0; i < intervals.length; i++) {
+    html += `
     <a onclick="handleMessageSending('${intervals[i]}', 'interval')"  
     `;
     // highlight selection
@@ -154,7 +154,7 @@ function time(selectedInterval) {
       `;
     }
 
-    if (i !== intervals.length-1){
+    if (i !== intervals.length - 1) {
       html += `<span class="variable-color">,</span>
       `;
     }
@@ -270,7 +270,7 @@ function trending(subreddits) {
     `;
 
     if (i !== subreddits.length - 1) {
-      html += `<span class="variable-color">,</span>`
+      html += `<span class="variable-color">,</span>`;
     }
   }
 
@@ -280,7 +280,7 @@ function trending(subreddits) {
     </br>
     
     <span class="bracket-color">}</span>
-  `
+  `;
 
   return html;
 }
@@ -325,12 +325,16 @@ function article(data) {
         <span class="keyword-color">let </span>
       </a>
       <span class="variable-color">
-        <a onclick="handleMessageSending('${data.subreddit},${data.id}', 'article')">${data.id}</a>
+        <a onclick="handleMessageSending('${data.subreddit},${
+    data.id
+  }', 'article')">${data.id}</a>
       </span>
       <span class="string-color">
         <span class="bracket-color">(</span>
         "${data.title}"<span class="variable-color">,</span>
-        <span class="argument-color">${data.author}</span><span class="variable-color">,</span>
+        <span class="argument-color">${
+          data.author
+        }</span><span class="variable-color">,</span>
         <span class="bracket-color"> { </span>
         <span class="variable-color"> ${data.subreddit}</span>
         <span class="bracket-color"> } </span>
@@ -354,8 +358,8 @@ function pagination(after, before) {
     </br>
   `;
 
-  if(before !== null){
-  html += `
+  if (before !== null) {
+    html += `
       <a onclick="handleMessageSending('${before}', 'prev')">
         <span class="variable-color">&nbsp; &nbsp; prev,</span>
       </a>
@@ -363,7 +367,7 @@ function pagination(after, before) {
     </br>
   `;
   }
-  
+
   html += `
       <a onclick="handleMessageSending('${after}', 'next')">
         <span class="variable-color">&nbsp; &nbsp; next</span>
@@ -398,7 +402,9 @@ function articleDetails(data) {
   
   <span class="keyword-color">&nbsp; &nbsp; let</span>
   <span class="variable-color">score =</span>
-  <span class="string-color">${data.score}</span><span class="variable-color">;</span>
+  <span class="string-color">${
+    data.score
+  }</span><span class="variable-color">;</span>
   
   </br>
   
@@ -427,7 +433,7 @@ function articleDetails(data) {
   `;
 
   // handle media
-  if(media.isMedia(data)) {
+  if (media.isMedia(data)) {
     html += media.createMediaHTML(data);
   }
 
@@ -437,7 +443,7 @@ function articleDetails(data) {
   </br>
   
   <span class="bracket-color">}</span>
-  `
+  `;
 
   return html;
 }
@@ -455,11 +461,15 @@ function comment(comment) {
       </br>
 
         <div id="${comment.data.id}" style="display: none">
-          <span class="variable-color">&nbsp; &nbsp; score: ${comment.data.score};</span>
+          <span class="variable-color">&nbsp; &nbsp; score: ${
+            comment.data.score
+          };</span>
       
           </br>
       
-          <span class="variable-color">&nbsp; &nbsp; body: ${comment.data.body};</span>
+          <span class="variable-color">&nbsp; &nbsp; body: ${
+            comment.data.body
+          };</span>
       
           </br>
       
@@ -482,7 +492,7 @@ function comment(comment) {
 
     // recursive childComment function to add all child comments
     html += childComment(comment.data);
-    
+
     html += `
     </div>
     <span class="bracket-color">&nbsp; &nbsp; }</span>
@@ -506,27 +516,33 @@ function childComment(comment) {
     return;
   }
 
-  let html = '';
+  let html = "";
 
-  for (let i=0; i<comment.replies.data.children.length; i++) {
-    for(let j=0; j<comment.replies.data.children[i].data.depth; j++) {
+  for (let i = 0; i < comment.replies.data.children.length; i++) {
+    for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
       html += `&nbsp; &nbsp; &nbsp; &nbsp;`;
     }
 
     html += `
       <span class="keyword-color"> case</span>
-        <a onclick=collapseDiv('comment-${comment.replies.data.children[i].data.id}')>
-          <span class="string-color">'${comment.replies.data.children[i].data.author}'</span>
+        <a onclick=collapseDiv('comment-${
+          comment.replies.data.children[i].data.id
+        }')>
+          <span class="string-color">'${
+            comment.replies.data.children[i].data.author
+          }'</span>
         </a>
       <span class="variable-color">:</span>
       
       </br>
       
-        <div id="comment-${comment.replies.data.children[i].data.id}" style="display: none">
+        <div id="comment-${
+          comment.replies.data.children[i].data.id
+        }" style="display: none">
           <span class="variable-color">
     `;
 
-    for(let j=0; j<comment.replies.data.children[i].data.depth; j++) {
+    for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
       html += `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`;
     }
 
@@ -538,13 +554,15 @@ function childComment(comment) {
       <span class="keyword-color">
     `;
 
-    for(let j=0; j<comment.replies.data.children[i].data.depth; j++) {
+    for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
       html += `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`;
     }
 
     html += `
       this</span><span class="variable-color">.open</span><span class="bracket-color">(</span>
-      <span class="variable-color">${comment.replies.data.children[i].data.score}</span>
+      <span class="variable-color">${
+        comment.replies.data.children[i].data.score
+      }</span>
       <span class="bracket-color">)</span><span class="variable-color">;</span>
       
       </br>
@@ -556,7 +574,7 @@ function childComment(comment) {
 
     html += `</div>`;
   }
-  
+
   return html;
 }
 
@@ -583,4 +601,4 @@ module.exports = {
   articleDetails,
   comment,
   tail
-}
+};

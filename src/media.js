@@ -1,32 +1,34 @@
 // media.js provides functions to create media objects
 
-const logger = require('./logger');
+const logger = require("./logger");
 
 // checks if the article is media
-function isMedia(data){
-  return (data.media !== null || data.url.match(/(.jpg)|(.png)|(.gif\b)|(.gifv\b)/g))
+function isMedia(data) {
+  return (
+    data.media !== null || data.url.match(/(.jpg)|(.png)|(.gif\b)|(.gifv\b)/g)
+  );
 }
 
 // creates html string for media
-function createMediaHTML(data){
+function createMediaHTML(data) {
   if (data.url.match(/(.jpg)|(.png)/g)) {
     return createImageHTML(data.url);
   }
-  if (data.url.match(/(.gif\b)|(.gifv\b)/g)){
+  if (data.url.match(/(.gif\b)|(.gifv\b)/g)) {
     return createGifHTML(data);
   }
-  if (data.media.oembed){
+  if (data.media.oembed) {
     return createIframeHTML(data.media);
   }
-  if (data.media.reddit_video){
-    return createVideoHTML(data.media.reddit_video)
+  if (data.media.reddit_video) {
+    return createVideoHTML(data.media.reddit_video);
   }
   logger.error("couldn't create media panel");
   return null;
 }
 
 // creates html string for image files
-function createImageHTML(url){
+function createImageHTML(url) {
   return `
   <a class="function-color" onclick=collapseDiv('imgContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a>
   <span class="bracket-color">() {</span>
@@ -40,7 +42,7 @@ function createImageHTML(url){
 }
 
 // creates html string for embedded media
-function createIframeHTML(media){
+function createIframeHTML(media) {
   let videohtml = media.oembed.html;
 
   // decode html
@@ -65,7 +67,7 @@ function createIframeHTML(media){
 }
 
 // creates html string for dash url videos
-function createVideoHTML(reddit_video){
+function createVideoHTML(reddit_video) {
   return `
   <a class="function-color" onclick=collapseDiv('videoContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a>
   <span class="bracket-color">() {</span>
@@ -79,12 +81,14 @@ function createVideoHTML(reddit_video){
 }
 
 // creates html string for gifv
-function createGifHTML(data){
+function createGifHTML(data) {
   return `
   <a class="function-color" onclick=collapseDiv('gifContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a>
   <span class="bracket-color">() {</span>
     <div id="gifContainer" style="display: none">
-      <iframe src=${data.url} frameborder="0" scrolling="no" width="${data.preview.images[0].source.width}" height="${data.preview.images[0].source.height}"></iframe>
+      <iframe src=${data.url} frameborder="0" scrolling="no" width="${
+    data.preview.images[0].source.width
+  }" height="${data.preview.images[0].source.height}"></iframe>
     </div>
   <span class="bracket-color">}</span>
   
@@ -95,4 +99,4 @@ function createGifHTML(data){
 module.exports = {
   isMedia,
   createMediaHTML
-}
+};

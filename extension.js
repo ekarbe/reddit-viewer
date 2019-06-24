@@ -260,6 +260,40 @@ function activate(context) {
         undefined,
         context.subscriptions
       );
+      // reset currents if window is closed
+      panel.onDidDispose(() => {
+        currentSubreddit = config.defaultSubreddit;
+        currentSort = config.defaultSort;
+        currentInterval = config.defaultInterval;
+        currentAfter = null;
+        currentBefore = null;
+        currentCount = 0;
+      });
+      // update configuration on change
+      vscode.workspace.onDidChangeConfiguration(change => {
+        if (change.affectsConfiguration("redditviewer")) {
+          // reopen only needed for title change
+          if (
+            config.title !==
+              vscode.workspace.getConfiguration("redditviewer").title &&
+            !panel._isDisposed
+          ) {
+            const action = `Reopen`;
+            vscode.window
+              .showInformationMessage(
+                `Reopen Reddit-Viewer for configuration to take effect.`,
+                action
+              )
+              .then(selectedAction => {
+                if (selectedAction === action) {
+                  panel.dispose();
+                  vscode.commands.executeCommand("extension.reddit");
+                }
+              });
+          }
+          config = vscode.workspace.getConfiguration("redditviewer");
+        }
+      });
     }
   );
 

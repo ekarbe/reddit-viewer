@@ -49,3 +49,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [1.3.1]
 
 - Fixed wrong default value for default interval
+
+## [Unreleased]
+
+- Reset all temporary variables if window is closed
+- Update configuration without reload

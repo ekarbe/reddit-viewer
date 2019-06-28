@@ -48,6 +48,7 @@ This extension contributes the following settings:
 
 - Full video support
 - Account Management -> Login, Voting etc.
+- Extended comment loading
 
 ## Release Notes
 

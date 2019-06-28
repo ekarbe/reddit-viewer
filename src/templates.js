@@ -519,11 +519,12 @@ function childComment(comment) {
   let html = "";
 
   for (let i = 0; i < comment.replies.data.children.length; i++) {
-    for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
-      html += `&nbsp; &nbsp; &nbsp; &nbsp;`;
-    }
+    if (comment.replies.data.children[i].kind !== "more") {
+      for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
+        html += `&nbsp; &nbsp; &nbsp; &nbsp;`;
+      }
 
-    html += `
+      html += `
       <span class="keyword-color"> case</span>
         <a onclick=collapseDiv('comment-${
           comment.replies.data.children[i].data.id
@@ -542,11 +543,11 @@ function childComment(comment) {
           <span class="variable-color">
     `;
 
-    for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
-      html += `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`;
-    }
+      for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
+        html += `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`;
+      }
 
-    html += `
+      html += `
       body: ${comment.replies.data.children[i].data.body}</span>
       
       </br>
@@ -554,11 +555,11 @@ function childComment(comment) {
       <span class="keyword-color">
     `;
 
-    for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
-      html += `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`;
-    }
+      for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
+        html += `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`;
+      }
 
-    html += `
+      html += `
       this</span><span class="variable-color">.open</span><span class="bracket-color">(</span>
       <span class="variable-color">${
         comment.replies.data.children[i].data.score
@@ -568,11 +569,12 @@ function childComment(comment) {
       </br>
     `;
 
-    if (comment.replies.data.children[i].data.replies !== "") {
-      html += childComment(comment.replies.data.children[i].data);
-    }
+      if (comment.replies.data.children[i].data.replies !== "") {
+        html += childComment(comment.replies.data.children[i].data);
+      }
 
-    html += `</div>`;
+      html += `</div>`;
+    }
   }
 
   return html;

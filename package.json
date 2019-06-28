@@ -2,7 +2,7 @@
   "name": "reddit-viewer",
   "displayName": "Reddit Viewer",
   "description": "Browse Reddit in code style",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "publisher": "ekarbe",
   "author": "Eike Christian Karbe <eichkarbe@yahoo.de>",
   "engines": {
@@ -46,16 +46,23 @@
         "redditviewer.defaultSort": {
           "type": "string",
           "default": "hot",
+          "examples": ["hot", "new", "controversial", "top", "rising"],
+          "pattern": "(^hot$|^new$|^controversial$|^top$|^rising$)",
           "description": "Set the default sorting of subreddits"
         },
         "redditviewer.defaultInterval": {
           "type": "string",
           "default": "day",
+          "examples": ["hour", "day", "week", "month", "year", "all"],
+          "pattern": "(^hour$|^day$|^week$|^month$|^year$|^all$)",
           "description": "Set the default interval of subreddits"
         },
         "redditviewer.defaultSubreddit": {
           "type": "string",
           "default": "all",
+          "pattern": "^[A-Za-z0-9_]+$",
+          "minLength": 3,
+          "maxLength": 21,
           "description": "Set the default subreddit that is entered in search and used if the landing page is disabled"
         },
         "redditviewer.limitation": {

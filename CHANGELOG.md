@@ -54,3 +54,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Reset all temporary variables if window is closed
 - Update configuration without reload
+
+## [1.3.3]
+
+- Removed undefined comments
+- Added configuration validation

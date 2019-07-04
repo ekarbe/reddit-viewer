@@ -2,7 +2,7 @@
   "name": "reddit-viewer",
   "displayName": "Reddit Viewer",
   "description": "Browse Reddit in code style",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "publisher": "ekarbe",
   "author": "Eike Christian Karbe <eichkarbe@yahoo.de>",
   "engines": {
@@ -46,14 +46,27 @@
         "redditviewer.defaultSort": {
           "type": "string",
           "default": "hot",
-          "examples": ["hot", "new", "controversial", "top", "rising"],
+          "examples": [
+            "hot",
+            "new",
+            "controversial",
+            "top",
+            "rising"
+          ],
           "pattern": "(^hot$|^new$|^controversial$|^top$|^rising$)",
           "description": "Set the default sorting of subreddits"
         },
         "redditviewer.defaultInterval": {
           "type": "string",
           "default": "day",
-          "examples": ["hour", "day", "week", "month", "year", "all"],
+          "examples": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ],
           "pattern": "(^hour$|^day$|^week$|^month$|^year$|^all$)",
           "description": "Set the default interval of subreddits"
         },
@@ -85,16 +98,11 @@
       }
     }
   },
-  "scripts": {
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "node ./node_modules/vscode/bin/test"
-  },
   "devDependencies": {
-    "@types/mocha": "^2.2.42",
-    "@types/node": "^10.12.21",
-    "eslint": "^5.13.0",
-    "typescript": "^3.3.1",
-    "vscode": "^1.1.28"
+    "@types/node": "~12.0.0",
+    "@types/vscode": "1.35.0",
+    "eslint": "~6.0.0",
+    "typescript": "^3.3.1"
   },
   "dependencies": {
     "axios": "^0.19.0"

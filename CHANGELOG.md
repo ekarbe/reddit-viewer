@@ -59,3 +59,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Removed undefined comments
 - Added configuration validation
+
+## [1.3.4]
+
+- Migrated to new vscode package structure
+- Removed unused tests

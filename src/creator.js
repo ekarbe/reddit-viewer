@@ -18,7 +18,7 @@ function createLandingpageView(config) {
         if (config.help) {
           html += templates.help();
         }
-        html += templates.project() + templates.tail();
+        html += templates.project() + templates.login() + templates.tail();
         resolve(html);
       })
       .catch(error => {

@@ -55,8 +55,31 @@ function getTrendingSubreddits() {
   });
 }
 
+function userLogin(username, password) {
+  return new Promise((resolve, reject) => {
+    // create login request with encoded password
+    let url = `https://ssl.reddit.com/api/login/${username}?api_type=json&user=${username}&passwd=${encodeURIComponent(
+      password
+    )}`;
+    web
+      .post(url)
+      .then(response => {
+        console.log(response.data);
+        if (response.data.json.data !== undefined) {
+          resolve(response.data.json.data.cookie);
+        } else {
+          reject();
+        }
+      })
+      .catch(() => {
+        reject();
+      });
+  });
+}
+
 module.exports = {
   getSubreddit,
   getArticle,
-  getTrendingSubreddits
+  getTrendingSubreddits,
+  userLogin
 };

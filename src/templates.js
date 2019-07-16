@@ -30,7 +30,14 @@ function head(stylesheet) {
 		function submitSearch() {
 			const searchFieldText = document.getElementById('search_input').value;
 			handleMessageSending(searchFieldText, 'search');
-		}
+    }
+    
+    // Login
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      handleMessageSending(username + "," + password, 'login');
+    }
 
 		// Collapse divs
 		function collapseDiv(divid) {
@@ -264,7 +271,7 @@ function trending(subreddits) {
   // add a clickable array entry for every given subreddit
   for (let i = 0; i < subreddits.length; i++) {
     html += `
-    <a href="#" onclick="handleMessageSending('${subreddits[i]}', 'search')">
+    <a onclick="handleMessageSending('${subreddits[i]}', 'search')">
       <span class="string-color">"${subreddits[i]}"</span>
     </a>
     `;
@@ -580,6 +587,25 @@ function childComment(comment) {
   return html;
 }
 
+// login panel
+function login() {
+  return `
+  <span class="keyword-color">if</span>
+  <span class="bracket-color">(</span>
+  <span class="variable-color">!session</span>
+  <span class="bracket-color">) {</span>
+  </br>
+  <span>&nbsp; &nbsp;<a class="function-color" onclick="login()">login</a></span><span class="bracket-color">(</span>
+  <span class="variable-color">user:</span>
+  <input type="text" id="username"></input>
+  <span class="variable-color">, pass:</span>
+  <input type="password" id="password"></input>
+  <span class="bracket-color">)</span><span class="variable-color">;</span>
+  </br>
+  <span class="bracket-color">}</span>
+  `;
+}
+
 // essential panel to close html
 function tail() {
   return `
@@ -602,5 +628,6 @@ module.exports = {
   article,
   articleDetails,
   comment,
+  login,
   tail
 };

@@ -1,7 +1,10 @@
 const vscode = require("vscode");
 const path = require("path");
 const creator = require("./src/creator");
+const api = require("./src/api");
 const logger = require("./src/logger");
+
+let cookie = null;
 
 let config = vscode.workspace.getConfiguration("redditviewer");
 let currentSubreddit = config.defaultSubreddit;
@@ -248,6 +251,21 @@ function activate(context) {
                 })
                 .catch(error => {
                   logger.error(error);
+                });
+              break;
+            case "login":
+              // parse login data
+              let explodedString = message.text.split(",");
+              let username = explodedString[0];
+              let password = explodedString[1];
+              api
+                .userLogin(username, password)
+                .then(response => {
+                  // write cookie to globalState
+                  context.globalState.update("cookie", response);
+                })
+                .catch(() => {
+                  logger.error("Login failed!");
                 });
               break;
             default:

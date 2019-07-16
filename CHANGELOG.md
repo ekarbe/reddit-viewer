@@ -64,3 +64,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Migrated to new vscode package structure
 - Removed unused tests
+
+## [Unreleased]
+
+- Added login panel
+- Session cookie saves to globalState

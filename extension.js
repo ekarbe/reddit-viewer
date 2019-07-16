@@ -263,6 +263,7 @@ function activate(context) {
                 .then(response => {
                   // write cookie to globalState
                   context.globalState.update("cookie", response);
+                  logger.info("Login successful");
                 })
                 .catch(() => {
                   logger.error("Login failed!");

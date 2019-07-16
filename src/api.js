@@ -55,6 +55,7 @@ function getTrendingSubreddits() {
   });
 }
 
+// request a user login with given username and password
 function userLogin(username, password) {
   return new Promise((resolve, reject) => {
     // create login request with encoded password
@@ -64,9 +65,30 @@ function userLogin(username, password) {
     web
       .post(url)
       .then(response => {
-        console.log(response.data);
         if (response.data.json.data !== undefined) {
           resolve(response.data.json.data.cookie);
+        } else {
+          reject();
+        }
+      })
+      .catch(() => {
+        reject();
+      });
+  });
+}
+
+// checks if current session is valid
+function checkSession(cookie) {
+  return new Promise((resolve, reject) => {
+    web
+      .get(`https://reddit.com/.json`, {
+        headers: {
+          Cookie: `reddit_session=${encodeURIComponent(cookie)}`
+        }
+      })
+      .then(response => {
+        if (response.data.data.modhash) {
+          resolve();
         } else {
           reject();
         }
@@ -81,5 +103,6 @@ module.exports = {
   getSubreddit,
   getArticle,
   getTrendingSubreddits,
-  userLogin
+  userLogin,
+  checkSession
 };

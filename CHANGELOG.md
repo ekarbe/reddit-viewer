@@ -70,3 +70,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added login panel
 - Session cookie saves to globalState
 - Added session checking
+- Added logout

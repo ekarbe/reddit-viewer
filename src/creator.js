@@ -6,7 +6,7 @@ const api = require("./api");
 let stylesheetPath;
 
 // creates the landing page html string
-function createLandingpageView(config) {
+function createLandingpageView(config, session) {
   return new Promise((resolve, reject) => {
     api
       .getTrendingSubreddits()
@@ -18,7 +18,13 @@ function createLandingpageView(config) {
         if (config.help) {
           html += templates.help();
         }
-        html += templates.project() + templates.login() + templates.tail();
+        html += templates.project();
+        if (session) {
+          html += templates.logout();
+        } else {
+          html += templates.login();
+        }
+        html += templates.tail();
         resolve(html);
       })
       .catch(error => {

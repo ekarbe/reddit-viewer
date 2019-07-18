@@ -4,8 +4,6 @@ const creator = require("./src/creator");
 const api = require("./src/api");
 const logger = require("./src/logger");
 
-let cookie = null;
-
 let config = vscode.workspace.getConfiguration("redditviewer");
 let currentSubreddit = config.defaultSubreddit;
 let currentSort = config.defaultSort;
@@ -22,6 +20,16 @@ function activate(context) {
   let disposable = vscode.commands.registerCommand(
     "extension.reddit",
     function() {
+      let activeSession = false;
+      api
+        .checkSession(context.globalState.get("cookie"))
+        .then(() => {
+          activeSession = true;
+        })
+        .catch(() => {
+          activeSession = false;
+        });
+
       // create the window with title from config
       let panel = vscode.window.createWebviewPanel(
         "redditviewer",
@@ -44,7 +52,7 @@ function activate(context) {
       // create the landing page if it's enabled in config
       if (config.landingPage) {
         creator
-          .createLandingpageView(config)
+          .createLandingpageView(config, activeSession)
           .then(response => {
             panel.webview.html = response;
           })
@@ -61,7 +69,8 @@ function activate(context) {
             limit: config.limitation,
             count: currentCount,
             after: null,
-            before: null
+            before: null,
+            session: activeSession
           })
           .then(response => {
             panel.webview.html = response;
@@ -83,7 +92,7 @@ function activate(context) {
               currentCount = 0;
 
               creator
-                .createLandingpageView(config)
+                .createLandingpageView(config, activeSession)
                 .then(response => {
                   panel.webview.html = response;
                 })
@@ -101,7 +110,8 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: activeSession
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -129,7 +139,8 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: activeSession
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -155,7 +166,8 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: activeSession
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -181,7 +193,8 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: activeSession
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -221,7 +234,8 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: activeSession
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -244,7 +258,8 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: activeSession
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -263,10 +278,34 @@ function activate(context) {
                 .then(response => {
                   // write cookie to globalState
                   context.globalState.update("cookie", response);
-                  logger.info("Login successful");
+                  activeSession = true;
+                  creator
+                    .createLandingpageView(config, activeSession)
+                    .then(response => {
+                      panel.webview.html = response;
+                      logger.info("Login successful");
+                    })
+                    .catch(error => {
+                      logger.error(error);
+                    });
                 })
                 .catch(() => {
                   logger.error("Login failed!");
+                });
+              break;
+            case "logout":
+              // remove cookie from globalState
+              context.globalState.update("cookie", "");
+              activeSession = false;
+              // create Landingpage again
+              creator
+                .createLandingpageView(config, activeSession)
+                .then(response => {
+                  panel.webview.html = response;
+                  logger.info("Logout successful");
+                })
+                .catch(error => {
+                  logger.error(error);
                 });
               break;
             default:
@@ -287,6 +326,7 @@ function activate(context) {
         currentAfter = null;
         currentBefore = null;
         currentCount = 0;
+        activeSession = false;
       });
       // update configuration on change
       vscode.workspace.onDidChangeConfiguration(change => {

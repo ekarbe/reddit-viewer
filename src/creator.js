@@ -77,7 +77,11 @@ function createArticleView(subreddit, articleID) {
           templates.subreddit(subreddit) +
           templates.articleDetails(articleDetails);
         for (let i = 0; i < comments.children.length; i++) {
+          comments.children[i].data.orginalPostAuthor = articleDetails.author;
           if (comments.children[i].kind !== "more") {
+            if (comments.children[i].data.author === articleDetails.author) {
+              comments.children[i].data.author += ' (OP)';
+            }
             html += templates.comment(comments.children[i]);
           }
         }

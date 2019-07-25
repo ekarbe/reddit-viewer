@@ -530,7 +530,9 @@ function childComment(comment) {
       for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
         html += `&nbsp; &nbsp; &nbsp; &nbsp;`;
       }
-
+      if (comment.replies.data.children[i].data.author === comment.orginalPostAuthor) {
+        comment.replies.data.children[i].data.author += ' (OP)';
+      }
       html += `
       <span class="keyword-color"> case</span>
         <a onclick=collapseDiv('comment-${

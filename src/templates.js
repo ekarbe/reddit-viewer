@@ -467,7 +467,7 @@ function comment(comment) {
       
       </br>
 
-        <div id="${comment.data.id}" style="display: none">
+        <div id="${comment.data.id}">
           <span class="variable-color">&nbsp; &nbsp; score: ${
             comment.data.score
           };</span>

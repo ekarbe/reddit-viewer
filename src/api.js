@@ -3,7 +3,7 @@
 const axios = require("axios");
 
 const web = axios.create({
-  timeout: 2000
+  timeout: 10000
 });
 
 // requests the subreddit data

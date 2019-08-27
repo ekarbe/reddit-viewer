@@ -20,14 +20,17 @@ function activate(context) {
   let disposable = vscode.commands.registerCommand(
     "extension.reddit",
     function() {
-      let activeSession = false;
+      let session = {
+        active: false,
+        username: context.globalState.get("activeUser")
+      };
       api
         .checkSession(context.globalState.get("cookie"))
         .then(() => {
-          activeSession = true;
+          session.active = true;
         })
         .catch(() => {
-          activeSession = false;
+          session.active = false;
         });
 
       // create the window with title from config
@@ -52,7 +55,7 @@ function activate(context) {
       // create the landing page if it's enabled in config
       if (config.landingPage) {
         creator
-          .createLandingpageView(config, activeSession)
+          .createLandingpageView(config, session)
           .then(response => {
             panel.webview.html = response;
           })
@@ -70,7 +73,7 @@ function activate(context) {
             count: currentCount,
             after: null,
             before: null,
-            session: activeSession
+            session: session
           })
           .then(response => {
             panel.webview.html = response;
@@ -92,7 +95,7 @@ function activate(context) {
               currentCount = 0;
 
               creator
-                .createLandingpageView(config, activeSession)
+                .createLandingpageView(config, session)
                 .then(response => {
                   panel.webview.html = response;
                 })
@@ -111,7 +114,7 @@ function activate(context) {
                   count: currentCount,
                   after: currentAfter,
                   before: currentBefore,
-                  session: activeSession
+                  session: session
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -140,7 +143,7 @@ function activate(context) {
                   count: currentCount,
                   after: currentAfter,
                   before: currentBefore,
-                  session: activeSession
+                  session: session
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -167,7 +170,7 @@ function activate(context) {
                   count: currentCount,
                   after: currentAfter,
                   before: currentBefore,
-                  session: activeSession
+                  session: session
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -194,7 +197,7 @@ function activate(context) {
                   count: currentCount,
                   after: currentAfter,
                   before: currentBefore,
-                  session: activeSession
+                  session: session
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -235,7 +238,7 @@ function activate(context) {
                   count: currentCount,
                   after: currentAfter,
                   before: currentBefore,
-                  session: activeSession
+                  session: session
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -259,7 +262,7 @@ function activate(context) {
                   count: currentCount,
                   after: currentAfter,
                   before: currentBefore,
-                  session: activeSession
+                  session: session
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -278,9 +281,11 @@ function activate(context) {
                 .then(response => {
                   // write cookie to globalState
                   context.globalState.update("cookie", response);
-                  activeSession = true;
+                  context.globalState.update("activeUser", username);
+                  session.active = true;
+                  session.username = username;
                   creator
-                    .createLandingpageView(config, activeSession)
+                    .createLandingpageView(config, session)
                     .then(response => {
                       panel.webview.html = response;
                       logger.info("Login successful");
@@ -296,10 +301,12 @@ function activate(context) {
             case "logout":
               // remove cookie from globalState
               context.globalState.update("cookie", "");
-              activeSession = false;
+              context.globalState.update("activeUser", undefined);
+              session.active = false;
+              session.username = undefined;
               // create Landingpage again
               creator
-                .createLandingpageView(config, activeSession)
+                .createLandingpageView(config, session)
                 .then(response => {
                   panel.webview.html = response;
                   logger.info("Logout successful");
@@ -326,7 +333,7 @@ function activate(context) {
         currentAfter = null;
         currentBefore = null;
         currentCount = 0;
-        activeSession = false;
+        session.active = false;
       });
       // update configuration on change
       vscode.workspace.onDidChangeConfiguration(change => {

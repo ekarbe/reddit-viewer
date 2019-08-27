@@ -19,8 +19,8 @@ function createLandingpageView(config, session) {
           html += templates.help();
         }
         html += templates.project();
-        if (session) {
-          html += templates.logout();
+        if (session.active) {
+          html += templates.logout(session.username);
         } else {
           html += templates.login();
         }

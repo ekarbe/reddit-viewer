@@ -594,7 +594,7 @@ function login() {
 }
 
 // logout panel
-function logout() {
+function logout(username) {
   return `
   <span class="keyword-color">if</span>
   <span class="bracket-color">(</span>
@@ -602,6 +602,7 @@ function logout() {
   <span class="bracket-color">) {</span>
   </br>
   <span>&nbsp; &nbsp;<a class="function-color" onclick="handleMessageSending('logout', 'logout')">logout</a></span><span class="bracket-color">(</span>
+  <span><a class="variable-color" onclick="handleMessageSending('${username}', 'user')">${username}</a></span>
   <span class="bracket-color">)</span><span class="variable-color">;</span>
   </br>
   <span class="bracket-color">}</span>

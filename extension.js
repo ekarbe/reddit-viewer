@@ -22,10 +22,11 @@ function activate(context) {
     function() {
       let session = {
         active: false,
-        username: context.globalState.get("activeUser")
+        username: context.globalState.get("activeUser"),
+        cookie: context.globalState.get("cookie")
       };
       api
-        .checkSession(context.globalState.get("cookie"))
+        .checkSession(session.cookie)
         .then(() => {
           session.active = true;
         })
@@ -212,7 +213,7 @@ function activate(context) {
             case "article":
               // message is subreddit,articleID
               let data = message.text.split(",");
-              if( data[0] === ""){
+              if (data[0] === "") {
                 data[0] = currentSubreddit;
               }
               creator
@@ -280,7 +281,7 @@ function activate(context) {
               // parse ref data
               explodedString = message.text.split(",");
               username = explodedString[0];
-              let view = explodedString[1]
+              let view = explodedString[1];
               let refLocation = explodedString[2];
               let refID = explodedString[3];
               creator
@@ -306,9 +307,10 @@ function activate(context) {
                 .userLogin(username, password)
                 .then(response => {
                   // write cookie to globalState
-                  context.globalState.update("cookie", response);
-                  context.globalState.update("activeUser", username);
                   session.active = true;
+                  context.globalState.update("cookie", response);
+                  session.cookie = response;
+                  context.globalState.update("activeUser", username);
                   session.username = username;
                   creator
                     .createLandingpageView(config, session)
@@ -326,9 +328,10 @@ function activate(context) {
               break;
             case "logout":
               // remove cookie from globalState
-              context.globalState.update("cookie", "");
-              context.globalState.update("activeUser", undefined);
               session.active = false;
+              context.globalState.update("cookie", "");
+              session.cookie = undefined;
+              context.globalState.update("activeUser", undefined);
               session.username = undefined;
               // create Landingpage again
               creator

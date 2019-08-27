@@ -81,6 +81,24 @@ function getUser(username, view) {
   });
 }
 
+// get the collections of the current user
+function getCollections(cookie) {
+  return new Promise((resolve, reject) => {
+    web
+      .get(`https://www.reddit.com/api/multi/mine`, {
+        headers: {
+          Cookie: `reddit_session=${encodeURIComponent(cookie)}`
+        }
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
 // request a user login with given username and password
 function userLogin(username, password) {
   return new Promise((resolve, reject) => {
@@ -130,6 +148,7 @@ module.exports = {
   getArticle,
   getTrendingSubreddits,
   getUser,
+  getCollections,
   userLogin,
   checkSession
 };

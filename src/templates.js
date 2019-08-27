@@ -704,6 +704,35 @@ function userAbout(data) {
   `;
 }
 
+function collectionsNav(collections) {
+  let html = `
+  <span class="keyword-color">function</span>
+  <span class="function-color">collections</span><span class="bracket-color">() {</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="keyword-color">return</span>
+  <span class="bracket-color">[</span>
+  `;
+  for (let i in collections) {
+    if (i != collections.length - 1) {
+      html += `
+    <span><a class="string-color">"${collections[i].data.display_name}"</a></span><span class="variable-color">,</span>
+    `;
+    } else {
+      html += `
+    <span><a class="string-color">"${collections[i].data.display_name}"</a></span>
+    `;
+    }
+  }
+  html += `
+  <span class="bracket-color">]</span><span class="variable-color">;</span>
+  </br>
+  <span class="bracket-color">}</span>
+  </br>
+  </br>
+  `
+  return html;
+}
+
 // empty exception panel
 function empty(type) {
   return `
@@ -757,6 +786,7 @@ module.exports = {
   logout,
   userAbout,
   userNav,
+  collectionsNav,
   empty,
   tail
 };

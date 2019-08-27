@@ -20,12 +20,23 @@ function createLandingpageView(config, session) {
         }
         html += templates.project();
         if (session.active) {
-          html += templates.logout(session.username);
+          api
+            .getCollections(session.cookie)
+            .then(response => {
+              let collections = response;
+              if (collections.length != 0) {
+                html += templates.collectionsNav(collections);
+              }
+              html += templates.logout(session.username);
+              html += templates.tail();
+              resolve(html);
+            })
+            .catch(error => {});
         } else {
           html += templates.login();
+          html += templates.tail();
+          resolve(html);
         }
-        html += templates.tail();
-        resolve(html);
       })
       .catch(error => {
         reject(error);

@@ -624,27 +624,110 @@ function logout(username) {
   `;
 }
 
+// user page navigation panel
 function userNav(data) {
-  return `
+  let html = `
   <span class="keyword-color">function</span>
   <span class="function-color">user</span><span class="bracket-color">(</span>
   <span class="variable-color">${data.username}</span><span class="bracket-color">) {</span>
   </br>
-  <span>&nbsp; &nbsp; <span class="keyword-color">return</span>
+  <span>&nbsp; &nbsp; <span class="keyword-color">return</span></span>
   <span class="bracket-color">[</span>
-  <span class="string-color"><a onclick="handleMessageSending('${data.username},about,${data.refLocation},${data.refID}', 'user')">"About"</a></span><span class="variable-color">,</span>
-  <span class="string-color"><a onclick="handleMessageSending('${data.username},posts,${data.refLocation},${data.refID}', 'user')">"Posts"</a></span><span class="variable-color">,</span>
-  <span class="string-color"><a onclick="handleMessageSending('${data.username},comments,${data.refLocation},${data.refID}', 'user')">"Comments"</a></span>
+  <span><a `;
+  if (data.view === "about") {
+    html += `class="keyword-color"`;
+  } else {
+    html += `class="string-color"`;
+  }
+  html += ` onclick="handleMessageSending('${data.username},about,${data.refLocation},${data.refID}', 'user')">"About"</a></span><span class="variable-color">,</span>
+  <span><a `;
+  if (data.view === "posts") {
+    html += `class="keyword-color"`;
+  } else {
+    html += `class="string-color"`;
+  }
+  html += ` onclick="handleMessageSending('${data.username},posts,${data.refLocation},${data.refID}', 'user')">"Posts"</a></span><span class="variable-color">,</span>
+  <span><a `;
+  if (data.view === "comments") {
+    html += `class="keyword-color"`;
+  } else {
+    html += `class="string-color"`;
+  }
+  html += ` onclick="handleMessageSending('${data.username},comments,${data.refLocation},${data.refID}', 'user')">"Comments"</a></span>
   <span class="bracket-color">]</span><span class="variable-color">;</span>
   </br>
   <span class="bracket-color">}</span>
-  `
+  </br>
+  </br>
+  `;
+  return html;
 }
 
+// user page about panel
 function userAbout(data) {
+  let created = new Date(data.created * 1000);
+  created =
+    "" +
+    created.getDate() +
+    "." +
+    (created.getMonth() + 1) +
+    "." +
+    created.getFullYear();
+  // <image src="${data.icon_img}" height="100" width="100"></image>
   return `
+  <span class="keyword-color">const</span>
+  <span class="variable-color">information</span>
+  <span class="function-color">=</span>
+  <span class="bracket-color">{</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="string-color">"Creation"</span><span class="variable-color">:</span>
+  <span class="variable-color">${created}</span><span class="variable-color">,</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="string-color">"Karma"</span><span class="variable-color">:</span>
+  <span class="variable-color">${data.link_karma +
+    data.comment_karma}</span><span class="variable-color">,</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="string-color">"PostKarma"</span><span class="variable-color">:</span>
+  <span class="variable-color">${
+    data.link_karma
+  }</span><span class="variable-color">,</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="string-color">"CommentKarma"</span><span class="variable-color">:</span>
+  <span class="variable-color">${
+    data.comment_karma
+  }</span><span class="variable-color">,</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="string-color">"Description"</span><span class="variable-color">:</span>
+  <span class="variable-color">${data.subreddit.public_description}</span>
+  </br>
+  <span class="bracket-color">}</span>
+  `;
+}
 
-  `
+// empty exception panel
+function empty(type) {
+  return `
+  <span class="keyword-color">try</span>
+  <span class="bracket-color">{</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="function-color">get${type}()</span>
+  </br>
+  <span class="bracket-color">}</span>
+  <span class="keyword-color">catch</span>
+  <span class="bracket-color">(</span>
+  <span class="variable-color">e</span>
+  <span class="keyword-color">if</span>
+  <span class="variable-color">e</span>
+  <span class="keyword-color">instanceof</span>
+  <span class="function-color">No${type}Error</span>
+  <span class="bracket-color">) {</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="function-color">logger</span><span class="variable-color">.</span><span class="keyword-color">ERROR</span><span class="bracket-color">(</span>
+  <span class="variable-color">e</span>
+  <span class="bracket-color">)</span><span class="variable-color">;</span>
+  </br>
+  <span class="bracket-color">}</span>
+  `;
 }
 
 // essential panel to close html
@@ -674,5 +757,6 @@ module.exports = {
   logout,
   userAbout,
   userNav,
+  empty,
   tail
 };

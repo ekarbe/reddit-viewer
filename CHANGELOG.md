@@ -72,3 +72,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added session checking
 - Added logout
 - Added request timeout setting
+- Added user page

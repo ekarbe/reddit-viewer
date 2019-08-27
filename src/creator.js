@@ -115,12 +115,27 @@ function createUserView(data) {
         html += templates.userNav(data);
         switch (data.view) {
           case "about":
+            html += templates.userAbout(response.data.data);
             resolve(html);
             break;
           case "posts":
+            let articles = response.data.data.children;
+            if (articles.length === 0) {
+              html += templates.empty("Articles");
+            }
+            for (let i in articles) {
+              html += templates.article(articles[i].data);
+            }
             resolve(html);
             break;
           case "comments":
+            let comments = response.data.data.children;
+            if (comments.length === 0) {
+              html += templates.empty("Comments");
+            }
+            for (let i in comments) {
+              html += templates.comment(comments[i]);
+            }
             resolve(html);
             break;
           default:

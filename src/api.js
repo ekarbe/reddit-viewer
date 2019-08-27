@@ -61,7 +61,12 @@ function getTrendingSubreddits() {
 // can be 'about', 'posts', 'comments'
 function getUser(username, view) {
   return new Promise((resolve, reject) => {
-    let url = `https://reddit.com/user/${username}/${view}.json`;
+    let url;
+    if (view === "posts") {
+      url = `https://reddit.com/user/${username}/submitted.json`;
+    } else {
+      url = `https://reddit.com/user/${username}/${view}.json`;
+    }
     web
       .get(url)
       .then(response => {

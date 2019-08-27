@@ -624,6 +624,29 @@ function logout(username) {
   `;
 }
 
+function userNav(data) {
+  return `
+  <span class="keyword-color">function</span>
+  <span class="function-color">user</span><span class="bracket-color">(</span>
+  <span class="variable-color">${data.username}</span><span class="bracket-color">) {</span>
+  </br>
+  <span>&nbsp; &nbsp; <span class="keyword-color">return</span>
+  <span class="bracket-color">[</span>
+  <span class="string-color"><a onclick="handleMessageSending('${data.username},about,${data.refLocation},${data.refID}', 'user')">"About"</a></span><span class="variable-color">,</span>
+  <span class="string-color"><a onclick="handleMessageSending('${data.username},posts,${data.refLocation},${data.refID}', 'user')">"Posts"</a></span><span class="variable-color">,</span>
+  <span class="string-color"><a onclick="handleMessageSending('${data.username},comments,${data.refLocation},${data.refID}', 'user')">"Comments"</a></span>
+  <span class="bracket-color">]</span><span class="variable-color">;</span>
+  </br>
+  <span class="bracket-color">}</span>
+  `
+}
+
+function userAbout(data) {
+  return `
+
+  `
+}
+
 // essential panel to close html
 function tail() {
   return `
@@ -649,5 +672,7 @@ module.exports = {
   comment,
   login,
   logout,
+  userAbout,
+  userNav,
   tail
 };

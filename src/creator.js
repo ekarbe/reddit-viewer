@@ -112,6 +112,7 @@ function createUserView(data) {
         } else if (data.refLocation == "article") {
           html += templates.articleBack(data.refID);
         }
+        html += templates.userNav(data);
         switch (data.view) {
           case "about":
             resolve(html);

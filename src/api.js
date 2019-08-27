@@ -1,9 +1,11 @@
 // api.js provides the functions to request the reddit data
 
 const axios = require("axios");
+const vscode = require("vscode");
+let config = vscode.workspace.getConfiguration("redditviewer");
 
 const web = axios.create({
-  timeout: 10000
+  timeout: config.requestTimeout
 });
 
 // requests the subreddit data

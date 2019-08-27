@@ -71,3 +71,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Session cookie saves to globalState
 - Added session checking
 - Added logout
+- Added request timeout setting

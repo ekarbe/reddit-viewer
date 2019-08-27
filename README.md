@@ -38,6 +38,7 @@ This extension contributes the following settings:
 - `redditviewer.limitation`: Set the amount of articles to be loaded in a subreddit page
 - `redditviewer.help`: enable/disable the help panel on the landing page
 - `redditviewer.landingPage`: enable/disable the landing page
+- `redditviewer.requestTimeout`: set the timeout for requests in ms
 
 ## Known Issues
 

@@ -94,6 +94,13 @@
           "type": "boolean",
           "default": true,
           "description": "Set if the landing page should be loaded on activation or the default subreddit should be loaded"
+        },
+        "redditviewer.requestTimeout": {
+          "type": "integer",
+          "default": 10000,
+          "minimum": 1000,
+          "maximum": 60000,
+          "description": "Set the timeout for requests in ms"
         }
       }
     }

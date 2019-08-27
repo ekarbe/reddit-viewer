@@ -86,9 +86,7 @@ function createGifHTML(data) {
   <a class="function-color" onclick=collapseDiv('gifContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a>
   <span class="bracket-color">() {</span>
     <div id="gifContainer" style="display: none">
-      <iframe src=${data.url} frameborder="0" scrolling="no" width="${
-    data.preview.images[0].source.width
-  }" height="${data.preview.images[0].source.height}"></iframe>
+      <iframe src=${data.url} frameborder="0" scrolling="no" width="${data.preview.images[0].source.width}" height="${data.preview.images[0].source.height}"></iframe>
     </div>
   <span class="bracket-color">}</span>
   

@@ -332,16 +332,12 @@ function article(data) {
         <span class="keyword-color">let </span>
       </a>
       <span class="variable-color">
-        <a onclick="handleMessageSending('${data.subreddit},${
-    data.id
-  }', 'article')">${data.id}</a>
+        <a onclick="handleMessageSending('${data.subreddit},${data.id}', 'article')">${data.id}</a>
       </span>
       <span class="string-color">
         <span class="bracket-color">(</span>
         "${data.title}"<span class="variable-color">,</span>
-        <span class="argument-color">${
-          data.author
-        }</span><span class="variable-color">,</span>
+        <span class="argument-color">${data.author}</span><span class="variable-color">,</span>
         <span class="bracket-color"> { </span>
         <span class="variable-color"> ${data.subreddit}</span>
         <span class="bracket-color"> } </span>
@@ -409,9 +405,7 @@ function articleDetails(data) {
   
   <span class="keyword-color">&nbsp; &nbsp; let</span>
   <span class="variable-color">score =</span>
-  <span class="string-color">${
-    data.score
-  }</span><span class="variable-color">;</span>
+  <span class="string-color">${data.score}</span><span class="variable-color">;</span>
   
   </br>
   
@@ -468,15 +462,11 @@ function comment(comment) {
       </br>
 
         <div id="${comment.data.id}">
-          <span class="variable-color">&nbsp; &nbsp; score: ${
-            comment.data.score
-          };</span>
+          <span class="variable-color">&nbsp; &nbsp; score: ${comment.data.score};</span>
       
           </br>
       
-          <span class="variable-color">&nbsp; &nbsp; body: ${
-            comment.data.body
-          };</span>
+          <span class="variable-color">&nbsp; &nbsp; body: ${comment.data.body};</span>
       
           </br>
       
@@ -530,25 +520,22 @@ function childComment(comment) {
       for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
         html += `&nbsp; &nbsp; &nbsp; &nbsp;`;
       }
-      if (comment.replies.data.children[i].data.author === comment.orginalPostAuthor) {
-        comment.replies.data.children[i].data.author += ' (OP)';
+      if (
+        comment.replies.data.children[i].data.author ===
+        comment.orginalPostAuthor
+      ) {
+        comment.replies.data.children[i].data.author += " (OP)";
       }
       html += `
       <span class="keyword-color"> case</span>
-        <a onclick=collapseDiv('comment-${
-          comment.replies.data.children[i].data.id
-        }')>
-          <span class="string-color">'${
-            comment.replies.data.children[i].data.author
-          }'</span>
+        <a onclick=collapseDiv('comment-${comment.replies.data.children[i].data.id}')>
+          <span class="string-color">'${comment.replies.data.children[i].data.author}'</span>
         </a>
       <span class="variable-color">:</span>
       
       </br>
       
-        <div id="comment-${
-          comment.replies.data.children[i].data.id
-        }" style="display: none">
+        <div id="comment-${comment.replies.data.children[i].data.id}" style="display: none">
           <span class="variable-color">
     `;
 
@@ -570,9 +557,7 @@ function childComment(comment) {
 
       html += `
       this</span><span class="variable-color">.open</span><span class="bracket-color">(</span>
-      <span class="variable-color">${
-        comment.replies.data.children[i].data.score
-      }</span>
+      <span class="variable-color">${comment.replies.data.children[i].data.score}</span>
       <span class="bracket-color">)</span><span class="variable-color">;</span>
       
       </br>

@@ -212,6 +212,9 @@ function activate(context) {
             case "article":
               // message is subreddit,articleID
               let data = message.text.split(",");
+              if( data[0] === ""){
+                data[0] = currentSubreddit;
+              }
               creator
                 .createArticleView(data[0], data[1])
                 .then(response => {

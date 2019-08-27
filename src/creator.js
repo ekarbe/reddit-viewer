@@ -50,7 +50,7 @@ function createSubredditView(data) {
         let articles = response.data.children;
         let html =
           templates.head(stylesheetPath) +
-          templates.home() +
+          templates.homeBack() +
           templates.sort(data.sort);
         if (data.sort === "top" || data.sort === "controversial") {
           html += templates.time(data.interval);
@@ -79,8 +79,8 @@ function createArticleView(subreddit, articleID) {
         let comments = response[1].data;
         let html =
           templates.head(stylesheetPath) +
-          templates.home() +
-          templates.subreddit(subreddit) +
+          templates.homeBack() +
+          templates.subredditBack(subreddit) +
           templates.articleDetails(articleDetails);
         for (let i = 0; i < comments.children.length; i++) {
           comments.children[i].data.orginalPostAuthor = articleDetails.author;
@@ -106,11 +106,31 @@ function createUserView(data) {
     api
       .getUser(data.username, data.view)
       .then(response => {
+        let html = templates.head(stylesheetPath) + templates.homeBack();
+        if (data.refLocation == "subreddit") {
+          html += templates.subredditBack(data.refID);
+        } else if (data.refLocation == "article") {
+          html += templates.articleBack(data.refID);
+        }
+        switch (data.view) {
+          case "about":
+            resolve(html);
+            break;
+          case "posts":
+            resolve(html);
+            break;
+          case "comments":
+            resolve(html);
+            break;
+          default:
+            reject("invalid view");
+            break;
+        }
       })
       .catch(error => {
         reject(error);
-      })
-  })
+      });
+  });
 }
 
 // sets the path of the stylesheet

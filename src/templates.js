@@ -64,7 +64,7 @@ function head(stylesheet) {
 }
 
 // panel to return back to landing page
-function home() {
+function homeBack() {
   return `
   <p>
 		<span class="keyword-color">const </span>
@@ -80,7 +80,7 @@ function home() {
 }
 
 // panel to return back to article overview
-function subreddit(subreddit) {
+function subredditBack(subreddit) {
   return `
   <p>
 		<span class="keyword-color">const </span>
@@ -89,6 +89,21 @@ function subreddit(subreddit) {
 		<span class="function-color">require</span><span class="bracket-color">(</span>
       <a onclick="handleMessageSending('${subreddit}', 'subredditView')">
         <span class="string-color">'sub-env'</span>
+      </a>
+		<span class="bracket-color">)</span><span class="variable-color">;</span>
+	</p>
+  `;
+}
+
+function articleBack(article) {
+  return `
+  <p>
+		<span class="keyword-color">const </span>
+		<span class="variable-color">art </span>
+		<span class="operator-color">= </span>
+		<span class="function-color">require</span><span class="bracket-color">(</span>
+      <a onclick="handleMessageSending(',${article}', 'article')">
+        <span class="string-color">'art-env'</span>
       </a>
 		<span class="bracket-color">)</span><span class="variable-color">;</span>
 	</p>
@@ -337,7 +352,7 @@ function article(data) {
       <span class="string-color">
         <span class="bracket-color">(</span>
         "${data.title}"<span class="variable-color">,</span>
-        <span class="argument-color">${data.author}</span><span class="variable-color">,</span>
+        <span class="argument-color"><a onclick="handleMessageSending('${data.author},about,subreddit,${data.subreddit}', 'user')">${data.author}</a></span><span class="variable-color">,</span>
         <span class="bracket-color"> { </span>
         <span class="variable-color"> ${data.subreddit}</span>
         <span class="bracket-color"> } </span>
@@ -602,7 +617,7 @@ function logout(username) {
   <span class="bracket-color">) {</span>
   </br>
   <span>&nbsp; &nbsp;<a class="function-color" onclick="handleMessageSending('logout', 'logout')">logout</a></span><span class="bracket-color">(</span>
-  <span><a class="variable-color" onclick="handleMessageSending('${username},about,home,0', 'user')">${username}</a></span>
+  <span><a class="variable-color" onclick="handleMessageSending('${username},about,home,', 'user')">${username}</a></span>
   <span class="bracket-color">)</span><span class="variable-color">;</span>
   </br>
   <span class="bracket-color">}</span>
@@ -619,8 +634,9 @@ function tail() {
 
 module.exports = {
   head,
-  home,
-  subreddit,
+  homeBack,
+  subredditBack,
+  articleBack,
   sort,
   time,
   help,

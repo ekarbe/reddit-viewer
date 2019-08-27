@@ -100,6 +100,19 @@ function createArticleView(subreddit, articleID) {
   });
 }
 
+// creates user view html string
+function createUserView(data) {
+  return new Promise((resolve, reject) => {
+    api
+      .getUser(data.username, data.view)
+      .then(response => {
+      })
+      .catch(error => {
+        reject(error);
+      })
+  })
+}
+
 // sets the path of the stylesheet
 function setStylesheetPath(path) {
   stylesheetPath = path;
@@ -109,5 +122,6 @@ module.exports = {
   setStylesheetPath,
   createLandingpageView,
   createSubredditView,
-  createArticleView
+  createArticleView,
+  createUserView
 };

@@ -86,6 +86,8 @@ function activate(context) {
       // handle messages from extension frontend
       panel.webview.onDidReceiveMessage(
         message => {
+          let explodedString;
+          let username;
           switch (message.command) {
             // go back to landing page by creating it new
             case "homeView":
@@ -271,10 +273,31 @@ function activate(context) {
                   logger.error(error);
                 });
               break;
+            case "user":
+              // parse ref data
+              explodedString = message.text.split(",");
+              username = explodedString[0];
+              let view = explodedString[1]
+              let refLocation = explodedString[2];
+              let refID = explodedString[3];
+              creator
+                .createUserView({
+                  username: username,
+                  view: view,
+                  refLocation: refLocation,
+                  refID: refID
+                })
+                .then(response => {
+                  panel.webview.html = response;
+                })
+                .catch(error => {
+                  logger.error(error);
+                });
+              break;
             case "login":
               // parse login data
-              let explodedString = message.text.split(",");
-              let username = explodedString[0];
+              explodedString = message.text.split(",");
+              username = explodedString[0];
               let password = explodedString[1];
               api
                 .userLogin(username, password)

@@ -57,6 +57,25 @@ function getTrendingSubreddits() {
   });
 }
 
+// requests the given view of an user
+// can be 'about', 'posts', 'comments'
+function getUser(username, view) {
+  return new Promise((resolve, reject) => {
+    let url = `https://reddit.com/user/${username}/${view}.json`;
+    web
+      .get(url)
+      .then(response => {
+        resolve({
+          view: view,
+          data: response.data
+        });
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
 // request a user login with given username and password
 function userLogin(username, password) {
   return new Promise((resolve, reject) => {
@@ -105,6 +124,7 @@ module.exports = {
   getSubreddit,
   getArticle,
   getTrendingSubreddits,
+  getUser,
   userLogin,
   checkSession
 };

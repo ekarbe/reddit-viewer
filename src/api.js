@@ -99,6 +99,23 @@ function getCollections(cookie) {
   });
 }
 
+// get the collection with the given path
+function getCollection(path, cookie) {
+  return new Promise((resolve, reject) => {
+    web.get(`https://www.reddit.com${path}.json`, {
+      headers: {
+        Cookie: `reddit_session=${encodeURIComponent(cookie)}`
+      }
+    })
+    .then(response => {
+      resolve(response.data);
+    })
+    .catch(error => {
+      reject(error);
+    });
+  });
+}
+
 // request a user login with given username and password
 function userLogin(username, password) {
   return new Promise((resolve, reject) => {
@@ -149,6 +166,7 @@ module.exports = {
   getTrendingSubreddits,
   getUser,
   getCollections,
+  getCollection,
   userLogin,
   checkSession
 };

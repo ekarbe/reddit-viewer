@@ -39,6 +39,7 @@ This extension contributes the following settings:
 - `redditviewer.help`: enable/disable the help panel on the landing page
 - `redditviewer.landingPage`: enable/disable the landing page
 - `redditviewer.requestTimeout`: set the timeout for requests in ms
+- `redditviewer.userManagement`: Set if the user management should be active. Deactivating this will disable login and all user related actions
 
 ## Known Issues
 

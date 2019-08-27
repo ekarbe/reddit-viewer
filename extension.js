@@ -25,14 +25,19 @@ function activate(context) {
         username: context.globalState.get("activeUser"),
         cookie: context.globalState.get("cookie")
       };
-      api
-        .checkSession(session.cookie)
-        .then(() => {
-          session.active = true;
-        })
-        .catch(() => {
-          session.active = false;
-        });
+      if (config.userManagement) {
+        api
+          .checkSession(session.cookie)
+          .then(() => {
+            session.active = true;
+          })
+          .catch(() => {
+            session.active = false;
+          });
+      } else {
+        session.username = undefined;
+        session.cookie = undefined;
+      }
 
       // create the window with title from config
       let panel = vscode.window.createWebviewPanel(
@@ -118,6 +123,19 @@ function activate(context) {
                   after: currentAfter,
                   before: currentBefore,
                   session: session
+                })
+                .then(response => {
+                  panel.webview.html = response;
+                })
+                .catch(error => {
+                  logger.error(error);
+                });
+              break;
+            case "collectionView":
+              creator
+                .createCollectionView({
+                  collection: message.text,
+                  cookie: session.cookie
                 })
                 .then(response => {
                   panel.webview.html = response;

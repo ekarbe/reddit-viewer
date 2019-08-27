@@ -323,9 +323,7 @@ function search(subreddit) {
     </br>
     
     <span class="keyword-color">&nbsp; &nbsp; return</span>
-      <a id="search_execute" onclick="submitSearch()" class="function-color">executeSearch</a>
-        <span class="bracket-color">(</span><span class="bracket-color">)
-      </span>
+      <a id="search_execute" onclick="submitSearch()" class="function-color">executeSearch</a><span class="bracket-color">()</span>
     
     </br>
     
@@ -715,11 +713,11 @@ function collectionsNav(collections) {
   for (let i in collections) {
     if (i != collections.length - 1) {
       html += `
-    <span><a class="string-color">"${collections[i].data.display_name}"</a></span><span class="variable-color">,</span>
+    <span><a class="string-color" onclick="handleMessageSending('${collections[i].data.path}', 'collectionView')">"${collections[i].data.display_name}"</a></span><span class="variable-color">,</span>
     `;
     } else {
       html += `
-    <span><a class="string-color">"${collections[i].data.display_name}"</a></span>
+    <span><a class="string-color" onclick="handleMessageSending('${collections[i].data.path}', 'collectionView')">"${collections[i].data.display_name}"</a></span>
     `;
     }
   }
@@ -729,7 +727,7 @@ function collectionsNav(collections) {
   <span class="bracket-color">}</span>
   </br>
   </br>
-  `
+  `;
   return html;
 }
 

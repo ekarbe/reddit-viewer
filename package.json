@@ -101,6 +101,11 @@
           "minimum": 1000,
           "maximum": 60000,
           "description": "Set the timeout for requests in ms"
+        },
+        "redditviewer.userManagement": {
+          "type": "boolean",
+          "default": true,
+          "description": "Set if the user management should be active. Deactivating this will disable login and all user related actions"
         }
       }
     }

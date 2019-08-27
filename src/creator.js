@@ -19,21 +19,26 @@ function createLandingpageView(config, session) {
           html += templates.help();
         }
         html += templates.project();
-        if (session.active) {
-          api
-            .getCollections(session.cookie)
-            .then(response => {
-              let collections = response;
-              if (collections.length != 0) {
-                html += templates.collectionsNav(collections);
-              }
-              html += templates.logout(session.username);
-              html += templates.tail();
-              resolve(html);
-            })
-            .catch(error => {});
+        if (config.userManagement) {
+          if (session.active) {
+            api
+              .getCollections(session.cookie)
+              .then(response => {
+                let collections = response;
+                if (collections.length != 0) {
+                  html += templates.collectionsNav(collections);
+                }
+                html += templates.logout(session.username);
+                html += templates.tail();
+                resolve(html);
+              })
+              .catch(error => {});
+          } else {
+            html += templates.login();
+            html += templates.tail();
+            resolve(html);
+          }
         } else {
-          html += templates.login();
           html += templates.tail();
           resolve(html);
         }
@@ -72,6 +77,26 @@ function createSubredditView(data) {
         html +=
           templates.pagination(response.data.after, response.data.before) +
           templates.tail();
+        resolve(html);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+// creates the collection view html string
+function createCollectionView(data) {
+  return new Promise((resolve, reject) => {
+    api
+      .getCollection(data.collection, data.cookie)
+      .then(response => {
+        let articles = response.data.children;
+        let html = templates.head(stylesheetPath) + templates.homeBack();
+        for (let i in articles) {
+          html += templates.article(articles[i].data);
+        }
+        html += templates.tail();
         resolve(html);
       })
       .catch(error => {
@@ -169,6 +194,7 @@ module.exports = {
   setStylesheetPath,
   createLandingpageView,
   createSubredditView,
+  createCollectionView,
   createArticleView,
   createUserView
 };

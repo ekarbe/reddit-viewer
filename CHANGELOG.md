@@ -73,3 +73,5 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added logout
 - Added request timeout setting
 - Added user page
+- Added option to disable user management
+- Added basic collections

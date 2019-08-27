@@ -75,3 +75,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added user page
 - Added option to disable user management
 - Added basic collections
+- Added media warning

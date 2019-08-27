@@ -51,6 +51,11 @@ function createIframeHTML(media) {
   videohtml = videohtml.replace(/&gt;/g, ">");
 
   let html = `
+  <span>&nbsp; &nbsp; &nbsp; &nbsp;</span>
+  <span class="keyword-color">let</span>
+  <span class="variable-color">warning =</span>
+  <span class="string-color">"Media expanding may crash the extension!"</span>
+  </br>
   <a class="function-color" onclick=collapseDiv('mediaContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a>
   <span class="bracket-color">() {</span>
     <div id="mediaContainer" style="display: none">
@@ -69,6 +74,11 @@ function createIframeHTML(media) {
 // creates html string for dash url videos
 function createVideoHTML(reddit_video) {
   return `
+  <span>&nbsp; &nbsp; &nbsp; &nbsp;</span>
+  <span class="keyword-color">let</span>
+  <span class="variable-color">warning =</span>
+  <span class="string-color">"Media expanding may crash the extension!"</span>
+  </br>
   <a class="function-color" onclick=collapseDiv('videoContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a>
   <span class="bracket-color">() {</span>
     <div id="videoContainer" style="display: none">
@@ -83,6 +93,11 @@ function createVideoHTML(reddit_video) {
 // creates html string for gifv
 function createGifHTML(data) {
   return `
+  <span>&nbsp; &nbsp; &nbsp; &nbsp;</span>
+  <span class="keyword-color">let</span>
+  <span class="variable-color">warning =</span>
+  <span class="string-color">"Media expanding may crash the extension!"</span>
+  </br>
   <a class="function-color" onclick=collapseDiv('gifContainer')>&nbsp; &nbsp; &nbsp; &nbsp; expand</a>
   <span class="bracket-color">() {</span>
     <div id="gifContainer" style="display: none">

@@ -347,8 +347,10 @@ function article(data) {
       <span class="variable-color">
         <a onclick="handleMessageSending('${data.subreddit},${data.id}', 'article')">${data.id}</a>
       </span>
+      <span class="variable-color">=</span>
       <span class="string-color">
         <span class="bracket-color">(</span>
+         ${data.score},
         "${data.title}"<span class="variable-color">,</span>
         <span class="argument-color"><a onclick="handleMessageSending('${data.author},about,subreddit,${data.subreddit}', 'user')">${data.author}</a></span><span class="variable-color">,</span>
         <span class="bracket-color"> { </span>

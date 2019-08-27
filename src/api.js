@@ -24,7 +24,7 @@ function getSubreddit(subreddit, sort, interval, limit, count, after, before) {
         resolve(response.data);
       })
       .catch(error => {
-        reject(error);
+        reject(error.message);
       });
   });
 }
@@ -38,7 +38,7 @@ function getArticle(subreddit, article) {
         resolve(response.data);
       })
       .catch(error => {
-        reject(error);
+        reject(error.message);
       });
   });
 }
@@ -52,7 +52,7 @@ function getTrendingSubreddits() {
         resolve(response.data.subreddit_names);
       })
       .catch(error => {
-        reject(error);
+        reject(error.message);
       });
   });
 }
@@ -76,7 +76,7 @@ function getUser(username, view) {
         });
       })
       .catch(error => {
-        reject(error);
+        reject(error.message);
       });
   });
 }
@@ -94,7 +94,7 @@ function getCollections(cookie) {
         resolve(response.data);
       })
       .catch(error => {
-        reject(error);
+        reject(error.message);
       });
   });
 }
@@ -102,17 +102,18 @@ function getCollections(cookie) {
 // get the collection with the given path
 function getCollection(path, cookie) {
   return new Promise((resolve, reject) => {
-    web.get(`https://www.reddit.com${path}.json`, {
-      headers: {
-        Cookie: `reddit_session=${encodeURIComponent(cookie)}`
-      }
-    })
-    .then(response => {
-      resolve(response.data);
-    })
-    .catch(error => {
-      reject(error);
-    });
+    web
+      .get(`https://www.reddit.com${path}.json`, {
+        headers: {
+          Cookie: `reddit_session=${encodeURIComponent(cookie)}`
+        }
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.message);
+      });
   });
 }
 

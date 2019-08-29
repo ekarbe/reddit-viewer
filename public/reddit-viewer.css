@@ -4,7 +4,7 @@ body {
     letter-spacing: 0px;
     font-size: 14px;
     color: #cdd3de;
-    background-color: #1b2b34;
+    background-color: rgb(37,37,38);
 }
 
 ::selection {

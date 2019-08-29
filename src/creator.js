@@ -6,7 +6,7 @@ const api = require("./api");
 let stylesheetPath;
 
 // creates the landing page html string
-function createLandingpageView(config) {
+function createLandingpageView(config, session) {
   return new Promise((resolve, reject) => {
     api
       .getTrendingSubreddits()
@@ -18,8 +18,30 @@ function createLandingpageView(config) {
         if (config.help) {
           html += templates.help();
         }
-        html += templates.project() + templates.tail();
-        resolve(html);
+        html += templates.project();
+        if (config.userManagement) {
+          if (session.active) {
+            api
+              .getCollections(session.cookie)
+              .then(response => {
+                let collections = response;
+                if (collections.length != 0) {
+                  html += templates.collectionsNav(collections);
+                }
+                html += templates.logout(session.username);
+                html += templates.tail();
+                resolve(html);
+              })
+              .catch(error => {});
+          } else {
+            html += templates.login();
+            html += templates.tail();
+            resolve(html);
+          }
+        } else {
+          html += templates.tail();
+          resolve(html);
+        }
       })
       .catch(error => {
         reject(error);
@@ -44,7 +66,7 @@ function createSubredditView(data) {
         let articles = response.data.children;
         let html =
           templates.head(stylesheetPath) +
-          templates.home() +
+          templates.homeBack() +
           templates.sort(data.sort);
         if (data.sort === "top" || data.sort === "controversial") {
           html += templates.time(data.interval);
@@ -63,6 +85,26 @@ function createSubredditView(data) {
   });
 }
 
+// creates the collection view html string
+function createCollectionView(data) {
+  return new Promise((resolve, reject) => {
+    api
+      .getCollection(data.collection, data.cookie)
+      .then(response => {
+        let articles = response.data.children;
+        let html = templates.head(stylesheetPath) + templates.homeBack();
+        for (let i in articles) {
+          html += templates.article(articles[i].data);
+        }
+        html += templates.tail();
+        resolve(html);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
 // creates article view html string
 function createArticleView(subreddit, articleID) {
   return new Promise((resolve, reject) => {
@@ -73,16 +115,69 @@ function createArticleView(subreddit, articleID) {
         let comments = response[1].data;
         let html =
           templates.head(stylesheetPath) +
-          templates.home() +
-          templates.subreddit(subreddit) +
+          templates.homeBack() +
+          templates.subredditBack(subreddit) +
           templates.articleDetails(articleDetails);
         for (let i = 0; i < comments.children.length; i++) {
+          comments.children[i].data.orginalPostAuthor = articleDetails.author;
           if (comments.children[i].kind !== "more") {
+            if (comments.children[i].data.author === articleDetails.author) {
+              comments.children[i].data.author += " (OP)";
+            }
             html += templates.comment(comments.children[i]);
           }
         }
         html += templates.tail();
         resolve(html);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+// creates user view html string
+function createUserView(data) {
+  return new Promise((resolve, reject) => {
+    api
+      .getUser(data.username, data.view)
+      .then(response => {
+        let html = templates.head(stylesheetPath) + templates.homeBack();
+        if (data.refLocation == "subreddit") {
+          html += templates.subredditBack(data.refID);
+        } else if (data.refLocation == "article") {
+          html += templates.articleBack(data.refID);
+        }
+        html += templates.userNav(data);
+        switch (data.view) {
+          case "about":
+            html += templates.userAbout(response.data.data);
+            resolve(html);
+            break;
+          case "posts":
+            let articles = response.data.data.children;
+            if (articles.length === 0) {
+              html += templates.empty("Articles");
+            }
+            for (let i in articles) {
+              html += templates.article(articles[i].data);
+            }
+            resolve(html);
+            break;
+          case "comments":
+            let comments = response.data.data.children;
+            if (comments.length === 0) {
+              html += templates.empty("Comments");
+            }
+            for (let i in comments) {
+              html += templates.comment(comments[i]);
+            }
+            resolve(html);
+            break;
+          default:
+            reject("invalid view");
+            break;
+        }
       })
       .catch(error => {
         reject(error);
@@ -99,5 +194,7 @@ module.exports = {
   setStylesheetPath,
   createLandingpageView,
   createSubredditView,
-  createArticleView
+  createCollectionView,
+  createArticleView,
+  createUserView
 };

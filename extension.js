@@ -1,6 +1,7 @@
 const vscode = require("vscode");
 const path = require("path");
 const creator = require("./src/creator");
+const api = require("./src/api");
 const logger = require("./src/logger");
 
 let config = vscode.workspace.getConfiguration("redditviewer");
@@ -19,6 +20,27 @@ function activate(context) {
   let disposable = vscode.commands.registerCommand(
     "extension.reddit",
     function() {
+      // create session object
+      let session = {
+        active: false,
+        username: context.globalState.get("activeUser"),
+        cookie: context.globalState.get("cookie")
+      };
+      // only if user management is active check for active session
+      if (config.userManagement) {
+        api
+          .checkSession(session.cookie)
+          .then(() => {
+            session.active = true;
+          })
+          .catch(() => {
+            session.active = false;
+          });
+      } else {
+        session.username = undefined;
+        session.cookie = undefined;
+      }
+
       // create the window with title from config
       let panel = vscode.window.createWebviewPanel(
         "redditviewer",
@@ -41,7 +63,7 @@ function activate(context) {
       // create the landing page if it's enabled in config
       if (config.landingPage) {
         creator
-          .createLandingpageView(config)
+          .createLandingpageView(config, session)
           .then(response => {
             panel.webview.html = response;
           })
@@ -58,7 +80,8 @@ function activate(context) {
             limit: config.limitation,
             count: currentCount,
             after: null,
-            before: null
+            before: null,
+            session: session
           })
           .then(response => {
             panel.webview.html = response;
@@ -71,6 +94,8 @@ function activate(context) {
       // handle messages from extension frontend
       panel.webview.onDidReceiveMessage(
         message => {
+          let explodedString;
+          let username;
           switch (message.command) {
             // go back to landing page by creating it new
             case "homeView":
@@ -80,7 +105,7 @@ function activate(context) {
               currentCount = 0;
 
               creator
-                .createLandingpageView(config)
+                .createLandingpageView(config, session)
                 .then(response => {
                   panel.webview.html = response;
                 })
@@ -98,7 +123,21 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: session
+                })
+                .then(response => {
+                  panel.webview.html = response;
+                })
+                .catch(error => {
+                  logger.error(error);
+                });
+              break;
+            case "collectionView":
+              creator
+                .createCollectionView({
+                  collection: message.text,
+                  cookie: session.cookie
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -126,7 +165,8 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: session
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -152,7 +192,8 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: session
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -178,7 +219,8 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: session
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -191,6 +233,9 @@ function activate(context) {
             case "article":
               // message is subreddit,articleID
               let data = message.text.split(",");
+              if (data[0] === "") {
+                data[0] = currentSubreddit;
+              }
               creator
                 .createArticleView(data[0], data[1])
                 .then(response => {
@@ -218,7 +263,8 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: session
                 })
                 .then(response => {
                   panel.webview.html = response;
@@ -241,10 +287,78 @@ function activate(context) {
                   limit: config.limitation,
                   count: currentCount,
                   after: currentAfter,
-                  before: currentBefore
+                  before: currentBefore,
+                  session: session
                 })
                 .then(response => {
                   panel.webview.html = response;
+                })
+                .catch(error => {
+                  logger.error(error);
+                });
+              break;
+            case "user":
+              // parse ref data
+              explodedString = message.text.split(",");
+              username = explodedString[0];
+              let view = explodedString[1];
+              let refLocation = explodedString[2];
+              let refID = explodedString[3];
+              creator
+                .createUserView({
+                  username: username,
+                  view: view,
+                  refLocation: refLocation,
+                  refID: refID
+                })
+                .then(response => {
+                  panel.webview.html = response;
+                })
+                .catch(error => {
+                  logger.error(error);
+                });
+              break;
+            case "login":
+              // parse login data
+              explodedString = message.text.split(",");
+              username = explodedString[0];
+              let password = explodedString[1];
+              api
+                .userLogin(username, password)
+                .then(response => {
+                  // write cookie to globalState
+                  session.active = true;
+                  context.globalState.update("cookie", response);
+                  session.cookie = response;
+                  context.globalState.update("activeUser", username);
+                  session.username = username;
+                  creator
+                    .createLandingpageView(config, session)
+                    .then(response => {
+                      panel.webview.html = response;
+                      logger.info("Login successful");
+                    })
+                    .catch(error => {
+                      logger.error(error);
+                    });
+                })
+                .catch(() => {
+                  logger.error("Login failed!");
+                });
+              break;
+            case "logout":
+              // remove cookie from globalState
+              session.active = false;
+              context.globalState.update("cookie", "");
+              session.cookie = undefined;
+              context.globalState.update("activeUser", undefined);
+              session.username = undefined;
+              // create Landingpage again
+              creator
+                .createLandingpageView(config, session)
+                .then(response => {
+                  panel.webview.html = response;
+                  logger.info("Logout successful");
                 })
                 .catch(error => {
                   logger.error(error);
@@ -268,6 +382,7 @@ function activate(context) {
         currentAfter = null;
         currentBefore = null;
         currentCount = 0;
+        session.active = false;
       });
       // update configuration on change
       vscode.workspace.onDidChangeConfiguration(change => {

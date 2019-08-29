@@ -30,7 +30,14 @@ function head(stylesheet) {
 		function submitSearch() {
 			const searchFieldText = document.getElementById('search_input').value;
 			handleMessageSending(searchFieldText, 'search');
-		}
+    }
+    
+    // Login
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      handleMessageSending(username + "," + password, 'login');
+    }
 
 		// Collapse divs
 		function collapseDiv(divid) {
@@ -57,7 +64,7 @@ function head(stylesheet) {
 }
 
 // panel to return back to landing page
-function home() {
+function homeBack() {
   return `
   <p>
 		<span class="keyword-color">const </span>
@@ -73,7 +80,7 @@ function home() {
 }
 
 // panel to return back to article overview
-function subreddit(subreddit) {
+function subredditBack(subreddit) {
   return `
   <p>
 		<span class="keyword-color">const </span>
@@ -82,6 +89,22 @@ function subreddit(subreddit) {
 		<span class="function-color">require</span><span class="bracket-color">(</span>
       <a onclick="handleMessageSending('${subreddit}', 'subredditView')">
         <span class="string-color">'sub-env'</span>
+      </a>
+		<span class="bracket-color">)</span><span class="variable-color">;</span>
+	</p>
+  `;
+}
+
+// panel to return back to article detail
+function articleBack(article) {
+  return `
+  <p>
+		<span class="keyword-color">const </span>
+		<span class="variable-color">art </span>
+		<span class="operator-color">= </span>
+		<span class="function-color">require</span><span class="bracket-color">(</span>
+      <a onclick="handleMessageSending(',${article}', 'article')">
+        <span class="string-color">'art-env'</span>
       </a>
 		<span class="bracket-color">)</span><span class="variable-color">;</span>
 	</p>
@@ -264,7 +287,7 @@ function trending(subreddits) {
   // add a clickable array entry for every given subreddit
   for (let i = 0; i < subreddits.length; i++) {
     html += `
-    <a href="#" onclick="handleMessageSending('${subreddits[i]}', 'search')">
+    <a onclick="handleMessageSending('${subreddits[i]}', 'search')">
       <span class="string-color">"${subreddits[i]}"</span>
     </a>
     `;
@@ -301,9 +324,7 @@ function search(subreddit) {
     </br>
     
     <span class="keyword-color">&nbsp; &nbsp; return</span>
-      <a id="search_execute" onclick="submitSearch()" class="function-color">executeSearch</a>
-        <span class="bracket-color">(</span><span class="bracket-color">)
-      </span>
+      <a id="search_execute" onclick="submitSearch()" class="function-color">executeSearch</a><span class="bracket-color">()</span>
     
     </br>
     
@@ -325,16 +346,14 @@ function article(data) {
         <span class="keyword-color">let </span>
       </a>
       <span class="variable-color">
-        <a onclick="handleMessageSending('${data.subreddit},${
-    data.id
-  }', 'article')">${data.id}</a>
+        <a onclick="handleMessageSending('${data.subreddit},${data.id}', 'article')">${data.id}</a>
       </span>
+      <span class="variable-color">=</span>
       <span class="string-color">
         <span class="bracket-color">(</span>
+         ${data.score},
         "${data.title}"<span class="variable-color">,</span>
-        <span class="argument-color">${
-          data.author
-        }</span><span class="variable-color">,</span>
+        <span class="argument-color"><a onclick="handleMessageSending('${data.author},about,subreddit,${data.subreddit}', 'user')">${data.author}</a></span><span class="variable-color">,</span>
         <span class="bracket-color"> { </span>
         <span class="variable-color"> ${data.subreddit}</span>
         <span class="bracket-color"> } </span>
@@ -402,9 +421,7 @@ function articleDetails(data) {
   
   <span class="keyword-color">&nbsp; &nbsp; let</span>
   <span class="variable-color">score =</span>
-  <span class="string-color">${
-    data.score
-  }</span><span class="variable-color">;</span>
+  <span class="string-color">${data.score}</span><span class="variable-color">;</span>
   
   </br>
   
@@ -460,16 +477,12 @@ function comment(comment) {
       
       </br>
 
-        <div id="${comment.data.id}" style="display: none">
-          <span class="variable-color">&nbsp; &nbsp; score: ${
-            comment.data.score
-          };</span>
+        <div id="${comment.data.id}">
+          <span class="variable-color">&nbsp; &nbsp; score: ${comment.data.score};</span>
       
           </br>
       
-          <span class="variable-color">&nbsp; &nbsp; body: ${
-            comment.data.body
-          };</span>
+          <span class="variable-color">&nbsp; &nbsp; body: ${comment.data.body};</span>
       
           </br>
       
@@ -523,23 +536,22 @@ function childComment(comment) {
       for (let j = 0; j < comment.replies.data.children[i].data.depth; j++) {
         html += `&nbsp; &nbsp; &nbsp; &nbsp;`;
       }
-
+      if (
+        comment.replies.data.children[i].data.author ===
+        comment.orginalPostAuthor
+      ) {
+        comment.replies.data.children[i].data.author += " (OP)";
+      }
       html += `
       <span class="keyword-color"> case</span>
-        <a onclick=collapseDiv('comment-${
-          comment.replies.data.children[i].data.id
-        }')>
-          <span class="string-color">'${
-            comment.replies.data.children[i].data.author
-          }'</span>
+        <a onclick=collapseDiv('comment-${comment.replies.data.children[i].data.id}')>
+          <span class="string-color">'${comment.replies.data.children[i].data.author}'</span>
         </a>
       <span class="variable-color">:</span>
       
       </br>
       
-        <div id="comment-${
-          comment.replies.data.children[i].data.id
-        }" style="display: none">
+        <div id="comment-${comment.replies.data.children[i].data.id}" style="display: none">
           <span class="variable-color">
     `;
 
@@ -561,9 +573,7 @@ function childComment(comment) {
 
       html += `
       this</span><span class="variable-color">.open</span><span class="bracket-color">(</span>
-      <span class="variable-color">${
-        comment.replies.data.children[i].data.score
-      }</span>
+      <span class="variable-color">${comment.replies.data.children[i].data.score}</span>
       <span class="bracket-color">)</span><span class="variable-color">;</span>
       
       </br>
@@ -580,6 +590,177 @@ function childComment(comment) {
   return html;
 }
 
+// login panel
+function login() {
+  return `
+  <span class="keyword-color">if</span>
+  <span class="bracket-color">(</span>
+  <span class="variable-color">!session</span>
+  <span class="bracket-color">) {</span>
+  </br>
+  <span>&nbsp; &nbsp;<a class="function-color" onclick="login()">login</a></span><span class="bracket-color">(</span>
+  <span class="variable-color">user:</span>
+  <input type="text" id="username"></input>
+  <span class="variable-color">, pass:</span>
+  <input type="password" id="password"></input>
+  <span class="bracket-color">)</span><span class="variable-color">;</span>
+  </br>
+  <span class="bracket-color">}</span>
+  `;
+}
+
+// logout panel
+function logout(username) {
+  return `
+  <span class="keyword-color">if</span>
+  <span class="bracket-color">(</span>
+  <span class="variable-color">session</span>
+  <span class="bracket-color">) {</span>
+  </br>
+  <span>&nbsp; &nbsp;<a class="function-color" onclick="handleMessageSending('logout', 'logout')">logout</a></span><span class="bracket-color">(</span>
+  <span><a class="variable-color" onclick="handleMessageSending('${username},about,home,', 'user')">${username}</a></span>
+  <span class="bracket-color">)</span><span class="variable-color">;</span>
+  </br>
+  <span class="bracket-color">}</span>
+  `;
+}
+
+// user page navigation panel
+function userNav(data) {
+  let html = `
+  <span class="keyword-color">function</span>
+  <span class="function-color">user</span><span class="bracket-color">(</span>
+  <span class="variable-color">${data.username}</span><span class="bracket-color">) {</span>
+  </br>
+  <span>&nbsp; &nbsp; <span class="keyword-color">return</span></span>
+  <span class="bracket-color">[</span>
+  <span><a `;
+  if (data.view === "about") {
+    html += `class="keyword-color"`;
+  } else {
+    html += `class="string-color"`;
+  }
+  html += ` onclick="handleMessageSending('${data.username},about,${data.refLocation},${data.refID}', 'user')">"About"</a></span><span class="variable-color">,</span>
+  <span><a `;
+  if (data.view === "posts") {
+    html += `class="keyword-color"`;
+  } else {
+    html += `class="string-color"`;
+  }
+  html += ` onclick="handleMessageSending('${data.username},posts,${data.refLocation},${data.refID}', 'user')">"Posts"</a></span><span class="variable-color">,</span>
+  <span><a `;
+  if (data.view === "comments") {
+    html += `class="keyword-color"`;
+  } else {
+    html += `class="string-color"`;
+  }
+  html += ` onclick="handleMessageSending('${data.username},comments,${data.refLocation},${data.refID}', 'user')">"Comments"</a></span>
+  <span class="bracket-color">]</span><span class="variable-color">;</span>
+  </br>
+  <span class="bracket-color">}</span>
+  </br>
+  </br>
+  `;
+  return html;
+}
+
+// user page about panel
+function userAbout(data) {
+  let created = new Date(data.created * 1000);
+  created =
+    "" +
+    created.getDate() +
+    "." +
+    (created.getMonth() + 1) +
+    "." +
+    created.getFullYear();
+  // <image src="${data.icon_img}" height="100" width="100"></image>
+  return `
+  <span class="keyword-color">const</span>
+  <span class="variable-color">information</span>
+  <span class="function-color">=</span>
+  <span class="bracket-color">{</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="string-color">"Creation"</span><span class="variable-color">:</span>
+  <span class="variable-color">${created}</span><span class="variable-color">,</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="string-color">"Karma"</span><span class="variable-color">:</span>
+  <span class="variable-color">${data.link_karma +
+    data.comment_karma}</span><span class="variable-color">,</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="string-color">"PostKarma"</span><span class="variable-color">:</span>
+  <span class="variable-color">${
+    data.link_karma
+  }</span><span class="variable-color">,</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="string-color">"CommentKarma"</span><span class="variable-color">:</span>
+  <span class="variable-color">${
+    data.comment_karma
+  }</span><span class="variable-color">,</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="string-color">"Description"</span><span class="variable-color">:</span>
+  <span class="variable-color">${data.subreddit.public_description}</span>
+  </br>
+  <span class="bracket-color">}</span>
+  `;
+}
+
+// collections navigation panel
+function collectionsNav(collections) {
+  let html = `
+  <span class="keyword-color">function</span>
+  <span class="function-color">collections</span><span class="bracket-color">() {</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="keyword-color">return</span>
+  <span class="bracket-color">[</span>
+  `;
+  for (let i in collections) {
+    if (i != collections.length - 1) {
+      html += `
+    <span><a class="string-color" onclick="handleMessageSending('${collections[i].data.path}', 'collectionView')">"${collections[i].data.display_name}"</a></span><span class="variable-color">,</span>
+    `;
+    } else {
+      html += `
+    <span><a class="string-color" onclick="handleMessageSending('${collections[i].data.path}', 'collectionView')">"${collections[i].data.display_name}"</a></span>
+    `;
+    }
+  }
+  html += `
+  <span class="bracket-color">]</span><span class="variable-color">;</span>
+  </br>
+  <span class="bracket-color">}</span>
+  </br>
+  </br>
+  `;
+  return html;
+}
+
+// empty exception panel
+function empty(type) {
+  return `
+  <span class="keyword-color">try</span>
+  <span class="bracket-color">{</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="function-color">get${type}()</span>
+  </br>
+  <span class="bracket-color">}</span>
+  <span class="keyword-color">catch</span>
+  <span class="bracket-color">(</span>
+  <span class="variable-color">e</span>
+  <span class="keyword-color">if</span>
+  <span class="variable-color">e</span>
+  <span class="keyword-color">instanceof</span>
+  <span class="function-color">No${type}Error</span>
+  <span class="bracket-color">) {</span>
+  </br>
+  <span>&nbsp; &nbsp; </span><span class="function-color">logger</span><span class="variable-color">.</span><span class="keyword-color">ERROR</span><span class="bracket-color">(</span>
+  <span class="variable-color">e</span>
+  <span class="bracket-color">)</span><span class="variable-color">;</span>
+  </br>
+  <span class="bracket-color">}</span>
+  `;
+}
+
 // essential panel to close html
 function tail() {
   return `
@@ -590,8 +771,9 @@ function tail() {
 
 module.exports = {
   head,
-  home,
-  subreddit,
+  homeBack,
+  subredditBack,
+  articleBack,
   sort,
   time,
   help,
@@ -602,5 +784,11 @@ module.exports = {
   article,
   articleDetails,
   comment,
+  login,
+  logout,
+  userAbout,
+  userNav,
+  collectionsNav,
+  empty,
   tail
 };

@@ -64,3 +64,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Migrated to new vscode package structure
 - Removed unused tests
+
+## [1.4.0]
+
+- Added login panel
+- Session cookie saves to globalState
+- Added session checking
+- Added logout
+- Added request timeout setting
+- Added user page
+- Added option to disable user management
+- Added basic collections
+- Added media warning
+- Changed background color

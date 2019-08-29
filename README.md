@@ -17,15 +17,31 @@
 
 ### Sort the Subreddit
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/sort.gif" alt="Search gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/sort.gif" alt="Sort gif">
 
 ### Open an article
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/article.gif" alt="Search gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/article.gif" alt="Article gif">
+
+### Browse comments
+
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/comment.gif" alt="Comment gif">
+
+### Browse user pages
+
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/user.gif" alt="User gif">
 
 ### Choose a trending Subreddit
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/trend.gif" alt="Search gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/trend.gif" alt="Trend gif">
+
+### Login with your account
+
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/login.gif" alt="Login gif">
+
+### Browse your collections
+
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/public/images/collection.gif" alt="Collection gif">
 
 ## Extension Settings
 
@@ -38,17 +54,17 @@ This extension contributes the following settings:
 - `redditviewer.limitation`: Set the amount of articles to be loaded in a subreddit page
 - `redditviewer.help`: enable/disable the help panel on the landing page
 - `redditviewer.landingPage`: enable/disable the landing page
+- `redditviewer.requestTimeout`: set the timeout for requests in ms
+- `redditviewer.userManagement`: Set if the user management should be active. Deactivating this will disable login and all user related actions
 
 ## Known Issues
 
-- Videos don't work
+- Videos/Media don't work and cause crash
 - Handle text formatting(Line break, inline) better
 
 ## Planned features
 
-- Full video support
-- Account Management -> Login, Voting etc.
-- Extended comment loading
+- Version 2.0 planning
 
 ## Release Notes
 
@@ -76,6 +92,12 @@ Initial release of Reddit-Viewer
 
 - Added pagination
 - Highlighting of sortation
+
+### 1.4.0
+
+- Added timeout setting
+- Added user pages
+- Added user management including login and collections
 
 ## Shoutout
 

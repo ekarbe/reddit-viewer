@@ -77,3 +77,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added basic collections
 - Added media warning
 - Changed background color
+
+## [unreleased]
+
+- Added timestamp to articles

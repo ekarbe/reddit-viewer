@@ -20,11 +20,13 @@ function activate(context) {
   let disposable = vscode.commands.registerCommand(
     "extension.reddit",
     function() {
+      // create session object
       let session = {
         active: false,
         username: context.globalState.get("activeUser"),
         cookie: context.globalState.get("cookie")
       };
+      // only if user management is active check for active session
       if (config.userManagement) {
         api
           .checkSession(session.cookie)

@@ -95,6 +95,7 @@ function subredditBack(subreddit) {
   `;
 }
 
+// panel to return back to article detail
 function articleBack(article) {
   return `
   <p>
@@ -704,6 +705,7 @@ function userAbout(data) {
   `;
 }
 
+// collections navigation panel
 function collectionsNav(collections) {
   let html = `
   <span class="keyword-color">function</span>

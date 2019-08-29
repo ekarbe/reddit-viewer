@@ -65,7 +65,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Migrated to new vscode package structure
 - Removed unused tests
 
-## [Unreleased]
+## [1.4.0]
 
 - Added login panel
 - Session cookie saves to globalState
@@ -76,3 +76,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added option to disable user management
 - Added basic collections
 - Added media warning
+- Changed background color

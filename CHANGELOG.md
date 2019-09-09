@@ -78,6 +78,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added media warning
 - Changed background color
 
-## [unreleased]
+## [1.4.1]
 
 - Added timestamp to articles
+- Shrink package (removed images)
+
+## [Unreleased]

@@ -77,3 +77,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added basic collections
 - Added media warning
 - Changed background color
+
+## [1.4.1]
+
+- Added timestamp to articles
+- Shrink package (removed images)
+
+## [Unreleased]

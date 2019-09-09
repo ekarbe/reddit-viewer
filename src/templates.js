@@ -407,6 +407,10 @@ function articleDetails(data) {
     return ``;
   }
 
+  // parse unix timestamp
+  let created = new Date(data.created*1000);
+  let fmtCreated = created.getDate() + '.' + (created.getMonth()+1) + '.' + created.getFullYear();
+
   let html = `
   <span class="keyword-color">const</span>
   <span class="function-color">${data.title}</span>
@@ -422,6 +426,12 @@ function articleDetails(data) {
   <span class="keyword-color">&nbsp; &nbsp; let</span>
   <span class="variable-color">score =</span>
   <span class="string-color">${data.score}</span><span class="variable-color">;</span>
+  
+  </br>
+
+  <span class="keyword-color">&nbsp; &nbsp; let</span>
+  <span class="variable-color">date =</span>
+  <span class="string-color">${fmtCreated}</span><span class="variable-color">;</span>
   
   </br>
   

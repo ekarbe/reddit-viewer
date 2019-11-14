@@ -1,18 +1,19 @@
 {
   "name": "reddit-viewer",
-  "displayName": "Reddit Viewer",
+  "displayName": "Reddit-Viewer",
   "description": "Browse Reddit in code style",
-  "version": "1.4.1",
+  "version": "2.0.0",
   "publisher": "ekarbe",
   "author": "Eike Christian Karbe <eichkarbe@yahoo.de>",
+  "license": "MIT",
   "engines": {
-    "vscode": "^1.35.0"
+    "vscode": "^1.40.0"
   },
   "bugs": {
     "url": "https://github.com/ekarbe/reddit-viewer/issues",
     "email": "eichkarbe@yahoo.de"
   },
-  "homepage": "https://github.com/ekarbe/reddit-viewer/blob/master/README.md",
+  "homepage": "https://ekarbe.github.io/reddit-viewer",
   "repository": {
     "type": "git",
     "url": "https://github.com/ekarbe/reddit-viewer.git"
@@ -21,102 +22,702 @@
     "Other"
   ],
   "keywords": [
-    "reddit"
+    "reddit",
+    "news",
+    "browse",
+    "subreddit",
+    "widget"
   ],
   "activationEvents": [
-    "onCommand:extension.reddit"
+    "onCommand:RedditViewer.Open",
+    "onCommand:RedditViewer.OpenArticle",
+    "onView:Frontpage",
+    "onView:Subreddit"
   ],
-  "icon": "public/reddit-viewer-icon.png",
-  "main": "./extension.js",
+  "icon": "resources/reddit-viewer-icon.png",
+  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "extension.reddit",
+        "command": "RedditViewer.Open",
         "title": "Reddit"
+      },
+      {
+        "command": "RedditViewer.OpenArticle",
+        "title": "Open Article in RedditViewer"
+      },
+      {
+        "command": "RedditViewer.OpenBrowser",
+        "title": "Open Article in Browser"
+      },
+      {
+        "command": "RedditViewerWidget.FrontpageRefresh",
+        "title": "Refresh the Frontpage",
+        "icon": {
+          "light": "resources/icons/light/refresh.svg",
+          "dark": "resources/icons/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "RedditViewerWidget.FrontpageBest",
+        "title": "Best",
+        "enablement": "!frontpage-best-enabled"
+      },
+      {
+        "command": "RedditViewerWidget.FrontpageHot",
+        "title": "Hot",
+        "enablement": "!frontpage-hot-enabled"
+      },
+      {
+        "command": "RedditViewerWidget.FrontpageNew",
+        "title": "New",
+        "enablement": "!frontpage-new-enabled"
+      },
+      {
+        "command": "RedditViewerWidget.FrontpageControversial",
+        "title": "Controversial",
+        "enablement": "!frontpage-controversial-enabled"
+      },
+      {
+        "command": "RedditViewerWidget.FrontpageTop",
+        "title": "Top",
+        "enablement": "!frontpage-top-enabled"
+      },
+      {
+        "command": "RedditViewerWidget.FrontpageRising",
+        "title": "Rising",
+        "enablement": "!frontpage-rising-enabled"
+      },
+      {
+        "command": "RedditViewerWidget.SubredditRefresh",
+        "title": "Refresh the Subreddit",
+        "icon": {
+          "light": "resources/icons/light/refresh.svg",
+          "dark": "resources/icons/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "RedditViewerWidget.SubredditHot",
+        "title": "Hot",
+        "enablement": "!subreddit-hot-enabled"
+      },
+      {
+        "command": "RedditViewerWidget.SubredditNew",
+        "title": "New",
+        "enablement": "!subreddit-new-enabled"
+      },
+      {
+        "command": "RedditViewerWidget.SubredditControversial",
+        "title": "Controversial",
+        "enablement": "!subreddit-controversial-enabled"
+      },
+      {
+        "command": "RedditViewerWidget.SubredditTop",
+        "title": "Top",
+        "enablement": "!subreddit-top-enabled"
+      },
+      {
+        "command": "RedditViewerWidget.SubredditRising",
+        "title": "Rising",
+        "enablement": "!subreddit-rising-enabled"
       }
     ],
-    "configuration": {
-      "title": "Reddit Viewer",
-      "properties": {
-        "redditviewer.title": {
-          "type": "string",
-          "default": "Reddit",
-          "description": "Set the title of the Reddit-Viewer window"
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "RedditViewer",
+          "title": "Reddit",
+          "icon": "resources/icons/treeView.svg"
+        }
+      ]
+    },
+    "views": {
+      "RedditViewer": [
+        {
+          "id": "Frontpage",
+          "name": "Frontpage",
+          "when": "config.RedditViewerWidget.Frontpage"
         },
-        "redditviewer.defaultSort": {
-          "type": "string",
-          "default": "hot",
-          "examples": [
-            "hot",
-            "new",
-            "controversial",
-            "top",
-            "rising"
-          ],
-          "pattern": "(^hot$|^new$|^controversial$|^top$|^rising$)",
-          "description": "Set the default sorting of subreddits"
+        {
+          "id": "Subreddit",
+          "name": "Subreddit",
+          "when": "config.RedditViewerWidget.Subreddit"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "RedditViewerWidget.FrontpageRefresh",
+          "group": "navigation",
+          "when": "view == Frontpage"
         },
-        "redditviewer.defaultInterval": {
-          "type": "string",
-          "default": "day",
-          "examples": [
-            "hour",
-            "day",
-            "week",
-            "month",
-            "year",
-            "all"
-          ],
-          "pattern": "(^hour$|^day$|^week$|^month$|^year$|^all$)",
-          "description": "Set the default interval of subreddits"
+        {
+          "command": "RedditViewerWidget.FrontpageBest",
+          "when": "view == Frontpage"
         },
-        "redditviewer.defaultSubreddit": {
-          "type": "string",
-          "default": "all",
-          "pattern": "^[A-Za-z0-9_]+$",
-          "minLength": 3,
-          "maxLength": 21,
-          "description": "Set the default subreddit that is entered in search and used if the landing page is disabled"
+        {
+          "command": "RedditViewerWidget.FrontpageHot",
+          "when": "view == Frontpage"
         },
-        "redditviewer.limitation": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 100,
-          "default": 25,
-          "description": "Set the amount of articles to be loaded in a subreddit page"
+        {
+          "command": "RedditViewerWidget.FrontpageNew",
+          "when": "view == Frontpage"
         },
-        "redditviewer.help": {
-          "type": "boolean",
-          "default": true,
-          "description": "Set if the help panel is displayed on the landing page"
+        {
+          "command": "RedditViewerWidget.FrontpageControversial",
+          "when": "view == Frontpage"
         },
-        "redditviewer.landingPage": {
-          "type": "boolean",
-          "default": true,
-          "description": "Set if the landing page should be loaded on activation or the default subreddit should be loaded"
+        {
+          "command": "RedditViewerWidget.FrontpageTop",
+          "when": "view == Frontpage"
         },
-        "redditviewer.requestTimeout": {
-          "type": "integer",
-          "default": 10000,
-          "minimum": 1000,
-          "maximum": 60000,
-          "description": "Set the timeout for requests in ms"
+        {
+          "command": "RedditViewerWidget.FrontpageRising",
+          "when": "view == Frontpage"
         },
-        "redditviewer.userManagement": {
-          "type": "boolean",
-          "default": true,
-          "description": "Set if the user management should be active. Deactivating this will disable login and all user related actions"
+        {
+          "command": "RedditViewerWidget.SubredditRefresh",
+          "group": "navigation",
+          "when": "view == Subreddit"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditHot",
+          "when": "view == Subreddit"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditNew",
+          "when": "view == Subreddit"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditControversial",
+          "when": "view == Subreddit"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditTop",
+          "when": "view == Subreddit"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditRising",
+          "when": "view == Subreddit"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "RedditViewer.OpenBrowser",
+          "when": "config.RedditViewerWidget.OpenType == redditviewer"
+        },
+        {
+          "command": "RedditViewer.OpenArticle",
+          "when": "config.RedditViewerWidget.OpenType == browser"
+        }
+      ]
+    },
+    "colors": [
+      {
+        "id": "RedditViewer.Comment",
+        "description": "Color of comments",
+        "defaults": {
+          "highContrast": "#7ca668",
+          "light": "#008000",
+          "dark": "#6A9955"
+        }
+      },
+      {
+        "id": "RedditViewer.Constant",
+        "description": "Color of constants",
+        "defaults": {
+          "highContrast": "#569cd6",
+          "light": "#0000ff",
+          "dark": "#569CD6"
+        }
+      },
+      {
+        "id": "RedditViewer.Keyword",
+        "description": "Color of keywords",
+        "defaults": {
+          "highContrast": "#C586C0",
+          "light": "#AF00DB",
+          "dark": "#C586C0"
+        }
+      },
+      {
+        "id": "RedditViewer.Variable",
+        "description": "Color of variables",
+        "defaults": {
+          "highContrast": "#9CDCFE",
+          "light": "#001080",
+          "dark": "#9CDCFE"
+        }
+      },
+      {
+        "id": "RedditViewer.String",
+        "description": "Color of strings",
+        "defaults": {
+          "highContrast": "#CE9178",
+          "light": "#A31515",
+          "dark": "#CE9178"
+        }
+      },
+      {
+        "id": "RedditViewer.Function",
+        "description": "Color of functions",
+        "defaults": {
+          "highContrast": "#DCDCAA",
+          "light": "#795E26",
+          "dark": "#DCDCAA"
+        }
+      },
+      {
+        "id": "RedditViewer.Type",
+        "description": "Color of types",
+        "defaults": {
+          "highContrast": "#4EC9B0",
+          "light": "#267F99",
+          "dark": "#4EC9B0"
+        }
+      },
+      {
+        "id": "RedditViewer.Numeric",
+        "description": "Color of numerics",
+        "defaults": {
+          "highContrast": "#B5CEA8",
+          "light": "#09885A",
+          "dark": "#B5CEA8"
         }
       }
-    }
+    ],
+    "configuration": [
+      {
+        "title": "RedditViewer",
+        "properties": {
+          "RedditViewer.Title": {
+            "type": "string",
+            "default": "Reddit",
+            "description": "Controls the name of the webview panel."
+          },
+          "RedditViewer.Style": {
+            "type": "string",
+            "default": "javascript",
+            "enum": [
+              "javascript",
+              "typescript",
+              "php"
+            ],
+            "enumDescriptions": [
+              "JavaScript styling",
+              "TypeScript styling",
+              "PHP styling"
+            ],
+            "description": "Controls the style to be used for the code viewer."
+          },
+          "RedditViewer.Timeout": {
+            "type": "integer",
+            "default": 5000,
+            "minimum": 1000,
+            "maximum": 15000,
+            "description": "Controls the timeout for all requests. (in miliseconds)"
+          },
+          "RedditViewer.UserManagement": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable/disable user management elements and requests."
+          },
+          "RedditViewer.HomeTrending": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable/disable the trending subreddits in the home view."
+          },
+          "RedditViewer.HomeFrontpage": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable/disable the article section in the home view."
+          },
+          "RedditViewer.HomeFrontpageMine": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable/disable the own frontpage in the article section of the home view."
+          },
+          "RedditViewer.HomeFrontpageSubreddit": {
+            "type": "string",
+            "default": "popular",
+            "description": "Controls the subreddit to be shown in the article section of the home view."
+          },
+          "RedditViewer.HomeFrontpageLimit": {
+            "type": "integer",
+            "default": 10,
+            "description": "Controls the number of articles to be loaded in the article section of the home view.",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "RedditViewer.HomeFrontpageTime": {
+            "type": "string",
+            "default": "day",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "enumDescriptions": [
+              "Now",
+              "Today",
+              "This Week",
+              "This Month",
+              "This Year",
+              "All Time"
+            ],
+            "description": "Controls the default time interval for the article section of the home view."
+          },
+          "RedditViewer.HomeFrontpageSort": {
+            "type": "string",
+            "default": "hot",
+            "enum": [
+              "best",
+              "hot",
+              "new",
+              "controversial",
+              "top",
+              "rising"
+            ],
+            "enumDescriptions": [
+              "Sort by Best (only possible for own frontpage)",
+              "Sort by Hot",
+              "Sort by Newest",
+              "Sort by Controversial",
+              "Sort by Top",
+              "Sort by Rising"
+            ],
+            "description": "Controls the default sort type for the article section of the home view."
+          },
+          "RedditViewer.SearchLimit": {
+            "type": "integer",
+            "default": 10,
+            "description": "Controls the number of articles to be loaded in the search view.",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "RedditViewer.SearchTime": {
+            "type": "string",
+            "default": "all",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "enumDescriptions": [
+              "Now",
+              "Today",
+              "This Week",
+              "This Month",
+              "This Year",
+              "All Time"
+            ],
+            "description": "Controls the default time interval in the search view."
+          },
+          "RedditViewer.SearchSort": {
+            "type": "string",
+            "default": "relevance",
+            "enum": [
+              "new",
+              "relevance",
+              "top",
+              "comments"
+            ],
+            "enumDescriptions": [
+              "Sort by Newest",
+              "Sort by Relevance",
+              "Sort by Top",
+              "Sort by Comments"
+            ],
+            "description": "Controls the default sort type in the search view."
+          },
+          "RedditViewer.SubredditLimit": {
+            "type": "integer",
+            "default": 10,
+            "description": "Controls the number of articles to be loaded in the subreddit view.",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "RedditViewer.SubredditTime": {
+            "type": "string",
+            "default": "day",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "enumDescriptions": [
+              "Now",
+              "Today",
+              "This Week",
+              "This Month",
+              "This Year",
+              "All Time"
+            ],
+            "description": "Controls the default time interval in the subreddit view."
+          },
+          "RedditViewer.SubredditSort": {
+            "type": "string",
+            "default": "hot",
+            "enum": [
+              "hot",
+              "new",
+              "controversial",
+              "top",
+              "rising"
+            ],
+            "enumDescriptions": [
+              "Sort by hot",
+              "Sort by newest",
+              "Sort by controversial",
+              "Sort by top",
+              "Sort by rising"
+            ],
+            "description": "Controls the default sort type in the subreddit view."
+          },
+          "RedditViewer.ArticleCommentLimit": {
+            "type": "integer",
+            "default": 25,
+            "description": "Controls the number of comments to be loaded in the article view.",
+            "minimum": 1,
+            "maximum": 500
+          },
+          "RedditViewer.ArticleCommentDepth": {
+            "type": "integer",
+            "default": 4,
+            "description": "Controls the depth of the comments to be loaded in the article view.",
+            "minimum": 1,
+            "maximum": 25
+          },
+          "RedditViewer.ArticleCommentSort": {
+            "type": "string",
+            "default": "confidence",
+            "enum": [
+              "confidence",
+              "new",
+              "old",
+              "controversial",
+              "top",
+              "qa"
+            ],
+            "enumDescriptions": [
+              "Sort by Confidence",
+              "Sort by Newest",
+              "Sort by Oldest",
+              "Sort by Controversial",
+              "Sort by Top",
+              "Sort by Q&A"
+            ],
+            "description": "Controls the default sort type in the subreddit view."
+          },
+          "RedditViewer.UserLimit": {
+            "type": "integer",
+            "default": 10,
+            "description": "Controls the number of articles and comments to be loaded in the user view.",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "RedditViewer.UserTime": {
+            "type": "string",
+            "default": "day",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "enumDescriptions": [
+              "Now",
+              "Today",
+              "This Week",
+              "This Month",
+              "This Year",
+              "All Time"
+            ],
+            "description": "Controls the default time interval in the user view."
+          },
+          "RedditViewer.UserSort": {
+            "type": "string",
+            "default": "new",
+            "enum": [
+              "new",
+              "hot",
+              "top",
+              "controversial"
+            ],
+            "enumDescriptions": [
+              "Sort by New",
+              "Sort by Hot",
+              "Sort by Top",
+              "Sort by Controversial"
+            ],
+            "description": "Controls the default sort type in the subreddit view."
+          },
+          "RedditViewerWidget.Frontpage": {
+            "type": "boolean",
+            "default": "false",
+            "description": "Enable/disable the frontpage provider in the widget."
+          },
+          "RedditViewerWidget.FrontpageLimit": {
+            "type": "integer",
+            "default": 30,
+            "description": "Controls the number of articles to be loaded in the frontpage provider of the widget.",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "RedditViewerWidget.FrontpageTime": {
+            "type": "string",
+            "default": "day",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "enumDescriptions": [
+              "Now",
+              "Today",
+              "This Week",
+              "This Month",
+              "This Year",
+              "All Time"
+            ],
+            "description": "Controls the default time interval in the frontpage provider of the widget."
+          },
+          "RedditViewerWidget.FrontpageSort": {
+            "type": "string",
+            "default": "hot",
+            "enum": [
+              "best",
+              "hot",
+              "new",
+              "controversial",
+              "top",
+              "rising"
+            ],
+            "enumDescriptions": [
+              "Sort by Best",
+              "Sort by Hot",
+              "Sort by Newest",
+              "Sort by Controversial",
+              "Sort by Top",
+              "Sort by Rising"
+            ],
+            "description": "Controls the default sort type in the fronpage provider of the widget."
+          },
+          "RedditViewerWidget.Subreddit": {
+            "type": "boolean",
+            "default": "true",
+            "description": "Enable/disable the subreddit provider in the widget."
+          },
+          "RedditViewerWidget.SubredditDefault": {
+            "type": "string",
+            "default": "worldnews",
+            "description": "Controls the subreddit to be shown in the subreddit provider of the widget."
+          },
+          "RedditViewerWidget.SubredditLimit": {
+            "type": "integer",
+            "default": 30,
+            "description": "Controls the number of articles to be loaded in the subreddit provider of the widget.",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "RedditViewerWidget.SubredditTime": {
+            "type": "string",
+            "default": "day",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "enumDescriptions": [
+              "Now",
+              "Today",
+              "This Week",
+              "This Month",
+              "This Year",
+              "All Time"
+            ],
+            "description": "Controls the default time interval in the subreddit provider of the widget."
+          },
+          "RedditViewerWidget.SubredditSort": {
+            "type": "string",
+            "default": "hot",
+            "enum": [
+              "hot",
+              "new",
+              "controversial",
+              "top",
+              "rising"
+            ],
+            "enumDescriptions": [
+              "Sort by Hot",
+              "Sort by Newest",
+              "Sort by Controversial",
+              "Sort by Top",
+              "Sort by Rising"
+            ],
+            "description": "Controls the default sort type in the subreddit provider of the widget."
+          },
+          "RedditViewerWidget.OpenType": {
+            "type": "string",
+            "default": "redditviewer",
+            "enum": [
+              "redditviewer",
+              "browser"
+            ],
+            "enumDescriptions": [
+              "Open widget links in Reddit-Viewer",
+              "Open widget links in Browser"
+            ],
+            "description": "Controls the type to be used when opening an article in the widget."
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "typedoc && webpack --mode production",
+    "webpack": "webpack --mode development",
+    "webpack-dev": "webpack --mode development --watch",
+    "test-compile": "tsc -p ./",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js",
+    "doc": "typedoc"
   },
   "devDependencies": {
-    "@types/node": "~12.0.0",
-    "@types/vscode": "1.35.0",
-    "eslint": "~6.0.0",
-    "typescript": "^3.3.1"
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^10.17.5",
+    "@types/vscode": "^1.40.0",
+    "glob": "^7.1.6",
+    "mocha": "^6.2.2",
+    "ts-loader": "^6.2.1",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2",
+    "vscode-test": "^1.2.3",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   },
   "dependencies": {
-    "axios": "^0.19.0"
+    "typed-rest-client": "^1.5.0"
   }
 }

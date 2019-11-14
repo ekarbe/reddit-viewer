@@ -83,4 +83,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added timestamp to articles
 - Shrink package (removed images)
 
+## [2.0.0]
+
+- Migration of Version 1.4.1 from JavaScript to TypeScript
+- Added webpack to bundle the extension
+- Using the selftext_html attribute and raw_json option to show selftext as markdown
+- Dynamic color styling (dark, light, high contrast)
+- Using the editor settings for indentation and font styling
+- Added the possibility to define new templates to add other code styles
+- Added templates for TypeScript and PHP
+- Added widget
+- Added documentation
+
 ## [Unreleased]

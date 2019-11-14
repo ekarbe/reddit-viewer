@@ -1,0 +1,678 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Reddit-Viewer Documentation</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Reddit-Viewer Documentation</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> Reddit-Viewer Documentation</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				</br>
+				<div align="center">
+					<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/reddit-viewer.png" alt="Logo" width="250px"></img>
+				</div>
+				</br>
+				<div align="center">
+					<h1>Reddit-Viewer</h1>
+					<h2>A Visual Studio Code extension to browse Reddit. Provides a code-styled webview and a tree-view widget.</h2>
+				</div>
+				</br>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/preview.gif" alt="Preview gif">
+				<ol>
+					<li><a href="#features">Features</a><ol>
+							<li><a href="#widget">Widget</a><ol>
+									<li><a href="#sort-the-articles">Sort The Articles</a></li>
+									<li><a href="#open-an-article">Open An Article</a></li>
+								</ol>
+							</li>
+							<li><a href="#code-viewer">Code Viewer</a><ol>
+									<li><a href="#open-a-subreddit">Open A Subreddit</a></li>
+									<li><a href="#global-search">Global Search</a></li>
+									<li><a href="#login">Login</a></li>
+									<li><a href="#frontpage">Frontpage</a></li>
+									<li><a href="#browse-articles">Browse Articles</a></li>
+									<li><a href="#browse-userpages">Browse Userpages</a></li>
+									<li><a href="#sort-articles-and-comments">Sort Articles And Comments</a></li>
+									<li><a href="#pagination">Pagination</a></li>
+									<li><a href="#change-the-code-style">Change The Code Style</a></li>
+								</ol>
+							</li>
+						</ol>
+					</li>
+					<li><a href="#requirements">Requirements</a></li>
+					<li><a href="#documentation">Documentation</a></li>
+					<li><a href="#extension-settings">Extension Settings</a></li>
+					<li><a href="#known-issues">Known Issues</a></li>
+					<li><a href="#planned-features">Planned Features</a></li>
+					<li><a href="#release-notes">Release Notes</a></li>
+				</ol>
+				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+					<h2>Features</h2>
+				</a>
+				<a href="#widget" id="widget" style="color: inherit; text-decoration: none;">
+					<h3>Widget</h3>
+				</a>
+				<p>The Reddit-Viewer widget enables an optional view to access the frontpahe and your favorite subreddit fast and resource-friendly.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget.gif" alt="Widget gif">
+				<a href="#sort-the-articles" id="sort-the-articles" style="color: inherit; text-decoration: none;">
+					<h4>Sort The Articles</h4>
+				</a>
+				<p>Sort the articles by the default sort-types.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget-sort.gif" alt="Widget sort gif">
+				<a href="#open-an-article" id="open-an-article" style="color: inherit; text-decoration: none;">
+					<h3>Open An Article</h3>
+				</a>
+				<p>You can open the articles displayed in the widget in the code viewer or your default browser.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget-open.gif" alt="Widget open gif">
+				<a href="#code-viewer" id="code-viewer" style="color: inherit; text-decoration: none;">
+					<h3>Code Viewer</h3>
+				</a>
+				<p>The Reddit-Viewer code viewer is a webview which allows you to browse Reddit in code style.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer.gif" alt="Code Viewer gif">
+				<a href="#open-a-subreddit" id="open-a-subreddit" style="color: inherit; text-decoration: none;">
+					<h4>Open A Subreddit</h4>
+				</a>
+				<p>Open a subreddit directly.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-open-subreddit.gif" alt="Code Viewer open subreddit gif">
+				<a href="#global-search" id="global-search" style="color: inherit; text-decoration: none;">
+					<h4>Global Search</h4>
+				</a>
+				<p>Search through subreddits and articles.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-global-search.gif" alt="Code Viewer global search gif">
+				<a href="#login" id="login" style="color: inherit; text-decoration: none;">
+					<h4>Login</h4>
+				</a>
+				<p>Login with your account to show the frontpage with your subscribed subreddits.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-login.gif" alt="Code Viewer login gif">
+				<a href="#frontpage" id="frontpage" style="color: inherit; text-decoration: none;">
+					<h4>Frontpage</h4>
+				</a>
+				<p>Browse your own frontpage or a subreddit of your choice.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-frontpage.gif" alt="Code Viewer frontpage gif">
+				<a href="#browse-articles" id="browse-articles" style="color: inherit; text-decoration: none;">
+					<h4>Browse Articles</h4>
+				</a>
+				<p>Browse articles and show the selftexts or images.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-articles.gif" alt="Code Viewer articles gif">
+				<a href="#browse-userpages" id="browse-userpages" style="color: inherit; text-decoration: none;">
+					<h4>Browse Userpages</h4>
+				</a>
+				<p>Browse userpages and show the articles and comments of that user.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-userpages.gif" alt="Code Viewer userpages gif">
+				<a href="#sort-articles-and-comments" id="sort-articles-and-comments" style="color: inherit; text-decoration: none;">
+					<h4>Sort Articles And Comments</h4>
+				</a>
+				<p>You can sort articles and comments in every view with the default sort- and time-types.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-sort.gif" alt="Code Viewer sort gif">
+				<a href="#pagination" id="pagination" style="color: inherit; text-decoration: none;">
+					<h4>Pagination</h4>
+				</a>
+				<p>Browse through multiple pages.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-pagination.gif" alt="Code Viewer pagination gif">
+				<a href="#change-the-code-style" id="change-the-code-style" style="color: inherit; text-decoration: none;">
+					<h4>Change The Code Style</h4>
+				</a>
+				<p>Change between the available code styles.</p>
+				<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-style.gif" alt="Code Viewer style gif">
+				<a href="#requirements" id="requirements" style="color: inherit; text-decoration: none;">
+					<h2>Requirements</h2>
+				</a>
+				<p>This extension requires Visual Studio Code 1.40.x or later and an active connection to the internet to work properly.</p>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p>The documentaion for this extension is available at <a href="https://ekarbe.github.io/reddit-viewer/">Reddit-Viewer Doc</a>.</p>
+				<a href="#extension-settings" id="extension-settings" style="color: inherit; text-decoration: none;">
+					<h2>Extension Settings</h2>
+				</a>
+				<p>This extension contributes the following settings:</p>
+				<ul>
+					<li><code>RedditViewer.Title</code>: Controls the name of the webview panel.</li>
+					<li><code>RedditViewer.Style</code>: Controls the style to be used for the code viewer.</li>
+					<li><code>RedditViewer.UserManagement</code>: Enable/disable user management elements and requests.</li>
+				</ul>
+				</br>
+				<ul>
+					<li><code>RedditViewer.HomeTrending</code>: Enable/disable the trending subreddits in the home view.</li>
+					<li><code>RedditViewer.HomeFrontpage</code>: Enable/disable the article section in the home view.</li>
+					<li><code>RedditViewer.HomeFrontpageMine</code>: Enable/disable the own frontpage in the article section of the home view.</li>
+					<li><code>RedditViewer.HomeFrontpageSubreddit</code>: Controls the subreddit to be shown in the article section of the home view.</li>
+					<li><code>RedditViewer.HomeFrontpageLimit</code>: Controls the number of articles to be loaded in the article section of the home view.</li>
+					<li><code>RedditViewer.HomeFrontpageTime</code>: Controls the default time interval for the article section of the home view.</li>
+					<li><code>RedditViewer.HomeFrontpageSort</code>: Controls the default sort type for the article section of the home view.</li>
+				</ul>
+				</br>
+				<ul>
+					<li><code>RedditViewer.SearchLimit</code>: Controls the number of articles to be loaded in the search view.</li>
+					<li><code>RedditViewer.SearchTime</code>: Controls the default time interval in the search view.</li>
+					<li><code>RedditViewer.SearchSort</code>: Controls the default sort type in the search view.</li>
+				</ul>
+				</br>
+				<ul>
+					<li><code>RedditViewer.SubredditLimit</code>: Controls the number of articles to be loaded in the subreddit view.</li>
+					<li><code>RedditViewer.SubredditTime</code>: Controls the default time interval in the subreddit view.</li>
+					<li><code>RedditViewer.SubredditSort</code>: Controls the default sort type in the subreddit view.</li>
+				</ul>
+				</br>
+				<ul>
+					<li><code>RedditViewer.ArticleCommentLimit</code>: Controls the number of comments to be loaded in the article view.</li>
+					<li><code>RedditViewer.ArticleCommentDepth</code>: Controls the depth of the comments to be loaded in the article view.</li>
+					<li><code>RedditViewer.ArticleCommentSort</code>: Controls the default sort type in the subreddit view.</li>
+				</ul>
+				</br>
+				<ul>
+					<li><code>RedditViewer.UserLimit</code>: Controls the number of articles and comments to be loaded in the user view.</li>
+					<li><code>RedditViewer.UserTime</code>: Controls the default time interval in the user view.</li>
+					<li><code>RedditViewer.UserSort</code>: Controls the default sort type in the subreddit view.</li>
+				</ul>
+				</br>
+				<ul>
+					<li><code>RedditViewerWidget.Frontpage</code>: Enable/disable the frontpage provider in the widget.</li>
+					<li><code>RedditViewerWidget.FrontpageLimit</code>: Controls the number of articles to be loaded in the frontpage provider of the widget.</li>
+					<li><code>RedditViewerWidget.FrontpageTime</code>: Controls the default time interval in the frontpage provider of the widget.</li>
+					<li><code>RedditViewerWidget.FrontpageSort</code>: Controls the default sort type in the fronpage provider of the widget.</li>
+				</ul>
+				</br>
+				<ul>
+					<li><code>RedditViewerWidget.Subreddit</code>: Enable/disable the subreddit provider in the widget.</li>
+					<li><code>RedditViewerWidget.SubredditDefault</code>: Controls the subreddit to be shown in the subreddit provider of the widget.</li>
+					<li><code>RedditViewerWidget.SubredditLimit</code>: Controls the number of articles to be loaded in the subreddit provider of the widget.</li>
+					<li><code>RedditViewerWidget.SubredditTime</code>: Controls the default time interval in the subreddit provider of the widget.</li>
+					<li><code>RedditViewerWidget.SubredditSort</code>: Controls the default sort type in the subreddit provider of the widget.</li>
+				</ul>
+				</br>
+				<ul>
+					<li><code>RedditViewerWidget.OpenType</code>: Controls the type to be used when opening an article in the widget.</li>
+				</ul>
+				<a href="#known-issues" id="known-issues" style="color: inherit; text-decoration: none;">
+					<h2>Known Issues</h2>
+				</a>
+				<ul>
+					<li><a href="https://github.com/ekarbe/reddit-viewer/issues?q=is%3Aopen+is%3Aissue+label%3Abug">Bug issue board</a></li>
+				</ul>
+				<a href="#planned-features" id="planned-features" style="color: inherit; text-decoration: none;">
+					<h2>Planned features</h2>
+				</a>
+				<ul>
+					<li><a href="https://github.com/ekarbe/reddit-viewer/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement">Enhancement issue board</a></li>
+				</ul>
+				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+					<h2>Contributing</h2>
+				</a>
+				<ul>
+					<li>Please refer to the <a href="CONTRIBUTING.md">CONTRIBUTING</a> file.</li>
+				</ul>
+				<a href="#release-notes" id="release-notes" style="color: inherit; text-decoration: none;">
+					<h2>Release Notes</h2>
+				</a>
+				<p>For all releases take a look at the <a href="CHANGELOG.md">Changelog</a>.</p>
+				<a href="#200" id="200" style="color: inherit; text-decoration: none;">
+					<h3>2.0.0</h3>
+				</a>
+				<ul>
+					<li>Migrated to TypeScript</li>
+					<li>Added text markdown (selftext, comments)</li>
+					<li>Better styling</li>
+					<li>Added different code styles (TypeScript, PHP)</li>
+					<li>Added widget</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/article.html" class="tsd-kind-icon">Article</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/articleprovider.html" class="tsd-kind-icon">Article<wbr>Provider</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/viewcache.html" class="tsd-kind-icon">View<wbr>Cache</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iapidata.html" class="tsd-kind-icon">IAPIData</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iarticle.html" class="tsd-kind-icon">IArticle</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/icomment.html" class="tsd-kind-icon">IComment</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iconfigdata.html" class="tsd-kind-icon">IConfig<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/igenericresult.html" class="tsd-kind-icon">IGeneric<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/ilisting.html" class="tsd-kind-icon">IListing</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/imulti.html" class="tsd-kind-icon">IMulti</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/isubredditabout.html" class="tsd-kind-icon">ISubreddit<wbr>About</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/isubredditsearchresult.html" class="tsd-kind-icon">ISubreddit<wbr>Search<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/itemplatedata.html" class="tsd-kind-icon">ITemplate<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/itrendsresult.html" class="tsd-kind-icon">ITrends<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iuserabout.html" class="tsd-kind-icon">IUser<wbr>About</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#articlesorttypes" class="tsd-kind-icon">article<wbr>Sort<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#articletimetypes" class="tsd-kind-icon">article<wbr>Time<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#articleviewcache" class="tsd-kind-icon">article<wbr>View<wbr>Cache</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#basehost" class="tsd-kind-icon">base<wbr>Host</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#commentsorttypes" class="tsd-kind-icon">comment<wbr>Sort<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#homeviewcache" class="tsd-kind-icon">home<wbr>View<wbr>Cache</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#minesorttypes" class="tsd-kind-icon">mine<wbr>Sort<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#minetimetypes" class="tsd-kind-icon">mine<wbr>Time<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#oldbasehost" class="tsd-kind-icon">old<wbr>Base<wbr>Host</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#searchsorttypes" class="tsd-kind-icon">search<wbr>Sort<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#searchtimetypes" class="tsd-kind-icon">search<wbr>Time<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#searchviewcache" class="tsd-kind-icon">search<wbr>View<wbr>Cache</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#securebasehost" class="tsd-kind-icon">secure<wbr>Base<wbr>Host</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#subredditviewcache" class="tsd-kind-icon">subreddit<wbr>View<wbr>Cache</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#usersorttypes" class="tsd-kind-icon">user<wbr>Sort<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#usertimetypes" class="tsd-kind-icon">user<wbr>Time<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#userviewcache" class="tsd-kind-icon">user<wbr>View<wbr>Cache</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#activate" class="tsd-kind-icon">activate</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#article" class="tsd-kind-icon">article</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#articledetail" class="tsd-kind-icon">article<wbr>Detail</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#breadcrumb" class="tsd-kind-icon">breadcrumb</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#checksession" class="tsd-kind-icon">check<wbr>Session</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#comment" class="tsd-kind-icon">comment</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createarticlehtml" class="tsd-kind-icon">create<wbr>ArticleHTML</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createhomehtml" class="tsd-kind-icon">create<wbr>HomeHTML</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createsearchhtml" class="tsd-kind-icon">create<wbr>SearchHTML</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createsubreddithtml" class="tsd-kind-icon">create<wbr>SubredditHTML</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createuserhtml" class="tsd-kind-icon">create<wbr>UserHTML</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#deactivate" class="tsd-kind-icon">deactivate</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#functionhead" class="tsd-kind-icon">function<wbr>Head</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#functiontail" class="tsd-kind-icon">function<wbr>Tail</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getarticlecomment" class="tsd-kind-icon">get<wbr>Article<wbr>Comment</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getarticledetail" class="tsd-kind-icon">get<wbr>Article<wbr>Detail</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getmine" class="tsd-kind-icon">get<wbr>Mine</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getminemulti" class="tsd-kind-icon">get<wbr>Mine<wbr>Multi</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getmultiarticle" class="tsd-kind-icon">get<wbr>Multi<wbr>Article</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getsearcharticle" class="tsd-kind-icon">get<wbr>Search<wbr>Article</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getsearchsubreddit" class="tsd-kind-icon">get<wbr>Search<wbr>Subreddit</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getsubredditarticle" class="tsd-kind-icon">get<wbr>Subreddit<wbr>Article</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getsubredditdetail" class="tsd-kind-icon">get<wbr>Subreddit<wbr>Detail</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getsubreddittrend" class="tsd-kind-icon">get<wbr>Subreddit<wbr>Trend</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getuserabout" class="tsd-kind-icon">get<wbr>User<wbr>About</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getusercomment" class="tsd-kind-icon">get<wbr>User<wbr>Comment</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getusermulti" class="tsd-kind-icon">get<wbr>User<wbr>Multi</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getuserpage" class="tsd-kind-icon">get<wbr>User<wbr>Page</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getusersubmitted" class="tsd-kind-icon">get<wbr>User<wbr>Submitted</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getview" class="tsd-kind-icon">get<wbr>View</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#handlearticle" class="tsd-kind-icon">handle<wbr>Article</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#handlehome" class="tsd-kind-icon">handle<wbr>Home</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#handlelogin" class="tsd-kind-icon">handle<wbr>Login</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#handlelogout" class="tsd-kind-icon">handle<wbr>Logout</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#handlesearch" class="tsd-kind-icon">handle<wbr>Search</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#handlesubreddit" class="tsd-kind-icon">handle<wbr>Subreddit</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#handleuser" class="tsd-kind-icon">handle<wbr>User</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#head" class="tsd-kind-icon">head</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#linecomment" class="tsd-kind-icon">line<wbr>Comment</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#login" class="tsd-kind-icon">login</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#loginuser" class="tsd-kind-icon">login<wbr>User</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#logout" class="tsd-kind-icon">logout</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#nextpage" class="tsd-kind-icon">next<wbr>Page</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#open" class="tsd-kind-icon">open</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#pagination" class="tsd-kind-icon">pagination</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#prevpage" class="tsd-kind-icon">prev<wbr>Page</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#resetconfig" class="tsd-kind-icon">reset<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#script" class="tsd-kind-icon">script</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#search" class="tsd-kind-icon">search</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#sort" class="tsd-kind-icon">sort</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#sortbest" class="tsd-kind-icon">sort<wbr>Best</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#sortcomments" class="tsd-kind-icon">sort<wbr>Comments</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#sortconfidence" class="tsd-kind-icon">sort<wbr>Confidence</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#sortcontroversial" class="tsd-kind-icon">sort<wbr>Controversial</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#sorthot" class="tsd-kind-icon">sort<wbr>Hot</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#sortnew" class="tsd-kind-icon">sort<wbr>New</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#sortold" class="tsd-kind-icon">sort<wbr>Old</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#sortqa" class="tsd-kind-icon">sortQA</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#sortrelevance" class="tsd-kind-icon">sort<wbr>Relevance</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#sortrising" class="tsd-kind-icon">sort<wbr>Rising</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#sorttop" class="tsd-kind-icon">sort<wbr>Top</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#subredditsearch" class="tsd-kind-icon">subreddit<wbr>Search</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#tail" class="tsd-kind-icon">tail</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#time" class="tsd-kind-icon">time</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#timeall" class="tsd-kind-icon">time<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#timeday" class="tsd-kind-icon">time<wbr>Day</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#timehour" class="tsd-kind-icon">time<wbr>Hour</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#timemonth" class="tsd-kind-icon">time<wbr>Month</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#timeweek" class="tsd-kind-icon">time<wbr>Week</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#timeyear" class="tsd-kind-icon">time<wbr>Year</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#trend" class="tsd-kind-icon">trend</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#userabout" class="tsd-kind-icon">user<wbr>About</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+<script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-148189416-1', '');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>

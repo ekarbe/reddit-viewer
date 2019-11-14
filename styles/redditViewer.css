@@ -1,0 +1,58 @@
+input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px dotted;
+  width: 8em;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: -10px;
+  text-decoration: none;
+  color: var(--vscode-redditviewer-string);
+}
+
+input:focus {
+  outline: none;
+}
+
+a {
+ text-decoration: none;
+ color:inherit;
+ cursor: pointer;
+}
+
+a:hover {
+  filter: brightness(101%);
+  color:inherit;
+}
+
+.comment {
+  color: var(--vscode-RedditViewer-Comment);
+}
+
+.constant {
+  color: var(--vscode-RedditViewer-Constant);
+}
+
+.keyword {
+  color: var(--vscode-RedditViewer-Keyword);
+}
+
+.variable {
+  color: var(--vscode-RedditViewer-Variable);
+}
+
+.string {
+  color: var(--vscode-RedditViewer-String);
+}
+
+.function {
+  color: var(--vscode-RedditViewer-Function);
+}
+
+.type {
+  color: var(--vscode-RedditViewer-Type);
+}
+
+.numeric {
+  color: var(--vscode-RedditViewer-Numeric);
+}

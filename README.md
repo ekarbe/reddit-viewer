@@ -9,7 +9,7 @@
 </div>
 </br>
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/preview.gif" alt="Preview gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/open.gif" alt="">
 
 1. [Features](#features)
    1. [Widget](#widget)
@@ -38,79 +38,79 @@
 
 The Reddit-Viewer widget enables an optional view to access the frontpahe and your favorite subreddit fast and resource-friendly.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget.gif" alt="Widget gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget.gif" alt="">
 
 #### Sort The Articles
 
 Sort the articles by the default sort-types.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget-sort.gif" alt="Widget sort gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget-sort.gif" alt="">
 
 ### Open An Article
 
 You can open the articles displayed in the widget in the code viewer or your default browser.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget-open.gif" alt="Widget open gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget-open.gif" alt="">
 
 ### Code Viewer
 
 The Reddit-Viewer code viewer is a webview which allows you to browse Reddit in code style.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer.gif" alt="Code Viewer gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer.gif" alt="">
 
 #### Open A Subreddit
 
-Open a subreddit directly.
+Open a subreddit and browse its articles.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-open-subreddit.gif" alt="Code Viewer open subreddit gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-subreddit.gif" alt="">
 
 #### Global Search
 
 Search through subreddits and articles.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-global-search.gif" alt="Code Viewer global search gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-search.gif" alt="">
 
 #### Login
 
 Login with your account to show the frontpage with your subscribed subreddits.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-login.gif" alt="Code Viewer login gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-login.gif" alt="">
 
 #### Frontpage
 
 Browse your own frontpage or a subreddit of your choice.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-frontpage.gif" alt="Code Viewer frontpage gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-frontpage.gif" alt="">
 
 #### Browse Articles
 
 Browse articles and show the selftexts or images.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-articles.gif" alt="Code Viewer articles gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-article.gif" alt="">
 
 #### Browse Userpages
 
 Browse userpages and show the articles and comments of that user.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-userpages.gif" alt="Code Viewer userpages gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-user.gif" alt="">
 
 #### Sort Articles And Comments
 
 You can sort articles and comments in every view with the default sort- and time-types.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-sort.gif" alt="Code Viewer sort gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-sort.gif" alt="">
 
 #### Pagination
 
 Browse through multiple pages.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-pagination.gif" alt="Code Viewer pagination gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-pagination.gif" alt="">
 
 #### Change The Code Style
 
 Change between the available code styles.
 
-<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-style.gif" alt="Code Viewer style gif">
+<img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-style.gif" alt="">
 
 ## Requirements
 

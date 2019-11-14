@@ -27,7 +27,6 @@ export class ArticleProvider implements vscode.TreeDataProvider<any> {
     this.subreddit_sort = vscode.workspace.getConfiguration('RedditViewerWidget').get('SubredditSort');
     // set the initial context to disable chosen sort setting
     vscode.commands.executeCommand('setContext', `subreddit-${this.subreddit_sort}-enabled`, true);
-    console.log(this.frontpage_sort);
     this.subreddit_time = vscode.workspace.getConfiguration('RedditViewerWidget').get('SubredditTime');
   }
 

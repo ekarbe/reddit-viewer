@@ -7,7 +7,7 @@ src/**
 **/tslint.json
 **/*.map
 **/*.ts
-public/images/*
+assets/gifs/*
 node_modules
 docs
 src/view/_templates.ts

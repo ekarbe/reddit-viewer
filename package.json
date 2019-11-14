@@ -28,6 +28,10 @@
     "subreddit",
     "widget"
   ],
+  "galleryBanner": {
+    "color": "#FF3F18",
+    "theme": "dark"
+  },
   "activationEvents": [
     "onCommand:RedditViewer.Open",
     "onCommand:RedditViewer.OpenArticle",

@@ -153,7 +153,7 @@
           "when": "view == Frontpage"
         },
         {
-          "command": "RedditViewerWidget.FrontpageConfidence",
+          "command": "RedditViewerWidget.FrontpageBest",
           "when": "view == Frontpage"
         },
         {
@@ -179,10 +179,6 @@
         {
           "command": "RedditViewerWidget.SubredditRefresh",
           "group": "navigation",
-          "when": "view == Subreddit"
-        },
-        {
-          "command": "RedditViewerWidget.SubredditConfidence",
           "when": "view == Subreddit"
         },
         {

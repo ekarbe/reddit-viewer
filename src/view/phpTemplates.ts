@@ -92,7 +92,7 @@ export function script(config: IConfigData): string {
     function expandElement(id) {
       element = document.getElementById(id);
       if(element.style.display === "none") {
-        element.style.display = "initial";
+        element.style.display = "inherit";
       } else {
         element.style.display = "none";
       }

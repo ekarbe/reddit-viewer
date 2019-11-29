@@ -11,6 +11,16 @@ import { IConfigData } from './interfaces';
  * @category Extension
  */
 export function activate(context: vscode.ExtensionContext) {
+	// check if this is the first activation
+	if (!context.globalState.get("rv_first_install_check")) {
+		vscode.window.showInformationMessage(
+			`This seems to be the first time activating Reddit-Viewer.
+			You should restart Visual Studio Code to load the syntax highlighting.`
+		);
+		context.globalState.update("rv_first_install_check", true);
+		vscode.commands.executeCommand("workbench.action.reloadWindow");
+	}
+
 	let currentPanel: vscode.WebviewPanel | undefined = undefined;
 
 	// check for widget options

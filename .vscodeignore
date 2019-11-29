@@ -2,7 +2,6 @@
 .vscode/**
 .vscode-test/**
 assets/**
-dist/**
 out/test/**
 test/**
 docs/**

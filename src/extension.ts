@@ -11,14 +11,15 @@ import { IConfigData } from './interfaces';
  * @category Extension
  */
 export function activate(context: vscode.ExtensionContext) {
-	// check if this is the first activation
+	// check if this is the first activation and prompt for reload
 	if (!context.globalState.get("rv_first_install_check")) {
-		vscode.window.showInformationMessage(
-			`This seems to be the first time activating Reddit-Viewer.
-			You should restart Visual Studio Code to load the syntax highlighting.`
-		);
+		vscode.window.showInformationMessage(`This seems to be the first activation of Reddit-Viewer.
+		There is a problem that colored syntax highlighting is not loaded after a fresh install.
+		To guarantee highlighting please reload the window`, "Reload")
+			.then(_ => {
+				vscode.commands.executeCommand("workbench.action.reloadWindow");
+			})
 		context.globalState.update("rv_first_install_check", true);
-		vscode.commands.executeCommand("workbench.action.reloadWindow");
 	}
 
 	let currentPanel: vscode.WebviewPanel | undefined = undefined;

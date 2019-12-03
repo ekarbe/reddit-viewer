@@ -296,6 +296,10 @@ async function handleHome(config: IConfigData): Promise<string> {
         // pagination and sorting
         if (config.view === "home") {
             resetConfig(config);
+            searchViewCache.reset();
+            subredditViewCache.reset();
+            articleViewCache.reset();
+            userViewCache.reset();
             config.time = homeViewCache.time;
             config.sort = homeViewCache.sort;
             config.count = homeViewCache.count;

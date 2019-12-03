@@ -7,7 +7,7 @@ input {
   margin-right: 5px;
   margin-bottom: -10px;
   text-decoration: none;
-  color: var(--vscode-redditviewer-string);
+  color: var(--vscode-RedditViewer-String);
 }
 
 input:focus {

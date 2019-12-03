@@ -223,11 +223,11 @@ export function tail(): string {
  * 
  * Code:
  * ```javascript
- * \// switches between display:none and display:initial
+ * \// switches between display:none and display:inherit
  * function expandElement(id) {
  *   element = document.getElementById(id);
  *   if(element.style.display === "none") {
- *     element.style.display = "initial";
+ *     element.style.display = "inherit";
  *   } else {
  *     element.style.display = "none";
  *   }
@@ -355,7 +355,7 @@ export function script(): string {
     function expandElement(id) {
       element = document.getElementById(id);
       if(element.style.display === "none") {
-        element.style.display = "initial";
+        element.style.display = "inherit";
       } else {
         element.style.display = "none";
       }

@@ -95,4 +95,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added widget
 - Added documentation
 
+## [2.0.1]
+
+- Fixed comment indentation
+- Fixed cache error
+- Decluttered
+- Added install prompt
+
 ## [Unreleased]

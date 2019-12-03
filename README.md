@@ -36,31 +36,31 @@
 
 ### Widget
 
-The Reddit-Viewer widget enables an optional view to access the frontpahe and your favorite subreddit fast and resource-friendly.
+The Reddit-Viewer widget enables an optional view to access the frontpage and your favorite subreddit fast and resource-friendly.
 
 <img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget.gif" alt="">
 
 #### Sort The Articles
 
-Sort the articles by the default sort-types.
+Sort the articles in the widget by the default sort-types. You can define the default sort in the configuration.
 
 <img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget-sort.gif" alt="">
 
 ### Open An Article
 
-You can open the articles displayed in the widget in the code viewer or your default browser.
+You can open the articles displayed in the widget in the code viewer or your default browser. The primary action can be defined in the configuration. The secondary action can be triggered in the context menu.
 
 <img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/widget-open.gif" alt="">
 
 ### Code Viewer
 
-The Reddit-Viewer code viewer is a webview which allows you to browse Reddit in code style.
+The Reddit-Viewer code viewer is a webview which allows you to browse Reddit in code style. Even though it is a webview, it is pretty lightweight and simple.
 
 <img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer.gif" alt="">
 
 #### Open A Subreddit
 
-Open a subreddit and browse its articles.
+Open a subreddit and browse its articles. You can see a preview if the post contains a thumbnail.
 
 <img src="https://raw.githubusercontent.com/ekarbe/reddit-viewer/master/assets/gifs/code-viewer-subreddit.gif" alt="">
 

@@ -150,6 +150,64 @@
       ]
     },
     "menus": {
+      "commandPalette": [
+        {
+          "command": "RedditViewer.OpenArticle",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewer.OpenBrowser",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageRefresh",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageBest",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageHot",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageNew",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageControversial",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageTop",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageRising",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditRefresh",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditHot",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditNew",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditControversial",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditRising",
+          "when": "false"
+        }
+      ],
       "view/title": [
         {
           "command": "RedditViewerWidget.FrontpageRefresh",

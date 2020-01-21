@@ -101,6 +101,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Fixed cache error
 - Decluttered
 - Added install prompt
+
+## [2.0.2]
+- Removed commands from palette
 - Removed context entries from other extensions
 
 ## [Unreleased]

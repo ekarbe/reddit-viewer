@@ -101,5 +101,6 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Fixed cache error
 - Decluttered
 - Added install prompt
+- Removed context entries from other extensions
 
 ## [Unreleased]

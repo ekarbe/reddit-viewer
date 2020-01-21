@@ -150,6 +150,64 @@
       ]
     },
     "menus": {
+      "commandPalette": [
+        {
+          "command": "RedditViewer.OpenArticle",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewer.OpenBrowser",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageRefresh",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageBest",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageHot",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageNew",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageControversial",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageTop",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.FrontpageRising",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditRefresh",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditHot",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditNew",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditControversial",
+          "when": "false"
+        },
+        {
+          "command": "RedditViewerWidget.SubredditRising",
+          "when": "false"
+        }
+      ],
       "view/title": [
         {
           "command": "RedditViewerWidget.FrontpageRefresh",
@@ -209,11 +267,11 @@
       "view/item/context": [
         {
           "command": "RedditViewer.OpenBrowser",
-          "when": "config.RedditViewerWidget.OpenType == redditviewer"
+          "when": "view =~ /Frontpage|Subreddit/ && config.RedditViewerWidget.OpenType == redditviewer"
         },
         {
           "command": "RedditViewer.OpenArticle",
-          "when": "config.RedditViewerWidget.OpenType == browser"
+          "when": "view =~ /Frontpage|Subreddit/ && config.RedditViewerWidget.OpenType == browser"
         }
       ]
     },
@@ -716,12 +774,12 @@
     "mocha": "^6.2.2",
     "ts-loader": "^6.2.1",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.2",
-    "vscode-test": "^1.2.3",
-    "webpack": "^4.41.2",
+    "typescript": "^3.7.5",
+    "vscode-test": "^1.3.0",
+    "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
-    "typed-rest-client": "^1.5.0"
+    "typed-rest-client": "^1.7.1"
   }
 }

@@ -651,6 +651,7 @@ export async function getMine(data: IAPIData): Promise<IGenericResult<IListing<I
                 url += "limit=" + data.limit + "&";
             }
             url += "raw_json=1";
+            if(!data.cookie){ data.cookie = ""; }
             rest.get<IGenericResult<IListing<IArticle>>>(url, {
                 additionalHeaders: {
                     "Cookie": "reddit_session=" + data.cookie
@@ -686,9 +687,10 @@ export async function getMineMulti(data: IAPIData): Promise<Array<IGenericResult
         if (baseHost) {
             const rest: rm.RestClient = new rm.RestClient('mine.multi', baseHost, undefined, { socketTimeout: data.timeout });
             let url: string = "api/multi/mine?raw_json=1";
+            if(!data.cookie){ data.cookie = ""; }
             await rest.get<Array<IGenericResult<IMulti>>>(url, {
                 additionalHeaders: {
-                    "Cookie": "reddit_session=" + data.cookie
+                    "Cookie": "reddit_session=" + encodeURIComponent(data.cookie)
                 }
             })
                 .then(response => {
@@ -825,6 +827,7 @@ export async function loginUser(data: IAPIData): Promise<any> {
                 }
             })
                 .then(response => {
+                    console.log(response);
                     if (response.statusCode === 200 && response.result && response.result.json) {
                         resolve(response.result.json.data);
                     } else {
@@ -862,7 +865,7 @@ export async function checkSession(data: IAPIData): Promise<any> {
             let url: string = ".json?limit=1";
             rest.get<IGenericResult<IListing<IArticle>>>(url, {
                 additionalHeaders: {
-                    "Cookie": "reddit_session=" + data.cookie
+                    "Cookie": "reddit_session=" + encodeURIComponent(data.cookie)
                 }
             })
                 .then(response => {

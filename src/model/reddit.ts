@@ -651,7 +651,6 @@ export async function getMine(data: IAPIData): Promise<IGenericResult<IListing<I
                 url += "limit=" + data.limit + "&";
             }
             url += "raw_json=1";
-            if(!data.cookie){ data.cookie = ""; }
             rest.get<IGenericResult<IListing<IArticle>>>(url, {
                 additionalHeaders: {
                     "Cookie": "reddit_session=" + data.cookie
@@ -687,10 +686,9 @@ export async function getMineMulti(data: IAPIData): Promise<Array<IGenericResult
         if (baseHost) {
             const rest: rm.RestClient = new rm.RestClient('mine.multi', baseHost, undefined, { socketTimeout: data.timeout });
             let url: string = "api/multi/mine?raw_json=1";
-            if(!data.cookie){ data.cookie = ""; }
             await rest.get<Array<IGenericResult<IMulti>>>(url, {
                 additionalHeaders: {
-                    "Cookie": "reddit_session=" + encodeURIComponent(data.cookie)
+                    "Cookie": "reddit_session=" + data.cookie
                 }
             })
                 .then(response => {
@@ -808,7 +806,7 @@ export async function getSearchArticle(data: IAPIData): Promise<IGenericResult<I
 
 /**
  * loginUser tries to log a user in and returns session cookies
- * URL: https://ssl.reddit.com/api/login/$USERNAME$?api_type=json&username=$USERNAME$&password=$PASSWORD$
+ * URL: https://ssl.reddit.com/api/login
  * 
  * @param data IAPIData interface with all data
  * @required data.username
@@ -819,24 +817,35 @@ export async function getSearchArticle(data: IAPIData): Promise<IGenericResult<I
 export async function loginUser(data: IAPIData): Promise<any> {
     return new Promise<any>(async (resolve, reject) => {
         if (secureBaseHost && data.username && data.password) {
-            const rest: rm.RestClient = new rm.RestClient('login.user', secureBaseHost, undefined, { socketTimeout: data.timeout });
-            let url: string = "api/login/" + encodeURIComponent(data.username) + "?api_type=json&user=" + encodeURIComponent(data.username) + "&passwd=" + encodeURIComponent(data.password);
-            rest.create<any>(url, {
-                additionalHeaders: {
-                    "user-agent": "Reddit-Viewer / 2.0.0"
+            var request = require('request');
+            var options = {
+                'method': 'POST',
+                'url': 'https://ssl.reddit.com/api/login',
+                'headers': {
+                    'User-Agent': 'Reddit-Viewer / 2.0.0',
+                    'Content-Type': 'multipart/form-data'
+                },
+                formData: {
+                    'user': encodeURIComponent(data.username),
+                    'passwd': encodeURIComponent(data.password),
+                    'api_type': 'json'
                 }
-            })
-                .then(response => {
-                    console.log(response);
-                    if (response.statusCode === 200 && response.result && response.result.json) {
-                        resolve(response.result.json.data);
+            };
+            request(options, function (error: { message: any; }, response: { statusCode: string | number; result: { json: { data: any; }; }; body: any }) {
+                if (error) {
+                    throw reject(error.message);
+                }
+                if (response.statusCode === 200 && response.body) {
+                    var responseJson = JSON.parse( response.body ).json;
+                    if (responseJson.errors.length === 0) {
+                        resolve( responseJson.data );
                     } else {
-                        reject("Error: func loginUser got empty result\n Responsecode: " + response.statusCode);
+                        reject("Error: " + responseJson.errors);
                     }
-                })
-                .catch(error => {
-                    reject(error.message);
-                });
+                } else {
+                    reject("Error: func loginUser got empty result\n Responsecode: " + response.statusCode);
+                }
+            });
         } else {
             let error: string = "Error: required params are missing!\n";
             error += secureBaseHost ? "" : "secureBaseHost\n";
@@ -865,7 +874,7 @@ export async function checkSession(data: IAPIData): Promise<any> {
             let url: string = ".json?limit=1";
             rest.get<IGenericResult<IListing<IArticle>>>(url, {
                 additionalHeaders: {
-                    "Cookie": "reddit_session=" + encodeURIComponent(data.cookie)
+                    "Cookie": "reddit_session=" + data.cookie
                 }
             })
                 .then(response => {

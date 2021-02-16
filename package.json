@@ -780,6 +780,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "request": "^2.88.2",
     "typed-rest-client": "^1.7.3"
   }
 }

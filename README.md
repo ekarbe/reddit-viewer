@@ -4,6 +4,10 @@
 </div>
 </br>
 <div align="center">
+  <h1>Not maintained anymore!</h1>
+</div>
+</br>
+<div align="center">
   <h1>Reddit-Viewer</h1>
   <h2>A Visual Studio Code extension to browse Reddit. Provides a code-styled webview and a tree-view widget.</h2>
 </div>
